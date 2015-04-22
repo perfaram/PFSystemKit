@@ -13,11 +13,6 @@
 @class PFSystemKit;
 @protocol PFSystemKitProtocol
 @required
-/*
-@property (assign, readonly, atomic) 		PFSystemKitError 		error;		//stringify using stringifyError:
-@property (assign, readonly, atomic) 		kern_return_t 			extError; 	//stringify using stringifyError:
-@property (assign, readonly, atomic)		BOOL					writeLockState;
-*/
 
 -(PFSystemKit*)investigate;
 -(PFSystemKitPlatform)platform;

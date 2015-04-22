@@ -49,9 +49,9 @@ NSString* iokitErrorToString(kern_return_t err) {
 NSString* platformToString(PFSystemKitPlatform pf) {
 	NSString* ret;
 	switch (pf) {
-		case PFSKPlatformIOS:
+		case kSKPlatformIOS:
 			ret = @"iOS";
-		case PFSKPlatformOSX:
+		case kSKPlatformOSX:
 			ret = @"OSX";
 		default:
 			ret = @"Unknown";
@@ -60,37 +60,37 @@ NSString* platformToString(PFSystemKitPlatform pf) {
 }
 PFSystemKitPlatform stringToPlatform(NSString* str) {
 	if ([str caseInsensitiveCompare:@"iOS"] == NSOrderedSame)
-		return PFSKPlatformIOS;
+		return kSKPlatformIOS;
 	else if ([str caseInsensitiveCompare:@"OSX"] == NSOrderedSame)
-		return PFSKPlatformOSX;
+		return kSKPlatformOSX;
 	else
-		return PFSKPlatformUnknown;
+		return kSKPlatformUnknown;
 }
 
 NSString* familyToString(PFSystemKitFamily fm) {
 	NSString* ret;
 	switch (fm) {
-		case PFSKDeviceFamilyiMac:
+		case kSKDeviceFamilyiMac:
 			ret = @"iMac";
-		case PFSKDeviceFamilyMacMini:
+		case kSKDeviceFamilyMacMini:
 			ret = @"Mac Mini";
-		case PFSKDeviceFamilyMacPro:
+		case kSKDeviceFamilyMacPro:
 			ret = @"Mac Pro";
-		case PFSKDeviceFamilyMacBook:
+		case kSKDeviceFamilyMacBook:
 			ret = @"MacBook";
-		case PFSKDeviceFamilyMacBookAir:
+		case kSKDeviceFamilyMacBookAir:
 			ret = @"MacBook Air";
-		case PFSKDeviceFamilyMacBookPro:
+		case kSKDeviceFamilyMacBookPro:
 			ret = @"MacBook Pro";
-		case PFSKDeviceFamilyXserve:
+		case kSKDeviceFamilyXserve:
 			ret = @"XServe";
-		case PFSKDeviceFamilyiPhone:
+		case kSKDeviceFamilyiPhone:
 			ret = @"iPhone";
-		case PFSKDeviceFamilyiPad:
+		case kSKDeviceFamilyiPad:
 			ret = @"iPad";
-		case PFSKDeviceFamilyiPod:
+		case kSKDeviceFamilyiPod:
 			ret = @"iPod";
-		case PFSKDeviceFamilySimulator:
+		case kSKDeviceFamilySimulator:
 			ret = @"Simulator";
 		default:
 			ret = @"Unknown";
@@ -100,29 +100,38 @@ NSString* familyToString(PFSystemKitFamily fm) {
 PFSystemKitFamily stringToFamily(NSString* str) {
 	if ([PFSKHelper NSString:str contains:@"mac"]) {
 		if (([str caseInsensitiveCompare:@"iMac"] == NSOrderedSame))
-			return PFSKDeviceFamilyiMac;
+			return kSKDeviceFamilyiMac;
 		else if ([PFSKHelper NSString:str contains:@"air"])
-			return PFSKDeviceFamilyMacBookAir;
+			return kSKDeviceFamilyMacBookAir;
 		else if ([PFSKHelper NSString:str contains:@"pro"] && [PFSKHelper NSString:str contains:@"book"])
-			return PFSKDeviceFamilyMacBookPro;
+			return kSKDeviceFamilyMacBookPro;
 		else if ([PFSKHelper NSString:str contains:@"mini"])
-			return PFSKDeviceFamilyMacMini;
+			return kSKDeviceFamilyMacMini;
 		else if ([PFSKHelper NSString:str contains:@"pro"])
-			return PFSKDeviceFamilyMacPro;
+			return kSKDeviceFamilyMacPro;
 		else if ([str caseInsensitiveCompare:@"macbook"] == NSOrderedSame)
-			return PFSKDeviceFamilyMacBook;
+			return kSKDeviceFamilyMacBook;
 	} else if ([str hasPrefix:@"i"]) { //don't care about imac, has been checked before
 		if (([str caseInsensitiveCompare:@"iPhone"] == NSOrderedSame))
-			return PFSKDeviceFamilyiPhone;
+			return kSKDeviceFamilyiPhone;
 		else if (([str caseInsensitiveCompare:@"iPad"] == NSOrderedSame))
-			return PFSKDeviceFamilyiPad;
+			return kSKDeviceFamilyiPad;
 		else if (([str caseInsensitiveCompare:@"iPod"] == NSOrderedSame))
-			return PFSKDeviceFamilyiPod;
+			return kSKDeviceFamilyiPod;
 	} else if ([str caseInsensitiveCompare:@"xserve"] == NSOrderedSame) {
-		return PFSKDeviceFamilyXserve;
+		return kSKDeviceFamilyXserve;
 	} else if ([str caseInsensitiveCompare:@"simulator"] == NSOrderedSame) {
-		return PFSKDeviceFamilySimulator;
+		return kSKDeviceFamilySimulator;
 	}
-	return PFSKDeviceFamilyUnknown;
+	return kSKDeviceFamilyUnknown;
 }
+
+-(NSString*) stringifyError {
+	return errorToString(_error);
+}
+
+-(NSString*) stringifyExtError {
+	return iokitErrorToString(_extError);
+}
+
 @end

@@ -56,10 +56,6 @@ static PFSystemKit *sharedInstance = nil;
 			return nil;
 		}
 		
-#if POO
-		NSLog(@"%@", @"caca");
-#endif
-		
 		BOOL REFresult = [self refresh];
 		if (REFresult!=true) {
 			//error/extError already setted

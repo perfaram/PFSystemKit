@@ -42,9 +42,9 @@ typedef NS_ENUM(int, PFSystemKitGroup) {
 };
 
 typedef NS_ENUM(int, PFSystemKitPlatform) {
-	PFSKPlatformUnknown = 0,
-	PFSKPlatformIOS,
-	PFSKPlatformOSX,
+	kSKPlatformUnknown = 0,
+	kSKPlatformIOS,
+	kSKPlatformOSX,
 };
 
 /*!
@@ -52,18 +52,18 @@ typedef NS_ENUM(int, PFSystemKitPlatform) {
  Enumeration of integers matching a Device Family (e.g. MacBookPro, MacBook, iMac, iPad, etc...)
  */
 typedef NS_ENUM(int, PFSystemKitFamily) {
-	PFSKDeviceFamilyUnknown = 0,
-	PFSKDeviceFamilyiMac,
-	PFSKDeviceFamilyMacMini,
-	PFSKDeviceFamilyMacPro,
-	PFSKDeviceFamilyMacBook,
-	PFSKDeviceFamilyMacBookAir,
-	PFSKDeviceFamilyMacBookPro,
-	PFSKDeviceFamilyXserve,
-	PFSKDeviceFamilyiPhone,
-	PFSKDeviceFamilyiPad,
-	PFSKDeviceFamilyiPod,
-	PFSKDeviceFamilySimulator,
+	kSKDeviceFamilyUnknown = 0,
+	kSKDeviceFamilyiMac,
+	kSKDeviceFamilyMacMini,
+	kSKDeviceFamilyMacPro,
+	kSKDeviceFamilyMacBook,
+	kSKDeviceFamilyMacBookAir,
+	kSKDeviceFamilyMacBookPro,
+	kSKDeviceFamilyXserve,
+	kSKDeviceFamilyiPhone,
+	kSKDeviceFamilyiPad,
+	kSKDeviceFamilyiPod,
+	kSKDeviceFamilySimulator,
 };
 
 /*!

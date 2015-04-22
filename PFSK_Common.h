@@ -16,11 +16,18 @@
 	kern_return_t extError;
 	PFSystemKitLockState writeLockState;
 }
-/*
-@property (assign, readonly, atomic) 		PFSystemKitError 		error;		//stringify using stringifyError:
-@property (assign, readonly, atomic) 		kern_return_t 			extError; 	//stringify using stringifyError:
-@property (assign, readonly, atomic)		BOOL					writeLockState;
-*/
+
+/*!
+ @discussion Translates the last PFSystemKitError (stored in the `_error` ivar) to a human-readable string
+ @returns A NSString holding the _error ivar string value
+ */
+-(NSString*) stringifyError;
+
+/*!
+ @discussion Translates the last IOKit error (stored in the `_extError` ivar) to a human-readable string
+ @returns A NSString holding the _extError ivar string value
+ */
+-(NSString*) stringifyExtError;
 
 /*!
  @discussion Translates a PFSystemKitError to a human-readable string
