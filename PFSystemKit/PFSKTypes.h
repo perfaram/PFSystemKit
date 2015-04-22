@@ -12,6 +12,10 @@
 #define _extError self->extError
 #define _writeLockState self->writeLockState
 
+/*!
+ @typedef PFSystemKitLockState
+ Enumeration of integers matching a PFSystemKit error
+ */
 typedef NS_ENUM(int, PFSystemKitError) {
 	kSKReturnSuccess = 0,
 	kSKReturnNoMasterPort = 1,
@@ -26,11 +30,19 @@ typedef NS_ENUM(int, PFSystemKitError) {
 	kSKReturnUnknown = 65534 //unknown error (shouldn't happen)
 };
 
+/*!
+ @typedef PFSystemKitLockState
+ Enumeration of integers matching the state of the PFSystemKit write lock
+ */
 typedef NS_ENUM(int, PFSystemKitLockState) {
 	kSKLockStateLocked = 0,
 	kSKLockStateUnlocked = 1
 };
 
+/*!
+ @typedef PFSystemKitGroup
+ Enumeration of integers matching a PFSystemKit group of informations (ROM, NVRAM, SMC, etc...)
+ */
 typedef NS_ENUM(int, PFSystemKitGroup) {
 	kSKGroupPlatformExpertDevice = 1,
 	kSKGroupROM = 2,
@@ -41,6 +53,10 @@ typedef NS_ENUM(int, PFSystemKitGroup) {
 	kSKGroupTerminator
 };
 
+/*!
+ @typedef PFSystemKitPlatform
+ Enumeration of integers matching a Device Platform (iOS/OSX)
+ */
 typedef NS_ENUM(int, PFSystemKitPlatform) {
 	kSKPlatformUnknown = 0,
 	kSKPlatformIOS,
