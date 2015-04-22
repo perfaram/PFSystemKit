@@ -19,12 +19,53 @@ static PFSystemKit *sharedInstance = nil;
 
 @implementation PFSystemKit
 /**
- * sharedWrapper - Singleton instance retrieval method.
+ * PFSystemKit singleton instance retrieval method
  */
 +(PFSystemKit *) investigate{
 	if (sharedInstance == nil ){
 		sharedInstance = [[self alloc] init];
 	}
 	return sharedInstance;
+}
+
+-(void) finalize { //cleanup everything
+	IOObjectRelease(nvrEntry);
+	IOObjectRelease(pexEntry);
+	IOObjectRelease(smcEntry);
+	IOObjectRelease(romEntry);
+	[super finalize];
+	return;
+}
+
+-(void) dealloc {
+	//[super dealloc];
+}
+
+-(id) init {
+	self = [super init];
+	if (self) {
+		_writeLockState = kSKLockStateLocked;
+		_error = kSKReturnUnknown;
+		_extError = 0;
+		
+		kern_return_t IOresult;
+		IOresult = IOMasterPort(bootstrap_port, &masterPort);
+		if (IOresult!=kIOReturnSuccess) {
+			_error = kSKReturnNoMasterPort;
+			_extError = IOresult;
+			return nil;
+		}
+		
+#if POO
+		NSLog(@"%@", @"caca");
+#endif
+		
+		BOOL REFresult = [self refresh];
+		if (REFresult!=true) {
+			//error/extError already setted
+			return nil;
+		}
+	}
+	return self;
 }
 @end

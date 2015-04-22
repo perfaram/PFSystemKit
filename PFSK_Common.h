@@ -10,7 +10,17 @@
 #import "PFSKProtocol.h"
 #import "PFSystemKit/PFSKTypes.h"
 
-@interface PFSK_Common : NSObject
+@interface PFSK_Common : NSObject {
+	@protected
+	PFSystemKitError error;
+	kern_return_t extError;
+	PFSystemKitLockState writeLockState;
+}
+/*
+@property (assign, readonly, atomic) 		PFSystemKitError 		error;		//stringify using stringifyError:
+@property (assign, readonly, atomic) 		kern_return_t 			extError; 	//stringify using stringifyError:
+@property (assign, readonly, atomic)		BOOL					writeLockState;
+*/
 
 /*!
  @discussion Translates a PFSystemKitError to a human-readable string

@@ -8,6 +8,9 @@
 
 #ifndef PFSystemKit_PFSystemKitTypes_h
 #define PFSystemKit_PFSystemKitTypes_h
+#define _error self->error
+#define _extError self->extError
+#define _writeLockState self->writeLockState
 
 typedef NS_ENUM(int, PFSystemKitError) {
 	kSKReturnSuccess = 0,
@@ -21,6 +24,11 @@ typedef NS_ENUM(int, PFSystemKitError) {
 	kSKReturnNotWritable = 8,
 	kSKReturnGeneral = 65533, //too bad
 	kSKReturnUnknown = 65534 //unknown error (shouldn't happen)
+};
+
+typedef NS_ENUM(int, PFSystemKitLockState) {
+	kSKLockStateLocked = 0,
+	kSKLockStateUnlocked = 1
 };
 
 typedef NS_ENUM(int, PFSystemKitGroup) {
@@ -39,6 +47,10 @@ typedef NS_ENUM(int, PFSystemKitPlatform) {
 	PFSKPlatformOSX,
 };
 
+/*!
+ @typedef PFSystemKitFamily
+ Enumeration of integers matching a Device Family (e.g. MacBookPro, MacBook, iMac, iPad, etc...)
+ */
 typedef NS_ENUM(int, PFSystemKitFamily) {
 	PFSKDeviceFamilyUnknown = 0,
 	PFSKDeviceFamilyiMac,
@@ -53,5 +65,23 @@ typedef NS_ENUM(int, PFSystemKitFamily) {
 	PFSKDeviceFamilyiPod,
 	PFSKDeviceFamilySimulator,
 };
+
+/*!
+ @typedef @struct PFSKDeviceVersion
+ Structure holding a device's Major and Minor version 
+ 
+ For a Macbookpro8,1 : 8 as Major and 1 as minor
+ */
+typedef struct {
+	/*!
+	 Major device version
+	 */
+	NSUInteger                                          major;
+	
+	/*!
+	 Minor device version
+	 */
+	NSUInteger                                          minor;
+} PFSKDeviceVersion;
 
 #endif
