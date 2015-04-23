@@ -23,9 +23,12 @@ static PFSystemKit *sharedInstance = nil;
  * PFSystemKit singleton instance retrieval method
  */
 +(PFSystemKit *) investigate{
-	if (sharedInstance == nil ){
+	static id sharedInstance;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
-	}
+	});
+	
 	return sharedInstance;
 }
 
@@ -51,26 +54,11 @@ static PFSystemKit *sharedInstance = nil;
 
 
 #pragma mark - Getters
-
--(PFSystemKitDeviceFamily)family {
-	return self.family;
-}
-
--(NSString*)familyString {
-	return self.familyString;
-}
-
--(PFSystemKitDeviceVersion)version {
-	return self.version;
-}
-
--(NSString*)versionString {
-	return self.versionString;
-}
-
--(NSString*)model {
-	return self.model;
-}
+@synthesize family;
+@synthesize familyString;
+@synthesize version;
+@synthesize versionString;
+@synthesize model;
 
 
 #pragma mark - NSObject std methods

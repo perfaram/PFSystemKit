@@ -46,11 +46,6 @@
  @returns A NSString holding the current platform (iOS/OSX)
  */
 -(NSString*)platformString;
--(PFSystemKitDeviceFamily)family;
--(NSString*)familyString;
--(PFSystemKitDeviceVersion)version;
--(NSString*)versionString;
--(NSString*)model;
 @end
 
 #endif
