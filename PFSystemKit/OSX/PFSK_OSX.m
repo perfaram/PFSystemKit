@@ -29,6 +29,29 @@ static PFSystemKit *sharedInstance = nil;
 	return sharedInstance;
 }
 
+
+#pragma mark - Class methods (actual core code)
+
++(NSString *) machineModel
+{
+	size_t len = 0;
+	sysctlbyname("hw.model", NULL, &len, NULL, 0);
+	
+	if (len)
+	{
+		char *model = malloc(len*sizeof(char));
+		sysctlbyname("hw.model", model, &len, NULL, 0);
+		NSString *model_ns = [NSString stringWithUTF8String:model];
+		free(model);
+		return model_ns;
+	}
+	
+	return @"-"; //in case model name can't be read
+}
+
+
+#pragma mark - Getters
+
 -(PFSystemKitDeviceFamily)family {
 	return self.family;
 }
@@ -49,28 +72,8 @@ static PFSystemKit *sharedInstance = nil;
 	return self.model;
 }
 
-+(NSString *) machineModel
-{
-	size_t len = 0;
-	sysctlbyname("hw.model", NULL, &len, NULL, 0);
-	
-	if (len)
-	{
-		char *model = malloc(len*sizeof(char));
-		sysctlbyname("hw.model", model, &len, NULL, 0);
-		NSString *model_ns = [NSString stringWithUTF8String:model];
-		free(model);
-		return model_ns;
-	}
-	
-	return @"-"; //in case model name can't be read
-}
 
-
-/*
--(PFSystemKitDeviceVersion)version;
--(NSString*)versionString;
--(NSString*)model;*/
+#pragma mark - NSObject std methods
 
 -(void) finalize { //cleanup everything
 	IOObjectRelease(nvrEntry);
