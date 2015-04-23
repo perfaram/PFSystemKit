@@ -8,7 +8,7 @@
 
 #ifndef PFSystemKit_PFSKProtocol_h
 #define PFSystemKit_PFSKProtocol_h
-#import "PFSystemKit/PFSKTypes.h"
+#import "PFSKTypes.h"
 
 @class PFSystemKit;
 @protocol PFSystemKitProtocol

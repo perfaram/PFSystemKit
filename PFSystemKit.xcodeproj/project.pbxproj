@@ -28,8 +28,8 @@
 		0BE6EEA71AE4045E0070B83F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EEA61AE4045E0070B83F /* IOKit.framework */; };
 		0BE6EEAB1AE407210070B83F /* PFSKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAA1AE407210070B83F /* PFSKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EEAC1AE407210070B83F /* PFSKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAA1AE407210070B83F /* PFSKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */; };
-		0BE6EEB11AE4099F0070B83F /* PFSKProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */; };
+		0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0BE6EEB11AE4099F0070B83F /* PFSKProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0BE6EEB41AE40A070070B83F /* PFSK_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEB21AE40A070070B83F /* PFSK_OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EEB51AE40A070070B83F /* PFSK_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EEB31AE40A070070B83F /* PFSK_OSX.m */; };
 		0BE6EEB81AE40A630070B83F /* PFSK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEB61AE40A630070B83F /* PFSK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -579,6 +579,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"WRITE_ABILITY=1",
@@ -600,6 +601,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = PFSystemKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

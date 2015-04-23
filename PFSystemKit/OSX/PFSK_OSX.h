@@ -8,11 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSKProtocol.h"
-#import "PFSystemKit/PFSKTypes.h"
+#import "PFSKTypes.h"
 #import "PFSK_Common.h"
 #import "PFSKHelper.h"
-
-
 
 @interface PFSystemKit : PFSK_Common <PFSystemKitProtocol>
 +(PFSystemKit*) investigate;

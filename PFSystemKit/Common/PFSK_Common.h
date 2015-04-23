@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSKProtocol.h"
-#import "PFSystemKit/PFSKTypes.h"
+#import "PFSKTypes.h"
 
 @interface PFSK_Common : NSObject {
 	@protected
