@@ -14,7 +14,7 @@
 @protocol PFSystemKitProtocol
 @required
 
--(PFSystemKit*)investigate;
++(PFSystemKit*)investigate;
 -(PFSystemKitPlatform)platform;
 -(NSString*)platformString;
 -(PFSystemKitFamily)family;
