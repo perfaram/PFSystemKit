@@ -15,14 +15,12 @@ static io_registry_entry_t 	nvrEntry;
 static io_registry_entry_t 	pexEntry;
 static io_registry_entry_t 	smcEntry;
 static io_registry_entry_t 	romEntry;
-// Shared Instance (Singleton)
-static PFSystemKit *sharedInstance = nil;
 
 @implementation PFSystemKit
 /**
  * PFSystemKit singleton instance retrieval method
  */
-+(PFSystemKit *) investigate{
++(instancetype) investigate{
 	static id sharedInstance;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
