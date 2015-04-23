@@ -17,17 +17,17 @@
  Enumeration of integers matching a PFSystemKit error
  */
 typedef NS_ENUM(int, PFSystemKitError) {
-	kSKReturnSuccess = 0,
-	kSKReturnNoMasterPort = 1,
-	kSKReturnComponentUnavailable = 2,
-	kSKReturnIOKitError = 3, //see _extError
-	kSKReturnIOKitCFFailure = 4, //error while making CFProperty
-	kSKReturnSysCtlError = 5,
-	kSKReturnLockedWrite = 6,
-	kSKReturnCastError = 7,
-	kSKReturnNotWritable = 8,
-	kSKReturnGeneral = 65533, //too bad
-	kSKReturnUnknown = 65534 //unknown error (shouldn't happen)
+	PFSKReturnSuccess = 0,
+	PFSKReturnNoMasterPort = 1,
+	PFSKReturnComponentUnavailable = 2,
+	PFSKReturnIOKitError = 3, //see _extError
+	PFSKReturnIOKitCFFailure = 4, //error while making CFProperty
+	PFSKReturnSysCtlError = 5,
+	PFSKReturnLockedWrite = 6,
+	PFSKReturnCastError = 7,
+	PFSKReturnNotWritable = 8,
+	PFSKReturnGeneral = 65533, //too bad
+	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen)
 };
 
 /*!
@@ -35,8 +35,8 @@ typedef NS_ENUM(int, PFSystemKitError) {
  Enumeration of integers matching the state of the PFSystemKit write lock
  */
 typedef NS_ENUM(int, PFSystemKitLockState) {
-	kSKLockStateLocked = 0,
-	kSKLockStateUnlocked = 1
+	PFSKLockStateLocked = 0,
+	PFSKLockStateUnlocked = 1
 };
 
 /*!
@@ -44,13 +44,13 @@ typedef NS_ENUM(int, PFSystemKitLockState) {
  Enumeration of integers matching a PFSystemKit group of informations (ROM, NVRAM, SMC, etc...)
  */
 typedef NS_ENUM(int, PFSystemKitGroup) {
-	kSKGroupPlatformExpertDevice = 1,
-	kSKGroupROM = 2,
-	kSKGroupNVRam = 3,
-	kSKGroupSMC = 4,
-	kSKGroupLMU = 5,
-	kSKGroupGraphics = 6,
-	kSKGroupTerminator
+	PFSKGroupPlatformExpertDevice = 1,
+	PFSKGroupROM = 2,
+	PFSKGroupNVRam = 3,
+	PFSKGroupSMC = 4,
+	PFSKGroupLMU = 5,
+	PFSKGroupGraphics = 6,
+	PFSKGroupTerminator
 };
 
 /*!
@@ -58,41 +58,41 @@ typedef NS_ENUM(int, PFSystemKitGroup) {
  Enumeration of integers matching a Device Platform (iOS/OSX)
  */
 typedef NS_ENUM(int, PFSystemKitPlatform) {
-	kSKPlatformUnknown = 0,
-	kSKPlatformIOS,
-	kSKPlatformOSX,
+	PFSKPlatformUnknown = 0,
+	PFSKPlatformIOS,
+	PFSKPlatformOSX,
 };
 
 /*!
  @typedef PFSystemKitFamily
  Enumeration of integers matching a Device Family (e.g. MacBookPro, MacBook, iMac, iPad, etc...)
  */
-typedef NS_ENUM(int, PFSystemKitFamily) {
-	kSKDeviceFamilyUnknown = 0,
-	kSKDeviceFamilyiMac,
-	kSKDeviceFamilyMacMini,
-	kSKDeviceFamilyMacPro,
-	kSKDeviceFamilyMacBook,
-	kSKDeviceFamilyMacBookAir,
-	kSKDeviceFamilyMacBookPro,
-	kSKDeviceFamilyXserve,
-	kSKDeviceFamilyiPhone,
-	kSKDeviceFamilyiPad,
-	kSKDeviceFamilyiPod,
-	kSKDeviceFamilySimulator,
+typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
+	PFSKDeviceFamilyUnknown = 0,
+	PFSKDeviceFamilyiMac,
+	PFSKDeviceFamilyMacMini,
+	PFSKDeviceFamilyMacPro,
+	PFSKDeviceFamilyMacBook,
+	PFSKDeviceFamilyMacBookAir,
+	PFSKDeviceFamilyMacBookPro,
+	PFSKDeviceFamilyXserve,
+	PFSKDeviceFamilyiPhone,
+	PFSKDeviceFamilyiPad,
+	PFSKDeviceFamilyiPod,
+	PFSKDeviceFamilySimulator,
 };
-static NSString* const kSKDeviceFamilyUnknownStr    = @"Unknown";
-static NSString* const kSKDeviceFamilyiMacStr       = @"iMac";
-static NSString* const kSKDeviceFamilyMacminiStr    = @"Mac Mini";
-static NSString* const kSKDeviceFamilyMacBookStr    = @"MacBook";
-static NSString* const kSKDeviceFamilyMacBookAirStr = @"MacBook Air";
-static NSString* const kSKDeviceFamilyMacBookProStr = @"MacBook Pro";
-static NSString* const kSKDeviceFamilyMacProStr     = @"Mac Pro";
-static NSString* const kSKDeviceFamilyXServeStr     = @"XServe";
-static NSString* const kSKDeviceFamilyiPhoneStr     = @"iPhone";
-static NSString* const kSKDeviceFamilyiPadStr       = @"iPad";
-static NSString* const kSKDeviceFamilyiPodStr       = @"iPod";
-static NSString* const kSKDeviceFamilySimulatorStr  = @"Simulator";
+static NSString* const PFSKDeviceFamilyUnknownStr    = @"Unknown";
+static NSString* const PFSKDeviceFamilyiMacStr       = @"iMac";
+static NSString* const PFSKDeviceFamilyMacminiStr    = @"Mac Mini";
+static NSString* const PFSKDeviceFamilyMacBookStr    = @"MacBook";
+static NSString* const PFSKDeviceFamilyMacBookAirStr = @"MacBook Air";
+static NSString* const PFSKDeviceFamilyMacBookProStr = @"MacBook Pro";
+static NSString* const PFSKDeviceFamilyMacProStr     = @"Mac Pro";
+static NSString* const PFSKDeviceFamilyXServeStr     = @"XServe";
+static NSString* const PFSKDeviceFamilyiPhoneStr     = @"iPhone";
+static NSString* const PFSKDeviceFamilyiPadStr       = @"iPad";
+static NSString* const PFSKDeviceFamilyiPodStr       = @"iPod";
+static NSString* const PFSKDeviceFamilySimulatorStr  = @"Simulator";
 
 /*!
  @typedef @struct PFSKDeviceVersion
@@ -110,6 +110,6 @@ typedef struct {
 	 Minor device version
 	 */
 	NSUInteger                                          minor;
-} PFSKDeviceVersion;
+} PFSystemKitDeviceVersion;
 
 #endif

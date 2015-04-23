@@ -30,6 +30,18 @@
 -(NSString*) stringifyExtError;
 
 /*!
+ @discussion Returns the current platform as a member of the PFSystemKitPlatform enum
+ @returns An int matching the current platform (iOS/OSX)
+ */
+-(PFSystemKitPlatform)platform;
+
+/*!
+ @discussion Returns the current platform
+ @returns A NSString holding the current platform (iOS/OSX)
+ */
+-(NSString*)platformString;
+
+/*!
  @discussion Translates a PFSystemKitError to a human-readable string
  @param err Any member of the PFSystemKitError enum
  @returns A NSString holding the PFSystemKitError string value
@@ -63,12 +75,12 @@ PFSystemKitPlatform stringToPlatform(NSString*);
  @param family Any member of the PFSystemKitFamily enum
  @returns A NSString holding the Device Family string
  */
-NSString* familyToString(PFSystemKitFamily);
+NSString* familyToString(PFSystemKitDeviceFamily);
 
 /*!
  @discussion Matches a NSString to its PFSystemKitFamily value
  @param string Any NSString, that could be a valid Apple device family
  @returns A member of the PFSystemKitFamily enum if found, PFSystemKitFamilyUnknown else
  */
-PFSystemKitFamily stringToFamily(NSString*);
+PFSystemKitDeviceFamily stringToFamily(NSString*);
 @end

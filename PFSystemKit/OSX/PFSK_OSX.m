@@ -7,6 +7,7 @@
 //
 
 #import "PFSK_OSX.h"
+#import <sys/sysctl.h>
 
 io_connect_t conn;
 static mach_port_t   		masterPort;
@@ -28,6 +29,49 @@ static PFSystemKit *sharedInstance = nil;
 	return sharedInstance;
 }
 
+-(PFSystemKitDeviceFamily)family {
+	return self.family;
+}
+
+-(NSString*)familyString {
+	return self.familyString;
+}
+
+-(PFSystemKitDeviceVersion)version {
+	return self.version;
+}
+
+-(NSString*)versionString {
+	return self.versionString;
+}
+
+-(NSString*)model {
+	return self.model;
+}
+
++(NSString *) machineModel
+{
+	size_t len = 0;
+	sysctlbyname("hw.model", NULL, &len, NULL, 0);
+	
+	if (len)
+	{
+		char *model = malloc(len*sizeof(char));
+		sysctlbyname("hw.model", model, &len, NULL, 0);
+		NSString *model_ns = [NSString stringWithUTF8String:model];
+		free(model);
+		return model_ns;
+	}
+	
+	return @"-"; //in case model name can't be read
+}
+
+
+/*
+-(PFSystemKitDeviceVersion)version;
+-(NSString*)versionString;
+-(NSString*)model;*/
+
 -(void) finalize { //cleanup everything
 	IOObjectRelease(nvrEntry);
 	IOObjectRelease(pexEntry);
@@ -44,14 +88,14 @@ static PFSystemKit *sharedInstance = nil;
 -(id) init {
 	self = [super init];
 	if (self) {
-		_writeLockState = kSKLockStateLocked;
-		_error = kSKReturnUnknown;
+		_writeLockState = PFSKLockStateLocked;
+		_error = PFSKReturnUnknown;
 		_extError = 0;
 		
 		kern_return_t IOresult;
 		IOresult = IOMasterPort(bootstrap_port, &masterPort);
 		if (IOresult!=kIOReturnSuccess) {
-			_error = kSKReturnNoMasterPort;
+			_error = PFSKReturnNoMasterPort;
 			_extError = IOresult;
 			return nil;
 		}

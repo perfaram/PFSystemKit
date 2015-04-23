@@ -14,25 +14,25 @@
 NSString* errorToString(PFSystemKitError err) {
 	NSString* ret;
 	switch (err) {
-		case kSKReturnSuccess:
+		case PFSKReturnSuccess:
 			ret = @"Success";
-		case kSKReturnNoMasterPort:
+		case PFSKReturnNoMasterPort:
 			ret = @"Couldn't create an IOKit Master Port";
-		case kSKReturnComponentUnavailable:
+		case PFSKReturnComponentUnavailable:
 			ret = @"Requested component isn't available on this machine";
-		case kSKReturnIOKitError:
+		case PFSKReturnIOKitError:
 			ret = @"IOKit call failed"; //see _extError
-		case kSKReturnIOKitCFFailure:
+		case PFSKReturnIOKitCFFailure:
 			ret = @"Couldn't create property list from IOService";
-		case kSKReturnSysCtlError:
+		case PFSKReturnSysCtlError:
 			ret = @"SYSCTL system call failed";
-		case kSKReturnLockedWrite:
+		case PFSKReturnLockedWrite:
 			ret = @"Writing is currently forbidden";
-		case kSKReturnCastError:
+		case PFSKReturnCastError:
 			ret = @"Couldn't cast"; //any idea ?
-		case kSKReturnNotWritable:
+		case PFSKReturnNotWritable:
 			ret = @"Requested component isn't writable";
-		case kSKReturnGeneral:
+		case PFSKReturnGeneral:
 			ret = @"General error";
 		default:
 			ret = @"Unknown error";
@@ -49,9 +49,9 @@ NSString* iokitErrorToString(kern_return_t err) {
 NSString* platformToString(PFSystemKitPlatform pf) {
 	NSString* ret;
 	switch (pf) {
-		case kSKPlatformIOS:
+		case PFSKPlatformIOS:
 			ret = @"iOS";
-		case kSKPlatformOSX:
+		case PFSKPlatformOSX:
 			ret = @"OSX";
 		default:
 			ret = @"Unknown";
@@ -60,72 +60,72 @@ NSString* platformToString(PFSystemKitPlatform pf) {
 }
 PFSystemKitPlatform stringToPlatform(NSString* str) {
 	if ([str caseInsensitiveCompare:@"iOS"] == NSOrderedSame)
-		return kSKPlatformIOS;
+		return PFSKPlatformIOS;
 	else if ([str caseInsensitiveCompare:@"OSX"] == NSOrderedSame)
-		return kSKPlatformOSX;
+		return PFSKPlatformOSX;
 	else
-		return kSKPlatformUnknown;
+		return PFSKPlatformUnknown;
 }
 
-NSString* familyToString(PFSystemKitFamily fm) {
+NSString* familyToString(PFSystemKitDeviceFamily fm) {
 	NSString* ret;
 	switch (fm) {
-		case kSKDeviceFamilyiMac:
-			ret = kSKDeviceFamilyiMacStr;
-		case kSKDeviceFamilyMacMini:
-			ret = kSKDeviceFamilyMacminiStr;
-		case kSKDeviceFamilyMacPro:
-			ret = kSKDeviceFamilyMacProStr;
-		case kSKDeviceFamilyMacBook:
-			ret = kSKDeviceFamilyMacBookStr;
-		case kSKDeviceFamilyMacBookAir:
-			ret = kSKDeviceFamilyMacBookAirStr;
-		case kSKDeviceFamilyMacBookPro:
-			ret = kSKDeviceFamilyMacBookProStr;
-		case kSKDeviceFamilyXserve:
-			ret = kSKDeviceFamilyXServeStr;
-		case kSKDeviceFamilyiPhone:
-			ret = kSKDeviceFamilyiPhoneStr;
-		case kSKDeviceFamilyiPad:
-			ret = kSKDeviceFamilyiPadStr;
-		case kSKDeviceFamilyiPod:
-			ret = kSKDeviceFamilyiPodStr;
-		case kSKDeviceFamilySimulator:
-			ret = kSKDeviceFamilySimulatorStr;
+		case PFSKDeviceFamilyiMac:
+			ret = PFSKDeviceFamilyiMacStr;
+		case PFSKDeviceFamilyMacMini:
+			ret = PFSKDeviceFamilyMacminiStr;
+		case PFSKDeviceFamilyMacPro:
+			ret = PFSKDeviceFamilyMacProStr;
+		case PFSKDeviceFamilyMacBook:
+			ret = PFSKDeviceFamilyMacBookStr;
+		case PFSKDeviceFamilyMacBookAir:
+			ret = PFSKDeviceFamilyMacBookAirStr;
+		case PFSKDeviceFamilyMacBookPro:
+			ret = PFSKDeviceFamilyMacBookProStr;
+		case PFSKDeviceFamilyXserve:
+			ret = PFSKDeviceFamilyXServeStr;
+		case PFSKDeviceFamilyiPhone:
+			ret = PFSKDeviceFamilyiPhoneStr;
+		case PFSKDeviceFamilyiPad:
+			ret = PFSKDeviceFamilyiPadStr;
+		case PFSKDeviceFamilyiPod:
+			ret = PFSKDeviceFamilyiPodStr;
+		case PFSKDeviceFamilySimulator:
+			ret = PFSKDeviceFamilySimulatorStr;
 		default:
-			ret = kSKDeviceFamilyUnknownStr;
+			ret = PFSKDeviceFamilyUnknownStr;
 	}
 	return ret;
 }
-PFSystemKitFamily stringToFamily(NSString* str) {
+PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 	//[mydict objectForKey:[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]];
 	str = [str lowercaseString]; //transform to lowercase, meaning less code afterwards
 	if ([PFSKHelper NSString:str contains:@"mac"]) {
 		if ([str isEqualToString:@"imac"])
-			return kSKDeviceFamilyiMac;
+			return PFSKDeviceFamilyiMac;
 		else if ([PFSKHelper NSString:str contains:@"air"])
-			return kSKDeviceFamilyMacBookAir;
+			return PFSKDeviceFamilyMacBookAir;
 		else if ([PFSKHelper NSString:str contains:@"pro"] && [PFSKHelper NSString:str contains:@"book"])
-			return kSKDeviceFamilyMacBookPro;
+			return PFSKDeviceFamilyMacBookPro;
 		else if ([PFSKHelper NSString:str contains:@"mini"])
-			return kSKDeviceFamilyMacMini;
+			return PFSKDeviceFamilyMacMini;
 		else if ([PFSKHelper NSString:str contains:@"pro"])
-			return kSKDeviceFamilyMacPro;
+			return PFSKDeviceFamilyMacPro;
 		else if ([PFSKHelper NSString:str contains:@"macbook"])
-			return kSKDeviceFamilyMacBook;
+			return PFSKDeviceFamilyMacBook;
 	} else if ([str hasPrefix:@"i"]) { //don't care about imac, has been checked before
 		if ([str isEqualToString:@"iphone"])
-			return kSKDeviceFamilyiPhone;
+			return PFSKDeviceFamilyiPhone;
 		else if ([str isEqualToString:@"ipad"])
-			return kSKDeviceFamilyiPad;
+			return PFSKDeviceFamilyiPad;
 		else if ([str isEqualToString:@"ipod"])
-			return kSKDeviceFamilyiPod;
+			return PFSKDeviceFamilyiPod;
 	} else if ([str isEqualToString:@"xserve"]) {
-		return kSKDeviceFamilyXserve;
+		return PFSKDeviceFamilyXserve;
 	} else if ([str isEqualToString:@"simulator"]) {
-		return kSKDeviceFamilySimulator;
+		return PFSKDeviceFamilySimulator;
 	}
-	return kSKDeviceFamilyUnknown;
+	return PFSKDeviceFamilyUnknown;
 }
 
 -(NSString*) stringifyError {
@@ -134,6 +134,24 @@ PFSystemKitFamily stringToFamily(NSString* str) {
 
 -(NSString*) stringifyExtError {
 	return iokitErrorToString(_extError);
+}
+
+-(NSString*)platformString {
+#if TARGET_OS_IPHONE
+	return @"iOS";
+#endif
+#if !TARGET_OS_IPHONE
+	return @"OSX";
+#endif
+}
+
+-(PFSystemKitPlatform)platform {
+#if TARGET_OS_IPHONE
+	return PFSKPlatformIOS;
+#endif
+#if !TARGET_OS_IPHONE
+	return PFSKPlatformOSX;
+#endif
 }
 
 @end
