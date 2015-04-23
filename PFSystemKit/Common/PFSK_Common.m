@@ -71,35 +71,37 @@ NSString* familyToString(PFSystemKitFamily fm) {
 	NSString* ret;
 	switch (fm) {
 		case kSKDeviceFamilyiMac:
-			ret = @"iMac";
+			ret = kSKDeviceFamilyiMacStr;
 		case kSKDeviceFamilyMacMini:
-			ret = @"Mac Mini";
+			ret = kSKDeviceFamilyMacminiStr;
 		case kSKDeviceFamilyMacPro:
-			ret = @"Mac Pro";
+			ret = kSKDeviceFamilyMacProStr;
 		case kSKDeviceFamilyMacBook:
-			ret = @"MacBook";
+			ret = kSKDeviceFamilyMacBookStr;
 		case kSKDeviceFamilyMacBookAir:
-			ret = @"MacBook Air";
+			ret = kSKDeviceFamilyMacBookAirStr;
 		case kSKDeviceFamilyMacBookPro:
-			ret = @"MacBook Pro";
+			ret = kSKDeviceFamilyMacBookProStr;
 		case kSKDeviceFamilyXserve:
-			ret = @"XServe";
+			ret = kSKDeviceFamilyXServeStr;
 		case kSKDeviceFamilyiPhone:
-			ret = @"iPhone";
+			ret = kSKDeviceFamilyiPhoneStr;
 		case kSKDeviceFamilyiPad:
-			ret = @"iPad";
+			ret = kSKDeviceFamilyiPadStr;
 		case kSKDeviceFamilyiPod:
-			ret = @"iPod";
+			ret = kSKDeviceFamilyiPodStr;
 		case kSKDeviceFamilySimulator:
-			ret = @"Simulator";
+			ret = kSKDeviceFamilySimulatorStr;
 		default:
-			ret = @"Unknown";
+			ret = kSKDeviceFamilyUnknownStr;
 	}
 	return ret;
 }
 PFSystemKitFamily stringToFamily(NSString* str) {
+	//[mydict objectForKey:[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]];
+	str = [str lowercaseString]; //transform to lowercase, meaning less code afterwards
 	if ([PFSKHelper NSString:str contains:@"mac"]) {
-		if (([str caseInsensitiveCompare:@"iMac"] == NSOrderedSame))
+		if ([str isEqualToString:@"imac"])
 			return kSKDeviceFamilyiMac;
 		else if ([PFSKHelper NSString:str contains:@"air"])
 			return kSKDeviceFamilyMacBookAir;
@@ -109,18 +111,18 @@ PFSystemKitFamily stringToFamily(NSString* str) {
 			return kSKDeviceFamilyMacMini;
 		else if ([PFSKHelper NSString:str contains:@"pro"])
 			return kSKDeviceFamilyMacPro;
-		else if ([str caseInsensitiveCompare:@"macbook"] == NSOrderedSame)
+		else if ([PFSKHelper NSString:str contains:@"macbook"])
 			return kSKDeviceFamilyMacBook;
 	} else if ([str hasPrefix:@"i"]) { //don't care about imac, has been checked before
-		if (([str caseInsensitiveCompare:@"iPhone"] == NSOrderedSame))
+		if ([str isEqualToString:@"iphone"])
 			return kSKDeviceFamilyiPhone;
-		else if (([str caseInsensitiveCompare:@"iPad"] == NSOrderedSame))
+		else if ([str isEqualToString:@"ipad"])
 			return kSKDeviceFamilyiPad;
-		else if (([str caseInsensitiveCompare:@"iPod"] == NSOrderedSame))
+		else if ([str isEqualToString:@"ipod"])
 			return kSKDeviceFamilyiPod;
-	} else if ([str caseInsensitiveCompare:@"xserve"] == NSOrderedSame) {
+	} else if ([str isEqualToString:@"xserve"]) {
 		return kSKDeviceFamilyXserve;
-	} else if ([str caseInsensitiveCompare:@"simulator"] == NSOrderedSame) {
+	} else if ([str isEqualToString:@"simulator"]) {
 		return kSKDeviceFamilySimulator;
 	}
 	return kSKDeviceFamilyUnknown;

@@ -81,6 +81,18 @@ typedef NS_ENUM(int, PFSystemKitFamily) {
 	kSKDeviceFamilyiPod,
 	kSKDeviceFamilySimulator,
 };
+static NSString* const kSKDeviceFamilyUnknownStr    = @"Unknown";
+static NSString* const kSKDeviceFamilyiMacStr       = @"iMac";
+static NSString* const kSKDeviceFamilyMacminiStr    = @"Mac Mini";
+static NSString* const kSKDeviceFamilyMacBookStr    = @"MacBook";
+static NSString* const kSKDeviceFamilyMacBookAirStr = @"MacBook Air";
+static NSString* const kSKDeviceFamilyMacBookProStr = @"MacBook Pro";
+static NSString* const kSKDeviceFamilyMacProStr     = @"Mac Pro";
+static NSString* const kSKDeviceFamilyXServeStr     = @"XServe";
+static NSString* const kSKDeviceFamilyiPhoneStr     = @"iPhone";
+static NSString* const kSKDeviceFamilyiPadStr       = @"iPad";
+static NSString* const kSKDeviceFamilyiPodStr       = @"iPod";
+static NSString* const kSKDeviceFamilySimulatorStr  = @"Simulator";
 
 /*!
  @typedef @struct PFSKDeviceVersion
