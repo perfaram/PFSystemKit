@@ -31,6 +31,15 @@
 @property (assign, atomic, readonly) NSString*							versionString;
 
 /*!
+ The device version. (a PFSystemKitEndianness)
+ */
+@property (assign, atomic, readonly) PFSystemKitEndianness				endianness;
+/*!
+ The device version string. e.g. @"Little Endian"
+ */
+@property (assign, atomic, readonly) NSString*							endiannessString;
+
+/*!
  The device model. e.g. @"MacBookPro8,1"
  */
 @property (assign, atomic, readonly) NSString*							model;

@@ -17,6 +17,7 @@ static io_registry_entry_t 	smcEntry;
 static io_registry_entry_t 	romEntry;
 
 @implementation PFSystemKit
+#pragma mark - Singleton pattern
 /**
  * PFSystemKit singleton instance retrieval method
  */
@@ -32,6 +33,194 @@ static io_registry_entry_t 	romEntry;
 
 
 #pragma mark - Class methods (actual core code)
+
++(NSString *) cpuCount
+{
+	size_t len = 0;
+	sysctlbyname("hw.packages", NULL, &len, NULL, 0);
+	if (len)
+	{
+		int count = 0;
+		sysctlbyname("hw.packages", &count, &len, NULL, 0);
+		NSString* coreCount = [NSString stringWithFormat:@"%i", count];
+		return coreCount;
+	}
+	return @"-"; //in case count can't be read
+}
+
++(NSString *) coreCount
+{
+	size_t len = 0;
+	sysctlbyname("machdep.cpu.core_count", NULL, &len, NULL, 0);
+	if (len)
+	{
+		int count = 0;
+		sysctlbyname("machdep.cpu.core_count", &count, &len, NULL, 0);
+		NSString* coreCount = [NSString stringWithFormat:@"%i", count];
+		return coreCount;
+	}
+	return @"-"; //in case count can't be read
+}
+
++(NSString *) threadCount
+{
+	size_t len = 0;
+	sysctlbyname("machdep.cpu.thread_count", NULL, &len, NULL, 0);
+	if (len)
+	{
+		int count = 0;
+		sysctlbyname("machdep.cpu.thread_count", &count, &len, NULL, 0);
+		NSString* coreCount = [NSString stringWithFormat:@"%i", count];
+		return coreCount;
+	}
+	return @"-"; //in case count can't be read
+}
+
++(NSString*) cpuType {
+	size_t size;
+	cpu_type_t type;
+	size = sizeof(type);
+	sysctlbyname("hw.cputype", &type, &size, NULL, 0);
+	
+	// values for cputype and cpusubtype defined in mach/machine.h
+	if (type == CPU_TYPE_X86)
+	{
+		if (type == CPU_TYPE_X86_64)
+			return @"x86_64";
+		return @"x86";
+		
+	} else if (type == CPU_TYPE_POWERPC)
+	{
+		if (type == CPU_TYPE_POWERPC64)
+			return @"PowerPC_64";
+		return @"PowerPC";
+	} else if (type == CPU_TYPE_I860)
+	{
+		return @"i860";
+	}
+	return @"Unknown";
+}
+
++(PFSystemKitEndianness)systemEndianness {
+	size_t len = 0;
+	sysctlbyname("hw.byteorder", NULL, &len, NULL, 0);
+	
+	if (len)
+	{
+		char *end = malloc(len*sizeof(char));
+		sysctlbyname("hw.byteorder", end, &len, NULL, 0);
+		NSString *endStr = [NSString stringWithUTF8String:end];
+		free(end);
+		if ([endStr isEqualToString:@"1234"]) {
+			return PFSKEndiannessLittleEndian;
+		} else if (1) /*check*/{
+			return PFSKEndiannessBigEndian;
+		} else {
+			return PFSKEndiannessUnknown;
+		}
+	}
+	return PFSKEndiannessUnknown;
+}
+
++(NSString*) cpuVendor {
+	host_basic_info_data_t hostInfo;
+	mach_msg_type_number_t infoCount;
+	
+	infoCount = HOST_BASIC_INFO_COUNT;
+	kern_return_t ret = host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t)&hostInfo, &infoCount);
+	
+	if ((KERN_SUCCESS == ret) && (hostInfo.cpu_type == CPU_TYPE_POWERPC)) {
+		return @"IBM PowerPC";
+	}
+	
+	size_t len = 0;
+	sysctlbyname("machdep.cpu.vendor", NULL, &len, NULL, 0);
+	
+	if (len)
+	{
+		char *model = malloc(len*sizeof(char));
+		sysctlbyname("machdep.cpu.vendor", model, &len, NULL, 0);
+		NSString *model_ns = [NSString stringWithUTF8String:model];
+		free(model);
+		return model_ns;
+	}
+	
+	return @"-";
+}
+
++(NSString *) cpuBrandString
+{
+	size_t len = 0;
+	sysctlbyname("machdep.cpu.brand_string", NULL, &len, NULL, 0);
+	
+	if (len)
+	{
+		char *model = malloc(len*sizeof(char));
+		sysctlbyname("machdep.cpu.brand_string", model, &len, NULL, 0);
+		NSString *model_ns = [NSString stringWithUTF8String:model];
+		free(model);
+		return model_ns;
+	}
+	
+	return @"-";
+}
+
++(NSString *) cpuFrequency
+{
+	size_t len = 0;
+	sysctlbyname("hw.l2cachesize", NULL, &len, NULL, 0);
+	if (len)
+	{
+		int freq = 0;
+		sysctlbyname("hw.l2cachesize", &freq, &len, NULL, 0);
+		NSString* cpuFreq = [NSString stringWithFormat:@"%i", freq];
+		return cpuFreq;
+	}
+	return @"-";
+}
+
++(NSString *) cpuL2Cache
+{
+	size_t len = 0;
+	sysctlbyname("hw.l2cachesize", NULL, &len, NULL, 0);
+	if (len)
+	{
+		int cache = 0;
+		sysctlbyname("hw.l2cachesize", &cache, &len, NULL, 0);
+		NSString* cpuL2 = [NSString stringWithFormat:@"%i", cache];
+		return cpuL2;
+	}
+	return @"-";
+}
+
++(NSString *) cpuL3Cache
+{
+	size_t len = 0;
+	sysctlbyname("hw.l3cachesize", NULL, &len, NULL, 0);
+	if (len)
+	{
+		int cache = 0;
+		sysctlbyname("hw.l3cachesize", &cache, &len, NULL, 0);
+		NSString* cpuL3 = [NSString stringWithFormat:@"%i", cache];
+		return cpuL3;
+	}
+	return @"-";
+}
+
++(NSString *) memSize
+{
+	int mib[2];
+	int64_t physical_memory;
+	size_t length;
+	
+	// Get the Physical memory size
+	mib[0] = CTL_HW;
+	mib[1] = HW_MEMSIZE;
+	length = sizeof(physical_memory);
+	sysctl(mib, 2, &physical_memory, &length, NULL, 0);
+	NSString* model_ns= [NSString stringWithFormat:@"%lld Gb", physical_memory/1073741824];
+	return model_ns;
+}
 
 +(NSString *) machineModel
 {
@@ -56,6 +245,8 @@ static io_registry_entry_t 	romEntry;
 @synthesize familyString;
 @synthesize version;
 @synthesize versionString;
+@synthesize endianness;
+@synthesize endiannessString;
 @synthesize model;
 
 
