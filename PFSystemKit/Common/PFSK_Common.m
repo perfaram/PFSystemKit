@@ -50,18 +50,18 @@ NSString* platformToString(PFSystemKitPlatform pf) {
 	NSString* ret;
 	switch (pf) {
 		case PFSKPlatformIOS:
-			ret = @"iOS";
+			ret = PFSKPlatformIOSStr;
 		case PFSKPlatformOSX:
-			ret = @"OSX";
+			ret = PFSKPlatformOSXStr;
 		default:
-			ret = @"Unknown";
+			ret = PFSKUnknownStr;
 	}
 	return ret;
 }
 PFSystemKitPlatform stringToPlatform(NSString* str) {
-	if ([str caseInsensitiveCompare:@"iOS"] == NSOrderedSame)
+	if ([str caseInsensitiveCompare:PFSKPlatformIOSStr] == NSOrderedSame)
 		return PFSKPlatformIOS;
-	else if ([str caseInsensitiveCompare:@"OSX"] == NSOrderedSame)
+	else if ([str caseInsensitiveCompare:PFSKPlatformOSXStr] == NSOrderedSame)
 		return PFSKPlatformOSX;
 	else
 		return PFSKPlatformUnknown;
@@ -93,7 +93,7 @@ NSString* familyToString(PFSystemKitDeviceFamily fm) {
 		case PFSKDeviceFamilySimulator:
 			ret = PFSKDeviceFamilySimulatorStr;
 		default:
-			ret = PFSKDeviceFamilyUnknownStr;
+			ret = PFSKUnknownStr;
 	}
 	return ret;
 }
@@ -126,6 +126,28 @@ PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 		return PFSKDeviceFamilySimulator;
 	}
 	return PFSKDeviceFamilyUnknown;
+}
+
+NSString* endiannessToString(PFSystemKitEndianness end) {
+	NSString* ret;
+	switch (end) {
+		case PFSKEndiannessLittleEndian:
+			ret = PFSKEndiannessLittleEndianStr;
+		case PFSKEndiannessBigEndian:
+			ret = PFSKEndiannessBigEndianStr;
+		default:
+			ret = PFSKUnknownStr;
+	}
+	return ret;
+}
+PFSystemKitEndianness stringToEndianness(NSString* str) {
+	str = [str lowercaseString];
+	if ([PFSKHelper NSString:str contains:@"little"])
+		return PFSKEndiannessLittleEndian;
+	else if ([PFSKHelper NSString:str contains:@"big"])
+		return PFSKEndiannessBigEndian;
+	else
+		return PFSKEndiannessUnknown;
 }
 
 -(NSString*) stringifyError {

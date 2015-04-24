@@ -62,6 +62,8 @@ typedef NS_ENUM(int, PFSystemKitPlatform) {
 	PFSKPlatformIOS,
 	PFSKPlatformOSX,
 };
+static NSString* const PFSKPlatformIOSStr			 = @"iOS";
+static NSString* const PFSKPlatformOSXStr			 = @"OSX";
 
 /*!
  @typedef PFSystemKitFamily
@@ -81,7 +83,7 @@ typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
 	PFSKDeviceFamilyiPod,
 	PFSKDeviceFamilySimulator,
 };
-static NSString* const PFSKDeviceFamilyUnknownStr    = @"Unknown";
+static NSString* const PFSKUnknownStr   			 = @"Unknown";
 static NSString* const PFSKDeviceFamilyiMacStr       = @"iMac";
 static NSString* const PFSKDeviceFamilyMacminiStr    = @"Mac Mini";
 static NSString* const PFSKDeviceFamilyMacBookStr    = @"MacBook";
@@ -95,7 +97,19 @@ static NSString* const PFSKDeviceFamilyiPodStr       = @"iPod";
 static NSString* const PFSKDeviceFamilySimulatorStr  = @"Simulator";
 
 /*!
- @typedef @struct PFSKDeviceVersion
+ @typedef PFSystemKitEndianness
+ Enumeration of integers matching a type of endianness (little or big)
+ */
+typedef NS_ENUM(int, PFSystemKitEndianness) {
+	PFSKEndiannessUnknown= 0,
+	PFSKEndiannessLittleEndian,
+	PFSKEndiannessBigEndian,
+};
+static NSString* const PFSKEndiannessLittleEndianStr = @"Little Endian";
+static NSString* const PFSKEndiannessBigEndianStr	 = @"Big Endian";
+
+/*!
+ @typedef @struct PFSystemKitDeviceVersion
  Structure holding a device's Major and Minor version 
  
  For a Macbookpro8,1 : 8 as Major and 1 as minor
@@ -104,12 +118,35 @@ typedef struct {
 	/*!
 	 Major device version
 	 */
-	NSUInteger                                          major;
+	int                                          major;
 	
 	/*!
 	 Minor device version
 	 */
-	NSUInteger                                          minor;
+	int                                          minor;
 } PFSystemKitDeviceVersion;
+
+/*!
+ @typedef @struct PFSystemKitOSVersion
+ Structure holding a OS version's Major, Minor and Patch components
+ 
+ For iOS 8.1.3 : 8 as major, 1 as minor, 3 as patch
+ */
+typedef struct {
+	/*!
+	 Major component of OS version
+	 */
+	int                                          major;
+	
+	/*!
+	 Minor component of OS version
+	 */
+	int                                          minor;
+	
+	/*!
+	 Patch component of OS version
+	 */
+	int                                          patch;
+} PFSystemKitOSVersion;
 
 #endif
