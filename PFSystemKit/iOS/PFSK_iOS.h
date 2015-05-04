@@ -11,5 +11,5 @@
 #import "PFSKTypes.h"
 
 @interface PFSystemKit : NSObject <PFSystemKitProtocol>
-
++(PFSystemKitError) memSize:(NSNumber**)ret;
 @end

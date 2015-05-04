@@ -7,6 +7,7 @@
 //
 
 #import "PFSKHelper.h"
+#import <string>
 
 @implementation PFSKHelper
 +(BOOL) NSString:(NSString*)string contains:(NSString*)contains {

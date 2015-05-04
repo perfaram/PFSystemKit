@@ -7,14 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSKProtocol.h"
-#import "PFSKTypes.h"
 #import "PFSK_Common.h"
 #import "PFSKHelper.h"
 
 @interface PFSystemKit : PFSK_Common <PFSystemKitProtocol>
-
-
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init;
 -(void) dealloc;
@@ -26,5 +22,6 @@
 -(BOOL) commit;
 #endif
 
-+(NSString *) machineModel;
++(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)));
++(PFSystemKitError) memSize:(NSNumber**)ret;
 @end

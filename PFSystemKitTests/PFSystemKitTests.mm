@@ -8,15 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
+#import "PFSK_OSX.h"
 
-@interface PFSystemKitTests : XCTestCase
-
+@interface PFSystemKitTests : XCTestCase {
+	PFSystemKit* pfsys;
+}
 @end
 
 @implementation PFSystemKitTests
 
 - (void)setUp {
     [super setUp];
+	//pfsys = [PFSystemKit.alloc init];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -27,6 +30,12 @@
 
 - (void)testExample {
     // This is an example of a functional test case.
+	NSNumber* res;
+	[PFSystemKit memSize:&res];
+	NSLog(@"%@", res);
+	NSString* machineModel;
+	[PFSystemKit machineModel:&machineModel];
+	NSLog(@"%@", machineModel);
     XCTAssert(YES, @"Pass");
 }
 

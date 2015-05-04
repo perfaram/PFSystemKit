@@ -7,8 +7,11 @@
 //
 
 #import <mach/mach_error.h>
+#import <sys/sysctl.h>
+#import <string>
 #import "PFSK_Common.h"
 #import "PFSKHelper.h"
+#import "PFSKPrivateTypes.h"
 
 @implementation PFSK_Common
 NSString* errorToString(PFSystemKitError err) {
@@ -160,10 +163,10 @@ PFSystemKitEndianness stringToEndianness(NSString* str) {
 
 -(NSString*)platformString {
 #if TARGET_OS_IPHONE
-	return @"iOS";
+	return PFSKPlatformIOSStr;
 #endif
 #if !TARGET_OS_IPHONE
-	return @"OSX";
+	return PFSKPlatformOSXStr;
 #endif
 }
 
@@ -174,6 +177,51 @@ PFSystemKitEndianness stringToEndianness(NSString* str) {
 #if !TARGET_OS_IPHONE
 	return PFSKPlatformOSX;
 #endif
+}
+
++(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar {
+	size_t length;
+	sysctlbyname(key, NULL, &length, NULL, 0);
+	if (length) {
+		std::string platform;
+		//char *answerRaw = new char[length];
+		memset(&answerChar, 0, sizeof(answerChar));
+		//sysctlbyname(key, &answerRaw, &length, NULL, 0);
+		sysctlbyname(key, WriteInto(&answerChar, length), &length, NULL, 0);
+		return PFSKReturnSuccess;
+	}
+	
+	return PFSKReturnSysCtlError;
+}
+
++(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat {
+	answerFloat = 0;
+	
+	size_t length;
+	sysctlbyname(key, NULL, &length, NULL, 0);
+	if (length) {
+		//char *answerRaw = malloc(length * sizeof(char));
+		char *answerRaw = new char[length];
+		sysctlbyname(key, answerRaw, &length, NULL, 0);
+		switch (length) {
+			case 8: {
+				answerFloat = (CGFloat)*(int64_t *)answerRaw;
+				return PFSKReturnSuccess;
+			} break;
+				
+			case 4: {
+				answerFloat = (CGFloat)*(int32_t *)answerRaw;
+				return PFSKReturnSuccess;
+			} break;
+				
+			default: {
+				answerFloat = (CGFloat)0.;
+				return PFSKReturnSuccess;
+			} break;
+		}
+		delete [] answerRaw;
+	}
+	return PFSKReturnSysCtlError;
 }
 
 @end

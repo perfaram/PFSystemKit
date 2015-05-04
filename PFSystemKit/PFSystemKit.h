@@ -36,3 +36,9 @@ FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <PFSystemKit/PublicHeader.h>
 
 
+/*
+ simulator policy (#if (TARGET_IPHONE_SIMULATOR && SIMULATOR_SHORTCUTS))
+ target #
+ core fns from OSX to common, optimize with sysctl-general fns
+ NSError class
+ */

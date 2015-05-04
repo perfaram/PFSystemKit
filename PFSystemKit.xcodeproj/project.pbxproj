@@ -9,15 +9,21 @@
 /* Begin PBXBuildFile section */
 		0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */; };
 		0B74D8C91AE4109C005E0DF3 /* PFSK_Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */; };
-		0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8C71AE4109C005E0DF3 /* PFSK_Common.m */; };
-		0B74D8CB1AE4109C005E0DF3 /* PFSK_Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8C71AE4109C005E0DF3 /* PFSK_Common.m */; };
+		0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */; };
+		0B74D8CB1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */; };
 		0B74D8CE1AE41682005E0DF3 /* PFSKHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8CC1AE41682005E0DF3 /* PFSKHelper.h */; };
 		0B74D8CF1AE41682005E0DF3 /* PFSKHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8CC1AE41682005E0DF3 /* PFSKHelper.h */; };
-		0B74D8D01AE41682005E0DF3 /* PFSKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8CD1AE41682005E0DF3 /* PFSKHelper.m */; };
-		0B74D8D11AE41682005E0DF3 /* PFSKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8CD1AE41682005E0DF3 /* PFSKHelper.m */; };
+		0B74D8D01AE41682005E0DF3 /* PFSKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8CD1AE41682005E0DF3 /* PFSKHelper.mm */; };
+		0B74D8D11AE41682005E0DF3 /* PFSKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8CD1AE41682005E0DF3 /* PFSKHelper.mm */; };
+		0BB7B5B51AF68365003C46A1 /* PFSKPrivateTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */; };
+		0BB7B5B61AF68365003C46A1 /* PFSKPrivateTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */; };
+		0BB7B5B91AF7B7E4003C46A1 /* NSString+CPPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5B71AF7B7E4003C46A1 /* NSString+CPPAdditions.h */; };
+		0BB7B5BA1AF7B7E4003C46A1 /* NSString+CPPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5B71AF7B7E4003C46A1 /* NSString+CPPAdditions.h */; };
+		0BB7B5BB1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7B5B81AF7B7E4003C46A1 /* NSString+CPPAdditions.mm */; };
+		0BB7B5BC1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7B5B81AF7B7E4003C46A1 /* NSString+CPPAdditions.mm */; };
 		0BE6EE661AE3FE2F0070B83F /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EE6C1AE3FE2F0070B83F /* PFSystemKit_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE601AE3FE2F0070B83F /* PFSystemKit_osx.framework */; };
-		0BE6EE731AE3FE2F0070B83F /* PFSystemKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EE721AE3FE2F0070B83F /* PFSystemKitTests.m */; };
+		0BE6EE731AE3FE2F0070B83F /* PFSystemKitTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EE721AE3FE2F0070B83F /* PFSystemKitTests.mm */; };
 		0BE6EE8C1AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE811AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework */; };
 		0BE6EE931AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EE921AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m */; };
 		0BE6EE9A1AE3FE740070B83F /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,9 +37,9 @@
 		0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */; };
 		0BE6EEB11AE4099F0070B83F /* PFSKProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */; };
 		0BE6EEB41AE40A070070B83F /* PFSK_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEB21AE40A070070B83F /* PFSK_OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BE6EEB51AE40A070070B83F /* PFSK_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EEB31AE40A070070B83F /* PFSK_OSX.m */; };
+		0BE6EEB51AE40A070070B83F /* PFSK_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EEB31AE40A070070B83F /* PFSK_OSX.mm */; };
 		0BE6EEB81AE40A630070B83F /* PFSK_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EEB61AE40A630070B83F /* PFSK_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BE6EEB91AE40A630070B83F /* PFSK_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EEB71AE40A630070B83F /* PFSK_iOS.m */; };
+		0BE6EEB91AE40A630070B83F /* PFSK_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EEB71AE40A630070B83F /* PFSK_iOS.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,15 +61,18 @@
 
 /* Begin PBXFileReference section */
 		0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSK_Common.h; path = PFSystemKit/Common/PFSK_Common.h; sourceTree = "<group>"; };
-		0B74D8C71AE4109C005E0DF3 /* PFSK_Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSK_Common.m; path = PFSystemKit/Common/PFSK_Common.m; sourceTree = "<group>"; };
+		0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PFSK_Common.mm; path = PFSystemKit/Common/PFSK_Common.mm; sourceTree = "<group>"; };
 		0B74D8CC1AE41682005E0DF3 /* PFSKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSKHelper.h; path = PFSystemKit/Helper/PFSKHelper.h; sourceTree = "<group>"; };
-		0B74D8CD1AE41682005E0DF3 /* PFSKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSKHelper.m; path = PFSystemKit/Helper/PFSKHelper.m; sourceTree = "<group>"; };
+		0B74D8CD1AE41682005E0DF3 /* PFSKHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PFSKHelper.mm; path = PFSystemKit/Helper/PFSKHelper.mm; sourceTree = "<group>"; };
+		0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = PFSKPrivateTypes.h; path = PFSystemKit/PFSKPrivateTypes.h; sourceTree = "<group>"; };
+		0BB7B5B71AF7B7E4003C46A1 /* NSString+CPPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CPPAdditions.h"; path = "PFSystemKit/NSString+CPPAdditions.h"; sourceTree = "<group>"; };
+		0BB7B5B81AF7B7E4003C46A1 /* NSString+CPPAdditions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+CPPAdditions.mm"; path = "PFSystemKit/NSString+CPPAdditions.mm"; sourceTree = "<group>"; };
 		0BE6EE601AE3FE2F0070B83F /* PFSystemKit_osx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PFSystemKit_osx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE641AE3FE2F0070B83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PFSystemKit.h; path = PFSystemKit/PFSystemKit.h; sourceTree = "<group>"; };
 		0BE6EE6B1AE3FE2F0070B83F /* PFSystemKitTests_osx.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PFSystemKitTests_osx.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE711AE3FE2F0070B83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0BE6EE721AE3FE2F0070B83F /* PFSystemKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PFSystemKitTests.m; sourceTree = "<group>"; };
+		0BE6EE721AE3FE2F0070B83F /* PFSystemKitTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PFSystemKitTests.mm; sourceTree = "<group>"; };
 		0BE6EE811AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PFSystemInfoKit_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE841AE3FE3D0070B83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BE6EE8B1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PFSystemInfoKit_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,9 +86,9 @@
 		0BE6EEAA1AE407210070B83F /* PFSKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSKTypes.h; path = PFSystemKit/PFSKTypes.h; sourceTree = "<group>"; };
 		0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSKProtocol.h; path = PFSystemKit/PFSKProtocol.h; sourceTree = "<group>"; };
 		0BE6EEB21AE40A070070B83F /* PFSK_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSK_OSX.h; path = OSX/PFSK_OSX.h; sourceTree = "<group>"; };
-		0BE6EEB31AE40A070070B83F /* PFSK_OSX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSK_OSX.m; path = OSX/PFSK_OSX.m; sourceTree = "<group>"; };
+		0BE6EEB31AE40A070070B83F /* PFSK_OSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PFSK_OSX.mm; path = OSX/PFSK_OSX.mm; sourceTree = "<group>"; };
 		0BE6EEB61AE40A630070B83F /* PFSK_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSK_iOS.h; path = ../PFSystemKit/iOS/PFSK_iOS.h; sourceTree = "<group>"; };
-		0BE6EEB71AE40A630070B83F /* PFSK_iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSK_iOS.m; path = ../PFSystemKit/iOS/PFSK_iOS.m; sourceTree = "<group>"; };
+		0BE6EEB71AE40A630070B83F /* PFSK_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PFSK_iOS.mm; path = ../PFSystemKit/iOS/PFSK_iOS.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,9 +134,26 @@
 			isa = PBXGroup;
 			children = (
 				0B74D8CC1AE41682005E0DF3 /* PFSKHelper.h */,
-				0B74D8CD1AE41682005E0DF3 /* PFSKHelper.m */,
+				0B74D8CD1AE41682005E0DF3 /* PFSKHelper.mm */,
 			);
 			name = Helper;
+			sourceTree = "<group>";
+		};
+		0BB7B5BD1AF7B7EE003C46A1 /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7B5B71AF7B7E4003C46A1 /* NSString+CPPAdditions.h */,
+				0BB7B5B81AF7B7E4003C46A1 /* NSString+CPPAdditions.mm */,
+			);
+			name = NSString;
+			sourceTree = "<group>";
+		};
+		0BB7B5BE1AF7B7F3003C46A1 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7B5BD1AF7B7EE003C46A1 /* NSString */,
+			);
+			name = Additions;
 			sourceTree = "<group>";
 		};
 		0BE6EE561AE3FE2F0070B83F = {
@@ -157,7 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				0BE6EEB21AE40A070070B83F /* PFSK_OSX.h */,
-				0BE6EEB31AE40A070070B83F /* PFSK_OSX.m */,
+				0BE6EEB31AE40A070070B83F /* PFSK_OSX.mm */,
 				0BE6EE631AE3FE2F0070B83F /* Supporting Files */,
 			);
 			name = OSX;
@@ -175,7 +201,7 @@
 		0BE6EE6F1AE3FE2F0070B83F /* PFSystemKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				0BE6EE721AE3FE2F0070B83F /* PFSystemKitTests.m */,
+				0BE6EE721AE3FE2F0070B83F /* PFSystemKitTests.mm */,
 				0BE6EE701AE3FE2F0070B83F /* Supporting Files */,
 			);
 			path = PFSystemKitTests;
@@ -193,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				0BE6EEB61AE40A630070B83F /* PFSK_iOS.h */,
-				0BE6EEB71AE40A630070B83F /* PFSK_iOS.m */,
+				0BE6EEB71AE40A630070B83F /* PFSK_iOS.mm */,
 				0BE6EE831AE3FE3D0070B83F /* Supporting Files */,
 			);
 			name = iOS;
@@ -237,12 +263,14 @@
 		0BE6EEAD1AE4072B0070B83F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0BB7B5BE1AF7B7F3003C46A1 /* Additions */,
 				0B74D8D21AE4168B005E0DF3 /* Helper */,
 				0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */,
 				0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */,
 				0BE6EEAA1AE407210070B83F /* PFSKTypes.h */,
+				0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */,
 				0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */,
-				0B74D8C71AE4109C005E0DF3 /* PFSK_Common.m */,
+				0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -268,7 +296,9 @@
 			files = (
 				0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */,
 				0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */,
+				0BB7B5B91AF7B7E4003C46A1 /* NSString+CPPAdditions.h in Headers */,
 				0BE6EEB41AE40A070070B83F /* PFSK_OSX.h in Headers */,
+				0BB7B5B51AF68365003C46A1 /* PFSKPrivateTypes.h in Headers */,
 				0BE6EEAB1AE407210070B83F /* PFSKTypes.h in Headers */,
 				0B74D8CE1AE41682005E0DF3 /* PFSKHelper.h in Headers */,
 				0BE6EE661AE3FE2F0070B83F /* PFSystemKit.h in Headers */,
@@ -281,7 +311,9 @@
 			files = (
 				0BE6EEB11AE4099F0070B83F /* PFSKProtocol.h in Headers */,
 				0B74D8C91AE4109C005E0DF3 /* PFSK_Common.h in Headers */,
+				0BB7B5BA1AF7B7E4003C46A1 /* NSString+CPPAdditions.h in Headers */,
 				0BE6EEAC1AE407210070B83F /* PFSKTypes.h in Headers */,
+				0BB7B5B61AF68365003C46A1 /* PFSKPrivateTypes.h in Headers */,
 				0BE6EEB81AE40A630070B83F /* PFSK_iOS.h in Headers */,
 				0B74D8CF1AE41682005E0DF3 /* PFSKHelper.h in Headers */,
 				0BE6EE9A1AE3FE740070B83F /* PFSystemKit.h in Headers */,
@@ -442,9 +474,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.m in Sources */,
-				0BE6EEB51AE40A070070B83F /* PFSK_OSX.m in Sources */,
-				0B74D8D01AE41682005E0DF3 /* PFSKHelper.m in Sources */,
+				0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */,
+				0BE6EEB51AE40A070070B83F /* PFSK_OSX.mm in Sources */,
+				0B74D8D01AE41682005E0DF3 /* PFSKHelper.mm in Sources */,
+				0BB7B5BB1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BE6EE731AE3FE2F0070B83F /* PFSystemKitTests.m in Sources */,
+				0BE6EE731AE3FE2F0070B83F /* PFSystemKitTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,9 +493,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B74D8CB1AE4109C005E0DF3 /* PFSK_Common.m in Sources */,
-				0BE6EEB91AE40A630070B83F /* PFSK_iOS.m in Sources */,
-				0B74D8D11AE41682005E0DF3 /* PFSKHelper.m in Sources */,
+				0B74D8CB1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */,
+				0BE6EEB91AE40A630070B83F /* PFSK_iOS.mm in Sources */,
+				0B74D8D11AE41682005E0DF3 /* PFSKHelper.mm in Sources */,
+				0BB7B5BC1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,7 +528,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -516,6 +550,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					SIMULATOR_SHORTCUTS,
+					WRITE_ABILITY,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -537,7 +573,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;

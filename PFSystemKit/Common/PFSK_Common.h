@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSKProtocol.h"
-#import "PFSKTypes.h"
+#import <string>
 
 @interface PFSK_Common : NSObject {
 	@protected
@@ -83,4 +83,7 @@ NSString* familyToString(PFSystemKitDeviceFamily);
  @returns A member of the PFSystemKitFamily enum if found, PFSystemKitFamilyUnknown else
  */
 PFSystemKitDeviceFamily stringToFamily(NSString*);
+
++(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
++(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
 @end

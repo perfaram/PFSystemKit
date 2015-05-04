@@ -5,8 +5,8 @@
 //  Created by Perceval FARAMAZ on 19/04/15.
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
-
 #ifndef PFSystemKit_PFSystemKitTypes_h
+#import <Foundation/Foundation.h>
 #define PFSystemKit_PFSystemKitTypes_h
 #define _error self->error
 #define _extError self->extError
@@ -26,6 +26,7 @@ typedef NS_ENUM(int, PFSystemKitError) {
 	PFSKReturnLockedWrite = 6,
 	PFSKReturnCastError = 7,
 	PFSKReturnNotWritable = 8,
+	PFSKReturnProcessInfoError = 9,
 	PFSKReturnGeneral = 65533, //too bad
 	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen)
 };
@@ -83,6 +84,7 @@ typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
 	PFSKDeviceFamilyiPod,
 	PFSKDeviceFamilySimulator,
 };
+
 static NSString* const PFSKUnknownStr   			 = @"Unknown";
 static NSString* const PFSKDeviceFamilyiMacStr       = @"iMac";
 static NSString* const PFSKDeviceFamilyMacminiStr    = @"Mac Mini";
@@ -96,6 +98,7 @@ static NSString* const PFSKDeviceFamilyiPadStr       = @"iPad";
 static NSString* const PFSKDeviceFamilyiPodStr       = @"iPod";
 static NSString* const PFSKDeviceFamilySimulatorStr  = @"Simulator";
 
+//std::map<std::string, std::string> x = {{"A", "ASDF"}, {"B", "DESU"}, {"C", "BLAH"}};
 /*!
  @typedef PFSystemKitEndianness
  Enumeration of integers matching a type of endianness (little or big)
@@ -118,12 +121,12 @@ typedef struct {
 	/*!
 	 Major device version
 	 */
-	int                                          major;
+	NSInteger                                          major;
 	
 	/*!
 	 Minor device version
 	 */
-	int                                          minor;
+	NSInteger                                          minor;
 } PFSystemKitDeviceVersion;
 
 /*!
@@ -136,17 +139,17 @@ typedef struct {
 	/*!
 	 Major component of OS version
 	 */
-	int                                          major;
+	NSInteger                                          major;
 	
 	/*!
 	 Minor component of OS version
 	 */
-	int                                          minor;
+	NSInteger                                          minor;
 	
 	/*!
 	 Patch component of OS version
 	 */
-	int                                          patch;
+	NSInteger                                          patch;
 } PFSystemKitOSVersion;
 
 #endif

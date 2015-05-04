@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
 
-#import "PFSK_OSX.h"
 #import <sys/sysctl.h>
+#import <string>
+#import "NSString+CPPAdditions.h"
+#import "PFSK_OSX.h"
 
 io_connect_t conn;
 static mach_port_t   		masterPort;
@@ -15,6 +17,11 @@ static io_registry_entry_t 	nvrEntry;
 static io_registry_entry_t 	pexEntry;
 static io_registry_entry_t 	smcEntry;
 static io_registry_entry_t 	romEntry;
+
+@interface PFSK_Common()
+//+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
+//+(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
+@end
 
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
@@ -100,7 +107,7 @@ static io_registry_entry_t 	romEntry;
 	}
 	return @"Unknown";
 }
-
+/*
 +(PFSystemKitEndianness)systemEndianness {
 	size_t len = 0;
 	sysctlbyname("hw.byteorder", NULL, &len, NULL, 0);
@@ -113,7 +120,7 @@ static io_registry_entry_t 	romEntry;
 		free(end);
 		if ([endStr isEqualToString:@"1234"]) {
 			return PFSKEndiannessLittleEndian;
-		} else if (1) /*check*/{
+		} else if (1) check{
 			return PFSKEndiannessBigEndian;
 		} else {
 			return PFSKEndiannessUnknown;
@@ -164,7 +171,7 @@ static io_registry_entry_t 	romEntry;
 	
 	return @"-";
 }
-
+*/
 +(NSString *) cpuFrequency
 {
 	size_t len = 0;
@@ -207,38 +214,48 @@ static io_registry_entry_t 	romEntry;
 	return @"-";
 }
 
-+(NSString *) memSize
++(PFSystemKitError) memSize:(NSNumber**)ret __attribute__((nonnull (1)))
 {
-	int mib[2];
-	int64_t physical_memory;
-	size_t length;
-	
-	// Get the Physical memory size
-	mib[0] = CTL_HW;
-	mib[1] = HW_MEMSIZE;
-	length = sizeof(physical_memory);
-	sysctl(mib, 2, &physical_memory, &length, NULL, 0);
-	NSString* model_ns= [NSString stringWithFormat:@"%lld Gb", physical_memory/1073741824];
-	return model_ns;
+	CGFloat size = 0;
+	PFSystemKitError result;
+	result = [self.class sysctlFloatForKey:(char*)"hw.memsize" intoFloat:size];
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = @(size/1073741824);
+finish:
+	return result;
 }
 
-+(NSString *) machineModel
++(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)))
+{
+	std::string machineModel;
+	PFSystemKitError result;
+	result = [self.class sysctlStringForKey:(char*)"hw.model" intoChar:machineModel];
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = [NSString stringWithSTDString:machineModel];
+finish:
+	return result;
+}
+
+/*+(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)))
 {
 	size_t len = 0;
 	sysctlbyname("hw.model", NULL, &len, NULL, 0);
 	
 	if (len)
 	{
-		char *model = malloc(len*sizeof(char));
+		char *model = new char[len];
 		sysctlbyname("hw.model", model, &len, NULL, 0);
-		NSString *model_ns = [NSString stringWithUTF8String:model];
-		free(model);
-		return model_ns;
+		*ret = [NSString stringWithUTF8String:model];
+		return PFSKReturnSuccess;
 	}
 	
-	return @"-"; //in case model name can't be read
-}
-
+//finish:
+	return PFSKReturnSysCtlError;
+}*/
 
 #pragma mark - Getters
 @synthesize family;

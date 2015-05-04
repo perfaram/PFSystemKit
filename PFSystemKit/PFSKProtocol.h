@@ -31,11 +31,11 @@
 @property (assign, atomic, readonly) NSString*							versionString;
 
 /*!
- The device version. (a PFSystemKitEndianness)
+ The system endianness. (a PFSystemKitEndianness)
  */
 @property (assign, atomic, readonly) PFSystemKitEndianness				endianness;
 /*!
- The device version string. e.g. @"Little Endian"
+ The system endianness string. e.g. @"Little Endian"
  */
 @property (assign, atomic, readonly) NSString*							endiannessString;
 
@@ -55,6 +55,12 @@
  @returns A NSString holding the current platform (iOS/OSX)
  */
 -(NSString*)platformString;
+
+-(PFSystemKit*) init;
+-(void) dealloc;
+-(void) finalize;
+-(BOOL) refreshGroup:(PFSystemKitGroup)group; 					//overrides any non-commited modification
+-(BOOL) refresh;
 @end
 
 #endif
