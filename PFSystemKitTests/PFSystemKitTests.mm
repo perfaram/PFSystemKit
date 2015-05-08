@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "PFSK_OSX.h"
+#import "PFSK_Common.h"
 
 @interface PFSystemKitTests : XCTestCase {
 	PFSystemKit* pfsys;
@@ -37,6 +38,8 @@
 	NSLog(@"%@", res);
 	NSString* machineModel;
 	[PFSystemKit machineModel:&machineModel];
+	NSLog(@"%@", machineModel);
+	machineModel = familyToString(PFSKDeviceFamilyiMac);
 	NSLog(@"%@", machineModel);
     XCTAssert(YES, @"Pass");
 }

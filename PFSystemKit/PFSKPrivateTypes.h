@@ -32,4 +32,16 @@ std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {
 	{ PFSKDeviceFamilySimulator, "Simulator" }
 };
 
+std::map<int, char const*> PFSystemKitPlatformStrings = {
+	{ PFSKEndiannessUnknown, "Unknown" },
+	{ PFSKPlatformIOS, "iOS" },
+	{ PFSKPlatformOSX, "OSX" }
+};
+
+std::map<int, char const*> PFSystemKitEndiannessStrings = {
+	{ PFSKPlatformUnknown, "Unknown" },
+	{ PFSKEndiannessLittleEndian, "Little Endian" },
+	{ PFSKEndiannessBigEndian, "Big Endian" }
+};
+
 #endif

@@ -50,55 +50,20 @@ NSString* iokitErrorToString(kern_return_t err) {
 //PFSystemKitError stringToError(NSString* str) {} such a function would be useless
 
 NSString* platformToString(PFSystemKitPlatform pf) {
-	NSString* ret;
-	switch (pf) {
-		case PFSKPlatformIOS:
-			ret = PFSKPlatformIOSStr;
-		case PFSKPlatformOSX:
-			ret = PFSKPlatformOSXStr;
-		default:
-			ret = PFSKUnknownStr;
-	}
-	return ret;
+	return @(PFSystemKitPlatformStrings[pf]);
 }
 PFSystemKitPlatform stringToPlatform(NSString* str) {
-	if ([str caseInsensitiveCompare:PFSKPlatformIOSStr] == NSOrderedSame)
+	str = [str lowercaseString];
+	if ([PFSKHelper NSString:str contains:@"i"])
 		return PFSKPlatformIOS;
-	else if ([str caseInsensitiveCompare:PFSKPlatformOSXStr] == NSOrderedSame)
+	else if ([PFSKHelper NSString:str contains:@"x"])
 		return PFSKPlatformOSX;
 	else
 		return PFSKPlatformUnknown;
 }
 
 NSString* familyToString(PFSystemKitDeviceFamily fm) {
-	NSString* ret;
-	switch (fm) {
-		case PFSKDeviceFamilyiMac:
-			ret = PFSKDeviceFamilyiMacStr;
-		case PFSKDeviceFamilyMacMini:
-			ret = PFSKDeviceFamilyMacminiStr;
-		case PFSKDeviceFamilyMacPro:
-			ret = PFSKDeviceFamilyMacProStr;
-		case PFSKDeviceFamilyMacBook:
-			ret = PFSKDeviceFamilyMacBookStr;
-		case PFSKDeviceFamilyMacBookAir:
-			ret = PFSKDeviceFamilyMacBookAirStr;
-		case PFSKDeviceFamilyMacBookPro:
-			ret = PFSKDeviceFamilyMacBookProStr;
-		case PFSKDeviceFamilyXserve:
-			ret = PFSKDeviceFamilyXServeStr;
-		case PFSKDeviceFamilyiPhone:
-			ret = PFSKDeviceFamilyiPhoneStr;
-		case PFSKDeviceFamilyiPad:
-			ret = PFSKDeviceFamilyiPadStr;
-		case PFSKDeviceFamilyiPod:
-			ret = PFSKDeviceFamilyiPodStr;
-		case PFSKDeviceFamilySimulator:
-			ret = PFSKDeviceFamilySimulatorStr;
-		default:
-			ret = PFSKUnknownStr;
-	}
-	return ret;
+	return @(PFSystemKitDeviceFamilyStrings[fm]);
 }
 PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 	//[mydict objectForKey:[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]];
@@ -132,16 +97,7 @@ PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 }
 
 NSString* endiannessToString(PFSystemKitEndianness end) {
-	NSString* ret;
-	switch (end) {
-		case PFSKEndiannessLittleEndian:
-			ret = PFSKEndiannessLittleEndianStr;
-		case PFSKEndiannessBigEndian:
-			ret = PFSKEndiannessBigEndianStr;
-		default:
-			ret = PFSKUnknownStr;
-	}
-	return ret;
+	return @(PFSystemKitEndiannessStrings[end]);
 }
 PFSystemKitEndianness stringToEndianness(NSString* str) {
 	str = [str lowercaseString];
@@ -163,10 +119,10 @@ PFSystemKitEndianness stringToEndianness(NSString* str) {
 
 -(NSString*)platformString {
 #if TARGET_OS_IPHONE
-	return PFSKPlatformIOSStr;
+	return @"iOS";
 #endif
 #if !TARGET_OS_IPHONE
-	return PFSKPlatformOSXStr;
+	return @"OSX";
 #endif
 }
 

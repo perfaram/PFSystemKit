@@ -63,8 +63,6 @@ typedef NS_ENUM(int, PFSystemKitPlatform) {
 	PFSKPlatformIOS,
 	PFSKPlatformOSX,
 };
-static NSString* const PFSKPlatformIOSStr			 = @"iOS";
-static NSString* const PFSKPlatformOSXStr			 = @"OSX";
 
 /*!
  @typedef PFSystemKitFamily
@@ -85,19 +83,6 @@ typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
 	PFSKDeviceFamilySimulator,
 };
 
-static NSString* const PFSKUnknownStr   			 = @"Unknown";
-static NSString* const PFSKDeviceFamilyiMacStr       = @"iMac";
-static NSString* const PFSKDeviceFamilyMacminiStr    = @"Mac Mini";
-static NSString* const PFSKDeviceFamilyMacBookStr    = @"MacBook";
-static NSString* const PFSKDeviceFamilyMacBookAirStr = @"MacBook Air";
-static NSString* const PFSKDeviceFamilyMacBookProStr = @"MacBook Pro";
-static NSString* const PFSKDeviceFamilyMacProStr     = @"Mac Pro";
-static NSString* const PFSKDeviceFamilyXServeStr     = @"XServe";
-static NSString* const PFSKDeviceFamilyiPhoneStr     = @"iPhone";
-static NSString* const PFSKDeviceFamilyiPadStr       = @"iPad";
-static NSString* const PFSKDeviceFamilyiPodStr       = @"iPod";
-static NSString* const PFSKDeviceFamilySimulatorStr  = @"Simulator";
-
 /*!
  @typedef PFSystemKitEndianness
  Enumeration of integers matching a type of endianness (little or big)
@@ -107,8 +92,6 @@ typedef NS_ENUM(int, PFSystemKitEndianness) {
 	PFSKEndiannessLittleEndian,
 	PFSKEndiannessBigEndian,
 };
-static NSString* const PFSKEndiannessLittleEndianStr = @"Little Endian";
-static NSString* const PFSKEndiannessBigEndianStr	 = @"Big Endian";
 
 /*!
  @typedef @struct PFSystemKitDeviceVersion
