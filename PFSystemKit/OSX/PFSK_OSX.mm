@@ -128,93 +128,61 @@ static io_registry_entry_t 	romEntry;
 	}
 	return PFSKEndiannessUnknown;
 }
-
-+(NSString*) cpuVendor {
-	host_basic_info_data_t hostInfo;
-	mach_msg_type_number_t infoCount;
-	
-	infoCount = HOST_BASIC_INFO_COUNT;
-	kern_return_t ret = host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t)&hostInfo, &infoCount);
-	
-	if ((KERN_SUCCESS == ret) && (hostInfo.cpu_type == CPU_TYPE_POWERPC)) {
-		return @"IBM PowerPC";
-	}
-	
-	size_t len = 0;
-	sysctlbyname("machdep.cpu.vendor", NULL, &len, NULL, 0);
-	
-	if (len)
-	{
-		char *model = malloc(len*sizeof(char));
-		sysctlbyname("machdep.cpu.vendor", model, &len, NULL, 0);
-		NSString *model_ns = [NSString stringWithUTF8String:model];
-		free(model);
-		return model_ns;
-	}
-	
-	return @"-";
-}
-
-+(NSString *) cpuBrandString
-{
-	size_t len = 0;
-	sysctlbyname("machdep.cpu.brand_string", NULL, &len, NULL, 0);
-	
-	if (len)
-	{
-		char *model = malloc(len*sizeof(char));
-		sysctlbyname("machdep.cpu.brand_string", model, &len, NULL, 0);
-		NSString *model_ns = [NSString stringWithUTF8String:model];
-		free(model);
-		return model_ns;
-	}
-	
-	return @"-";
-}
 */
-+(NSString *) cpuFrequency
+
++(PFSystemKitError) cpuBrand:(NSString**)ret __attribute__((nonnull (1)))
 {
-	size_t len = 0;
-	sysctlbyname("hw.l2cachesize", NULL, &len, NULL, 0);
-	if (len)
-	{
-		int freq = 0;
-		sysctlbyname("hw.l2cachesize", &freq, &len, NULL, 0);
-		NSString* cpuFreq = [NSString stringWithFormat:@"%i", freq];
-		return cpuFreq;
-	}
-	return @"-";
+	std::string brand;
+	PFSystemKitError locResult;
+	locResult = [self.class sysctlStringForKey:(char*)"machdep.cpu.brand_string" intoSTDString:brand];
+	if (locResult != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = [NSString stringWithSTDString:brand];
+finish:
+	return locResult;
 }
 
-+(NSString *) cpuL2Cache
++(PFSystemKitError) cpuFrequency:(NSNumber**)ret __attribute__((nonnull (1)))
 {
-	size_t len = 0;
-	sysctlbyname("hw.l2cachesize", NULL, &len, NULL, 0);
-	if (len)
-	{
-		int cache = 0;
-		sysctlbyname("hw.l2cachesize", &cache, &len, NULL, 0);
-		NSString* cpuL2 = [NSString stringWithFormat:@"%i", cache];
-		return cpuL2;
-	}
-	return @"-";
+	CGFloat size = 0;
+	PFSystemKitError result;
+	result = [self.class sysctlFloatForKey:(char*)"hw.cpufrequency" intoFloat:size];
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = @(size/1000000000);//hertz in a gigahertz
+finish:
+	return result;
 }
 
-+(NSString *) cpuL3Cache
++(PFSystemKitError) cpuL2Cache:(NSNumber**)ret __attribute__((nonnull (1)))
 {
-	size_t len = 0;
-	sysctlbyname("hw.l3cachesize", NULL, &len, NULL, 0);
-	if (len)
-	{
-		int cache = 0;
-		sysctlbyname("hw.l3cachesize", &cache, &len, NULL, 0);
-		NSString* cpuL3 = [NSString stringWithFormat:@"%i", cache];
-		return cpuL3;
-	}
-	return @"-";
+	CGFloat size = 0;
+	PFSystemKitError result;
+	result = [self.class sysctlFloatForKey:(char*)"hw.l2cachesize" intoFloat:size];
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = @(size/1048576);
+finish:
+	return result;
 }
 
-+(PFSystemKitError) memSize:(NSNumber**)ret __attribute__((nonnull (1)))
++(PFSystemKitError) cpuL3Cache:(NSNumber**)ret __attribute__((nonnull (1)))
+{
+	CGFloat size = 0;
+	PFSystemKitError result;
+	result = [self.class sysctlFloatForKey:(char*)"hw.l3cachesize" intoFloat:size];
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = @(size/1048576);
+finish:
+	return result;
+}
+
++(PFSystemKitError) memorySize:(NSNumber**)ret __attribute__((nonnull (1)))
 {
 	CGFloat size = 0;
 	PFSystemKitError result;
@@ -231,7 +199,7 @@ finish:
 {
 	std::string machineModel;
 	PFSystemKitError result;
-	result = [self.class sysctlStringForKey:(char*)"hw.model" intoChar:machineModel];
+	result = [self.class sysctlStringForKey:(char*)"hw.model" intoSTDString:machineModel];
 	if (result != PFSKReturnSuccess)
 		goto finish;
 	else
@@ -239,23 +207,6 @@ finish:
 finish:
 	return result;
 }
-
-/*+(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)))
-{
-	size_t len = 0;
-	sysctlbyname("hw.model", NULL, &len, NULL, 0);
-	
-	if (len)
-	{
-		char *model = new char[len];
-		sysctlbyname("hw.model", model, &len, NULL, 0);
-		*ret = [NSString stringWithUTF8String:model];
-		return PFSKReturnSuccess;
-	}
-	
-//finish:
-	return PFSKReturnSysCtlError;
-}*/
 
 #pragma mark - Getters
 @synthesize family;

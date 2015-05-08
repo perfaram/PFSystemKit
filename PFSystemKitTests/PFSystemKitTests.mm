@@ -31,7 +31,9 @@
 - (void)testExample {
     // This is an example of a functional test case.
 	NSNumber* res;
-	[PFSystemKit memSize:&res];
+	[PFSystemKit memorySize:&res];
+	NSLog(@"%@", res);
+	[PFSystemKit cpuL3Cache:&res];
 	NSLog(@"%@", res);
 	NSString* machineModel;
 	[PFSystemKit machineModel:&machineModel];

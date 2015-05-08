@@ -19,6 +19,19 @@
 @end
 
 template <class string_type>
+inline typename string_type::value_type* NSWriteInto(NSString* str) {
+	unsigned char *text = (unsigned char*)CFStringGetCStringPtr((CFStringRef)str, CFStringGetSystemEncoding());
+	if (text != NULL)
+	{
+		memset(text, 0, [str length]);
+	}
+	return &text[0];
+}
+
+/*!
+ //taken from the Chromium Project
+ */
+template <class string_type>
 inline typename string_type::value_type* WriteInto(string_type* str,
 												   size_t length_with_null) {
 	str->reserve(length_with_null);

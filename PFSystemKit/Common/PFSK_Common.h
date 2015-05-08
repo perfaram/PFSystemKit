@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSKProtocol.h"
+#if defined(__OBJC__) && defined(__cplusplus)
 #import <string>
+#endif
 
 @interface PFSK_Common : NSObject {
 	@protected
@@ -84,6 +86,11 @@ NSString* familyToString(PFSystemKitDeviceFamily);
  */
 PFSystemKitDeviceFamily stringToFamily(NSString*);
 
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
+#if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
++(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerChar;
 +(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
+#endif
+
++(PFSystemKitError) sysctlStringForKey:(char*)key intoNSString:(NSString**)answerChar;
++(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerFloat;
 @end

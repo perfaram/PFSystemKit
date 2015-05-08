@@ -179,14 +179,12 @@ PFSystemKitEndianness stringToEndianness(NSString* str) {
 #endif
 }
 
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar {
+inline PFSystemKitError __sysctlStringForKey(char* key, std::string& answerChar) {
 	size_t length;
 	sysctlbyname(key, NULL, &length, NULL, 0);
 	if (length) {
 		std::string platform;
-		//char *answerRaw = new char[length];
 		memset(&answerChar, 0, sizeof(answerChar));
-		//sysctlbyname(key, &answerRaw, &length, NULL, 0);
 		sysctlbyname(key, WriteInto(&answerChar, length), &length, NULL, 0);
 		return PFSKReturnSuccess;
 	}
@@ -194,12 +192,11 @@ PFSystemKitEndianness stringToEndianness(NSString* str) {
 	return PFSKReturnSysCtlError;
 }
 
-+(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat {
-	answerFloat = 0;
-	
+inline PFSystemKitError __sysctlFloatForKey(char* key, CGFloat& answerFloat) {
 	size_t length;
 	sysctlbyname(key, NULL, &length, NULL, 0);
 	if (length) {
+		answerFloat = 0;
 		//char *answerRaw = malloc(length * sizeof(char));
 		char *answerRaw = new char[length];
 		sysctlbyname(key, answerRaw, &length, NULL, 0);
@@ -222,6 +219,33 @@ PFSystemKitEndianness stringToEndianness(NSString* str) {
 		delete [] answerRaw;
 	}
 	return PFSKReturnSysCtlError;
+}
+
++(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerChar {
+	return __sysctlStringForKey(key, answerChar);
+}
+
++(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat {
+	return __sysctlFloatForKey(key, answerFloat);
+}
+
++(PFSystemKitError) sysctlStringForKey:(char*)key intoNSString:(NSString**)answerString {
+	unsigned char *text = (unsigned char*)CFStringGetCStringPtr((CFStringRef)((void *)answerString), CFStringGetSystemEncoding());
+	size_t length;
+	sysctlbyname(key, NULL, &length, NULL, 0);
+	if (length) {
+		std::string platform;
+		sysctlbyname(key, &text, &length, NULL, 0);
+		return PFSKReturnSuccess;
+	}
+	
+	return PFSKReturnSysCtlError;
+}
++(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerNumber {
+	CGFloat answerFloat = 0;
+	PFSystemKitError result = __sysctlFloatForKey(key, answerFloat);
+	*answerNumber = @(answerFloat);
+	return result;
 }
 
 @end

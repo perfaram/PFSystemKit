@@ -11,6 +11,17 @@
 #include <set>
 #include <map>
 #include <string>
+
+constexpr CGFloat operator "" _MB(unsigned long long bytes)
+{
+	return static_cast<CGFloat>(bytes * 1048576);
+}
+
+inline int safe(int i)
+{
+	return i >= 0 ? i : -i;
+}
+ 
 std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {
 	{ PFSKDeviceFamilyUnknown, "Unknown" },
 	{ PFSKDeviceFamilyiMac, "iMac" },

@@ -22,6 +22,11 @@
 -(BOOL) commit;
 #endif
 
+#if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
+
+#endif
+
++(PFSystemKitError) cpuL3Cache:(NSNumber**)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) memSize:(NSNumber**)ret;
++(PFSystemKitError) memorySize:(NSNumber**)ret;
 @end
