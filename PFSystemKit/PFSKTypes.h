@@ -3,7 +3,7 @@
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 19/04/15.
-//  Copyright (c) 2015 faramaz. All rights reserved.
+//  Copyright (c) 2015 Perceval FARAMAZ. All rights reserved.
 //
 #ifndef PFSystemKit_PFSystemKitTypes_h
 #import <Foundation/Foundation.h>
@@ -98,7 +98,6 @@ static NSString* const PFSKDeviceFamilyiPadStr       = @"iPad";
 static NSString* const PFSKDeviceFamilyiPodStr       = @"iPod";
 static NSString* const PFSKDeviceFamilySimulatorStr  = @"Simulator";
 
-//std::map<std::string, std::string> x = {{"A", "ASDF"}, {"B", "DESU"}, {"C", "BLAH"}};
 /*!
  @typedef PFSystemKitEndianness
  Enumeration of integers matching a type of endianness (little or big)

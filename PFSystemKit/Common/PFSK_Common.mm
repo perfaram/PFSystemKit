@@ -3,7 +3,7 @@
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 19/04/15.
-//  Copyright (c) 2015 faramaz. All rights reserved.
+//  Copyright (c) 2015 Perceval FARAMAZ. All rights reserved.
 //
 
 #import <mach/mach_error.h>
@@ -221,16 +221,16 @@ inline PFSystemKitError __sysctlFloatForKey(char* key, CGFloat& answerFloat) {
 	return PFSKReturnSysCtlError;
 }
 
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerChar {
-	return __sysctlStringForKey(key, answerChar);
++(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerStr {
+	return __sysctlStringForKey(key, answerStr);
 }
 
 +(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat {
 	return __sysctlFloatForKey(key, answerFloat);
 }
 
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoNSString:(NSString**)answerString {
-	unsigned char *text = (unsigned char*)CFStringGetCStringPtr((CFStringRef)((void *)answerString), CFStringGetSystemEncoding());
++(PFSystemKitError) sysctlStringForKey:(char*)key intoNSString:(NSString**)answerStr {
+	unsigned char *text = (unsigned char*)CFStringGetCStringPtr((CFStringRef)((void *)answerStr), CFStringGetSystemEncoding());
 	size_t length;
 	sysctlbyname(key, NULL, &length, NULL, 0);
 	if (length) {

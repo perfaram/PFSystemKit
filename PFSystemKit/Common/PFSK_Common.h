@@ -3,7 +3,7 @@
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 19/04/15.
-//  Copyright (c) 2015 faramaz. All rights reserved.
+//  Copyright (c) 2015 Perceval FARAMAZ. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -86,11 +86,37 @@ NSString* familyToString(PFSystemKitDeviceFamily);
  */
 PFSystemKitDeviceFamily stringToFamily(NSString*);
 
-#if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerChar;
+#if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed std::string
+ @param key A char array holding the requested key
+ @param answerStr A std::string that will be holding the SysCtl-retrieved string
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
++(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerStr;
+
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received value to the passed CGFloat
+ @param key A char array holding the requested key
+ @param answerStr A CGFloat instance that will be holding the SysCtl-retrieved value
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
 +(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
 #endif
 
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoNSString:(NSString**)answerChar;
-+(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerFloat;
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed NSString
+ @param key A char array holding the requested key
+ @param answerStr A NSString that will be holding the SysCtl-retrieved string
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
++(PFSystemKitError) sysctlStringForKey:(char*)key intoNSString:(NSString**)answerStr;
+
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received value to the passed NSNumber
+ @param key A char array holding the requested key
+ @param answerStr A NSNumber instance that will be holding the SysCtl-retrieved value
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
++(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerNumber;
 @end

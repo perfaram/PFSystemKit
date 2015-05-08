@@ -3,7 +3,7 @@
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 03/05/15.
-//  Copyright (c) 2015 faramaz. All rights reserved.
+//  Copyright (c) 2015 Perceval FARAMAZ. All rights reserved.
 //
 #ifndef PFSystemKit_PFSKPrivateTypes_h
 #define PFSystemKit_PFSKPrivateTypes_h
@@ -15,11 +15,6 @@
 constexpr CGFloat operator "" _MB(unsigned long long bytes)
 {
 	return static_cast<CGFloat>(bytes * 1048576);
-}
-
-inline int safe(int i)
-{
-	return i >= 0 ? i : -i;
 }
  
 std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {

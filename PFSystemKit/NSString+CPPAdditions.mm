@@ -2,8 +2,7 @@
 //  NSString+CPPAdditions.m
 //  PFSystemKit
 //
-//  Created by Perceval FARAMAZ on 04/05/15.
-//  Copyright (c) 2015 faramaz. All rights reserved.
+//  Created by "Matt" on 04/03/08. Retrieved on : http://lists.apple.com/archives/cocoa-dev/2008/Mar/msg00255.html
 //
 
 #import "NSString+CPPAdditions.h"
