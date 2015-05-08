@@ -51,6 +51,13 @@
 NSString* errorToString(PFSystemKitError);
 
 /*!
+ @discussion Explains a PFSystemKitError
+ @param err Any member of the PFSystemKitError enum
+ @returns A NSString holding the explanation
+ */
+NSString* errorToExplanation(PFSystemKitError err);
+
+/*!
  @discussion Translates a kern_return_t to a human-readable string
  @abstract Wraps mach_error_string()
  @param err Any int, that is a valid error code

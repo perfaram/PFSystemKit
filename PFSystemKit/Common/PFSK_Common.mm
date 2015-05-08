@@ -15,39 +15,16 @@
 
 @implementation PFSK_Common
 NSString* errorToString(PFSystemKitError err) {
-	NSString* ret;
-	switch (err) {
-		case PFSKReturnSuccess:
-			ret = @"Success";
-		case PFSKReturnNoMasterPort:
-			ret = @"Couldn't create an IOKit Master Port";
-		case PFSKReturnComponentUnavailable:
-			ret = @"Requested component isn't available on this machine";
-		case PFSKReturnIOKitError:
-			ret = @"IOKit call failed"; //see _extError
-		case PFSKReturnIOKitCFFailure:
-			ret = @"Couldn't create property list from IOService";
-		case PFSKReturnSysCtlError:
-			ret = @"SYSCTL system call failed";
-		case PFSKReturnLockedWrite:
-			ret = @"Writing is currently forbidden";
-		case PFSKReturnCastError:
-			ret = @"Couldn't cast"; //any idea ?
-		case PFSKReturnNotWritable:
-			ret = @"Requested component isn't writable";
-		case PFSKReturnGeneral:
-			ret = @"General error";
-		default:
-			ret = @"Unknown error";
-	}
-	return ret;
+	return @(PFSystemKitErrorStrings[err]);
+}
+
+NSString* errorToExplanation(PFSystemKitError err) {
+	return @(PFSystemKitErrorExplanations[err]);
 }
 
 NSString* iokitErrorToString(kern_return_t err) {
 	return [NSString.alloc initWithCString:mach_error_string(err) encoding:NSUTF8StringEncoding];
 }
-
-//PFSystemKitError stringToError(NSString* str) {} such a function would be useless
 
 NSString* platformToString(PFSystemKitPlatform pf) {
 	return @(PFSystemKitPlatformStrings[pf]);
