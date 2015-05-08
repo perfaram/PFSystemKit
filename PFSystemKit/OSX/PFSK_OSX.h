@@ -12,7 +12,7 @@
 
 @interface PFSystemKit : PFSK_Common <PFSystemKitProtocol>
 +(PFSystemKit*) investigate;
--(PFSystemKit*) init;
+-(PFSystemKit*) init NS_DESIGNATED_INITIALIZER;
 -(void) dealloc;
 -(void) finalize;
 -(BOOL) refreshGroup:(PFSystemKitGroup)group; 					//overrides any non-commited modification
