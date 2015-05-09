@@ -39,8 +39,8 @@ PFSystemKitPlatform stringToPlatform(NSString* str) {
 		return PFSKPlatformUnknown;
 }
 
-NSString* familyToString(PFSystemKitDeviceFamily fm) {
-	return @(PFSystemKitDeviceFamilyStrings[fm]);
++(NSString*) familyToString:(PFSystemKitDeviceFamily)family {
+	return @(PFSystemKitDeviceFamilyStrings[family]);
 }
 PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 	//[mydict objectForKey:[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]];
@@ -73,8 +73,8 @@ PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 	return PFSKDeviceFamilyUnknown;
 }
 
-NSString* endiannessToString(PFSystemKitEndianness end) {
-	return @(PFSystemKitEndiannessStrings[end]);
++(NSString*) endiannessToString:(PFSystemKitEndianness) endianness {
+	return @(PFSystemKitEndiannessStrings[endianness]);
 }
 
 -(NSString*) stringifyError {

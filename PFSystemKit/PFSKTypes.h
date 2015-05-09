@@ -93,6 +93,20 @@ typedef NS_ENUM(int, PFSystemKitEndianness) {
 };
 
 /*!
+ @typedef PFSystemKitArches
+ Enumeration of integers matching a type of CPU (x86, ARM, etc...)
+ */
+typedef NS_ENUM(int, PFSystemKitArches) {
+	PFSystemKitArchesUnknown = 0,
+	PFSystemKitArchesX86,
+	PFSystemKitArchesX86_64,
+	PFSystemKitArchesPPC,
+	PFSystemKitArchesPPC_64,
+	PFSystemKitArchesI860,
+	PFSystemKitArchesARM,
+};
+
+/*!
  @typedef @struct PFSystemKitDeviceVersion
  Structure holding a device's Major and Minor version 
  

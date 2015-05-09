@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSKProtocol.h"
-#if defined(__OBJC__) && defined(__cplusplus)
+#if defined(__cplusplus)
 #import <string>
 #endif
 
@@ -84,14 +84,14 @@ PFSystemKitPlatform stringToPlatform(NSString*);
  @param family Any member of the PFSystemKitFamily enum
  @returns A NSString holding the Device Family string
  */
-NSString* familyToString(PFSystemKitDeviceFamily);
++(NSString*) familyToString:(PFSystemKitDeviceFamily)family;
 
 /*!
  @discussion Matches a PFSystemKitEndianness to a displayable NSString
  @param endianness Any member of the PFSystemKitEndianness enum
  @returns A NSString holding either "Big Endian", "Little Endian", or "Unknown" if unknown
  */
-NSString* endiannessToString(PFSystemKitEndianness);
++(NSString*) endiannessToString:(PFSystemKitEndianness) endianness;
 
 /*!
  @discussion Matches a NSString to its PFSystemKitFamily value
@@ -100,10 +100,9 @@ NSString* endiannessToString(PFSystemKitEndianness);
  */
 PFSystemKitDeviceFamily stringToFamily(NSString*);
 
+#if defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
 PFSystemKitError _sysctlStringForKey(char* key, std::string& answerString);
 PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat);
-
-#if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
 /*!
  @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed std::string
  @param key A char array holding the requested key

@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "PFSK_OSX.h"
 #import "PFSK_Common.h"
+#import "PFSK_OSX.h"
+#import "PFSK_OSX+CPU.h"
 
 @interface PFSystemKitTests : XCTestCase {
 	PFSystemKit* pfsys;
@@ -39,11 +40,12 @@
 	NSString* machineModel;
 	[PFSystemKit machineModel:&machineModel];
 	NSLog(@"%@", machineModel);
-	machineModel = familyToString(PFSKDeviceFamilyiMac);
+	machineModel = [PFSK_Common familyToString:PFSKDeviceFamilyiMac];
 	NSLog(@"%@", machineModel);
 	PFSystemKitEndianness endianness = PFSKEndiannessLittleEndian;
 	[PFSystemKit systemEndianness:&endianness];
 	printf("%i", endianness);
+	//[PFSK_Common sysctlStringForKey:"brah" intoNSString:&machineModel];
 	
     XCTAssert(YES, @"Pass");
 }

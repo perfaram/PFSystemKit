@@ -9,6 +9,7 @@
 #import <sys/sysctl.h>
 #import <string>
 #import "NSString+CPPAdditions.h"
+#import "PFSKHelper.h"
 #import "PFSK_OSX.h"
 
 io_connect_t conn;
@@ -41,70 +42,6 @@ static io_registry_entry_t 	romEntry;
 
 #pragma mark - Class methods (actual core code)
 
-+(PFSystemKitError) cpuCount:(NSNumber**)ret __attribute__((nonnull (1)))
-{
-	CGFloat count = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.packages", count);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(count);
-finish:
-	return result;
-}
-
-+(PFSystemKitError) cpuCoreCount:(NSNumber**)ret __attribute__((nonnull (1)))
-{
-	CGFloat count = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"machdep.cpu.core_count", count);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(count);
-finish:
-	return result;
-}
-
-+(PFSystemKitError) cpuThreadCount:(NSNumber**)ret __attribute__((nonnull (1)))
-{
-	CGFloat count = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"machdep.cpu.thread_count", count);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(count);
-finish:
-	return result;
-}
-
-+(NSString*) cpuType {
-	size_t size;
-	cpu_type_t type;
-	size = sizeof(type);
-	sysctlbyname("hw.cputype", &type, &size, NULL, 0);
-	
-	// values for cputype and cpusubtype defined in mach/machine.h
-	if (type == CPU_TYPE_X86)
-	{
-		if (type == CPU_TYPE_X86_64)
-			return @"x86_64";
-		return @"x86";
-		
-	} else if (type == CPU_TYPE_POWERPC)
-	{
-		if (type == CPU_TYPE_POWERPC64)
-			return @"PowerPC_64";
-		return @"PowerPC";
-	} else if (type == CPU_TYPE_I860)
-	{
-		return @"i860";
-	}
-	return @"Unknown";
-}
-
 +(PFSystemKitError)systemEndianness:(PFSystemKitEndianness*)ret __attribute__((nonnull (1)))
 {
 	CGFloat order = 0;
@@ -130,58 +67,6 @@ finish:
 	}
 finish:
 	return locResult;
-}
-
-+(PFSystemKitError) cpuBrand:(NSString**)ret __attribute__((nonnull (1)))
-{
-	std::string brand;
-	PFSystemKitError locResult;
-	locResult = _sysctlStringForKey((char*)"machdep.cpu.brand_string", brand);
-	if (locResult != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = [NSString stringWithSTDString:brand];
-finish:
-	return locResult;
-}
-
-+(PFSystemKitError) cpuFrequency:(NSNumber**)ret __attribute__((nonnull (1)))
-{
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.cpufrequency", size);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(size/1000000000);//hertz in a gigahertz
-finish:
-	return result;
-}
-
-+(PFSystemKitError) cpuL2Cache:(NSNumber**)ret __attribute__((nonnull (1)))
-{
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.l2cachesize", size);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(size/1048576);
-finish:
-	return result;
-}
-
-+(PFSystemKitError) cpuL3Cache:(NSNumber**)ret __attribute__((nonnull (1)))
-{
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.l3cachesize", size);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(size/1048576);
-finish:
-	return result;
 }
 
 +(PFSystemKitError) memorySize:(NSNumber**)ret __attribute__((nonnull (1)))
