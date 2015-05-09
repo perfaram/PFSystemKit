@@ -41,6 +41,10 @@
 	NSLog(@"%@", machineModel);
 	machineModel = familyToString(PFSKDeviceFamilyiMac);
 	NSLog(@"%@", machineModel);
+	PFSystemKitEndianness endianness = PFSKEndiannessLittleEndian;
+	[PFSystemKit systemEndianness:&endianness];
+	printf("%i", endianness);
+	
     XCTAssert(YES, @"Pass");
 }
 

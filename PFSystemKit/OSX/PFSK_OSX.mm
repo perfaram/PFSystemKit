@@ -41,46 +41,43 @@ static io_registry_entry_t 	romEntry;
 
 #pragma mark - Class methods (actual core code)
 
-+(NSString *) cpuCount
++(PFSystemKitError) cpuCount:(NSNumber**)ret __attribute__((nonnull (1)))
 {
-	size_t len = 0;
-	sysctlbyname("hw.packages", NULL, &len, NULL, 0);
-	if (len)
-	{
-		int count = 0;
-		sysctlbyname("hw.packages", &count, &len, NULL, 0);
-		NSString* coreCount = [NSString stringWithFormat:@"%i", count];
-		return coreCount;
-	}
-	return @"-"; //in case count can't be read
+	CGFloat count = 0;
+	PFSystemKitError result;
+	result = _sysctlFloatForKey((char*)"hw.packages", count);
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = @(count);
+finish:
+	return result;
 }
 
-+(NSString *) coreCount
++(PFSystemKitError) cpuCoreCount:(NSNumber**)ret __attribute__((nonnull (1)))
 {
-	size_t len = 0;
-	sysctlbyname("machdep.cpu.core_count", NULL, &len, NULL, 0);
-	if (len)
-	{
-		int count = 0;
-		sysctlbyname("machdep.cpu.core_count", &count, &len, NULL, 0);
-		NSString* coreCount = [NSString stringWithFormat:@"%i", count];
-		return coreCount;
-	}
-	return @"-"; //in case count can't be read
+	CGFloat count = 0;
+	PFSystemKitError result;
+	result = _sysctlFloatForKey((char*)"machdep.cpu.core_count", count);
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = @(count);
+finish:
+	return result;
 }
 
-+(NSString *) threadCount
++(PFSystemKitError) cpuThreadCount:(NSNumber**)ret __attribute__((nonnull (1)))
 {
-	size_t len = 0;
-	sysctlbyname("machdep.cpu.thread_count", NULL, &len, NULL, 0);
-	if (len)
-	{
-		int count = 0;
-		sysctlbyname("machdep.cpu.thread_count", &count, &len, NULL, 0);
-		NSString* coreCount = [NSString stringWithFormat:@"%i", count];
-		return coreCount;
-	}
-	return @"-"; //in case count can't be read
+	CGFloat count = 0;
+	PFSystemKitError result;
+	result = _sysctlFloatForKey((char*)"machdep.cpu.thread_count", count);
+	if (result != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = @(count);
+finish:
+	return result;
 }
 
 +(NSString*) cpuType {
@@ -107,34 +104,39 @@ static io_registry_entry_t 	romEntry;
 	}
 	return @"Unknown";
 }
-/*
-+(PFSystemKitEndianness)systemEndianness {
-	size_t len = 0;
-	sysctlbyname("hw.byteorder", NULL, &len, NULL, 0);
-	
-	if (len)
-	{
-		char *end = malloc(len*sizeof(char));
-		sysctlbyname("hw.byteorder", end, &len, NULL, 0);
-		NSString *endStr = [NSString stringWithUTF8String:end];
-		free(end);
-		if ([endStr isEqualToString:@"1234"]) {
-			return PFSKEndiannessLittleEndian;
-		} else if (1) check{
-			return PFSKEndiannessBigEndian;
-		} else {
-			return PFSKEndiannessUnknown;
-		}
+
++(PFSystemKitError)systemEndianness:(PFSystemKitEndianness*)ret __attribute__((nonnull (1)))
+{
+	CGFloat order = 0;
+	PFSystemKitError locResult;
+	locResult = _sysctlFloatForKey((char*)"hw.byteorder", order);
+	if (locResult != PFSKReturnSuccess) {
+		//memcpy(ret, (const int*)PFSKEndiannessUnknown, sizeof(PFSystemKitEndianness*));
+		*ret = PFSKEndiannessUnknown;
+		goto finish;
 	}
-	return PFSKEndiannessUnknown;
+	else {
+		if (order == 1234) {
+			//memcpy(ret, (const int*)PFSKEndiannessLittleEndian, sizeof(PFSystemKitEndianness*));
+			*ret = PFSKEndiannessLittleEndian;
+		} else if (order == 4321) {
+			//memcpy(ret, (const int*)PFSKEndiannessBigEndian, sizeof(PFSystemKitEndianness*));
+			*ret = PFSKEndiannessBigEndian;
+		} else {
+			//memcpy(ret, (const int*)PFSKEndiannessUnknown, sizeof(PFSystemKitEndianness*));
+			*ret = PFSKEndiannessUnknown;
+		}
+		goto finish;
+	}
+finish:
+	return locResult;
 }
-*/
 
 +(PFSystemKitError) cpuBrand:(NSString**)ret __attribute__((nonnull (1)))
 {
 	std::string brand;
 	PFSystemKitError locResult;
-	locResult = [self.class sysctlStringForKey:(char*)"machdep.cpu.brand_string" intoSTDString:brand];
+	locResult = _sysctlStringForKey((char*)"machdep.cpu.brand_string", brand);
 	if (locResult != PFSKReturnSuccess)
 		goto finish;
 	else
@@ -147,7 +149,7 @@ finish:
 {
 	CGFloat size = 0;
 	PFSystemKitError result;
-	result = [self.class sysctlFloatForKey:(char*)"hw.cpufrequency" intoFloat:size];
+	result = _sysctlFloatForKey((char*)"hw.cpufrequency", size);
 	if (result != PFSKReturnSuccess)
 		goto finish;
 	else
@@ -160,7 +162,7 @@ finish:
 {
 	CGFloat size = 0;
 	PFSystemKitError result;
-	result = [self.class sysctlFloatForKey:(char*)"hw.l2cachesize" intoFloat:size];
+	result = _sysctlFloatForKey((char*)"hw.l2cachesize", size);
 	if (result != PFSKReturnSuccess)
 		goto finish;
 	else
@@ -173,7 +175,7 @@ finish:
 {
 	CGFloat size = 0;
 	PFSystemKitError result;
-	result = [self.class sysctlFloatForKey:(char*)"hw.l3cachesize" intoFloat:size];
+	result = _sysctlFloatForKey((char*)"hw.l3cachesize", size);
 	if (result != PFSKReturnSuccess)
 		goto finish;
 	else
@@ -186,7 +188,7 @@ finish:
 {
 	CGFloat size = 0;
 	PFSystemKitError result;
-	result = [self.class sysctlFloatForKey:(char*)"hw.memsize" intoFloat:size];
+	result = _sysctlFloatForKey((char*)"hw.memsize", size);
 	if (result != PFSKReturnSuccess)
 		goto finish;
 	else
@@ -199,7 +201,7 @@ finish:
 {
 	std::string machineModel;
 	PFSystemKitError result;
-	result = [self.class sysctlStringForKey:(char*)"hw.model" intoSTDString:machineModel];
+	result = _sysctlStringForKey((char*)"hw.model", machineModel);
 	if (result != PFSKReturnSuccess)
 		goto finish;
 	else

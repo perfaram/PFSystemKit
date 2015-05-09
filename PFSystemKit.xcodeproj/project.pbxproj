@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */; };
-		0B74D8C91AE4109C005E0DF3 /* PFSK_Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */; };
+		0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B74D8C91AE4109C005E0DF3 /* PFSK_Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */; };
 		0B74D8CB1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */; };
 		0B74D8CE1AE41682005E0DF3 /* PFSKHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8CC1AE41682005E0DF3 /* PFSKHelper.h */; };

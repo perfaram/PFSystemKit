@@ -87,11 +87,21 @@ PFSystemKitPlatform stringToPlatform(NSString*);
 NSString* familyToString(PFSystemKitDeviceFamily);
 
 /*!
+ @discussion Matches a PFSystemKitEndianness to a displayable NSString
+ @param endianness Any member of the PFSystemKitEndianness enum
+ @returns A NSString holding either "Big Endian", "Little Endian", or "Unknown" if unknown
+ */
+NSString* endiannessToString(PFSystemKitEndianness);
+
+/*!
  @discussion Matches a NSString to its PFSystemKitFamily value
  @param string Any NSString, that could be a valid Apple device family
  @returns A member of the PFSystemKitFamily enum if found, PFSystemKitFamilyUnknown else
  */
 PFSystemKitDeviceFamily stringToFamily(NSString*);
+
+PFSystemKitError _sysctlStringForKey(char* key, std::string& answerString);
+PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat);
 
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
 /*!

@@ -76,15 +76,6 @@ PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 NSString* endiannessToString(PFSystemKitEndianness end) {
 	return @(PFSystemKitEndiannessStrings[end]);
 }
-PFSystemKitEndianness stringToEndianness(NSString* str) {
-	str = [str lowercaseString];
-	if ([PFSKHelper NSString:str contains:@"little"])
-		return PFSKEndiannessLittleEndian;
-	else if ([PFSKHelper NSString:str contains:@"big"])
-		return PFSKEndiannessBigEndian;
-	else
-		return PFSKEndiannessUnknown;
-}
 
 -(NSString*) stringifyError {
 	return errorToString(_error);
@@ -152,6 +143,14 @@ inline PFSystemKitError __sysctlFloatForKey(char* key, CGFloat& answerFloat) {
 		delete [] answerRaw;
 	}
 	return PFSKReturnSysCtlError;
+}
+
+PFSystemKitError _sysctlStringForKey(char* key, std::string& answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+	return __sysctlStringForKey(key, answerString);
+}
+
+PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+	return __sysctlFloatForKey(key, answerFloat);
 }
 
 +(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerStr {
