@@ -102,13 +102,13 @@ finish:
 	return result;
 }
 
-+(PFSystemKitError) cpuType:(PFSystemKitArches*)ret __attribute__((nonnull (1))) {
++(PFSystemKitError) cpuType:(PFSystemKitCPUArches*)ret __attribute__((nonnull (1))) {
 	CGFloat arch = 0;
 	PFSystemKitError locResult;
 	locResult = _sysctlFloatForKey((char*)"hw.cputype", arch);
 	if (locResult != PFSKReturnSuccess) {
 		//memcpy(ret, (const int*)PFSKEndiannessUnknown, sizeof(PFSystemKitEndianness*));
-		*ret = PFSystemKitArchesUnknown;
+		*ret = PFSKCPUArchesUnknown;
 		goto finish;
 	}
 	else {
@@ -116,18 +116,45 @@ finish:
 		if (arch == CPU_TYPE_X86)
 		{
 			if (arch == CPU_TYPE_X86_64)
-				*ret = PFSystemKitArchesX86_64;
-			*ret = PFSystemKitArchesX86;
+				*ret = PFSKCPUArchesX86_64;
+			*ret = PFSKCPUArchesX86;
 		} else if (arch == CPU_TYPE_POWERPC)
 		{
 			if (arch == CPU_TYPE_POWERPC64)
-				*ret = PFSystemKitArchesPPC_64;
-			*ret = PFSystemKitArchesPPC;
+				*ret = PFSKCPUArchesPPC_64;
+			*ret = PFSKCPUArchesPPC;
 		} else if (arch == CPU_TYPE_I860)
 		{
-			*ret = PFSystemKitArchesI860;
+			*ret = PFSKCPUArchesI860;
 		}
 		goto finish;
+	}
+finish:
+	return locResult;
+}
+
++(PFSystemKitError) cpuVendor:(PFSystemKitCPUVendors*)ret __attribute__((nonnull (1))) {
+	std::string vendor;
+	PFSystemKitError locResult;
+	locResult = _sysctlStringForKey((char*)"machdep.cpu.vendor", vendor);
+	if (locResult != PFSKReturnSuccess) {
+		*ret = PFSKCPUVendorUnknown;
+		goto finish;
+	} else {
+		if (locResult != PFSKReturnSuccess) {
+			*ret = PFSKCPUVendorUnknown;
+			goto finish;
+		}
+		else {
+			if (vendor == "GenuineIntel") {
+				*ret = PFSKCPUVendorGenuineIntel;
+			} else if (vendor == "AuthenticAMD") {
+				*ret = PFSKCPUVendorAuthenticAMD;
+			} else {
+				*ret = PFSKCPUVendorUnknown;
+			}
+			goto finish;
+		}
 	}
 finish:
 	return locResult;

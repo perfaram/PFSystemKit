@@ -17,5 +17,6 @@
 +(PFSystemKitError) cpuFrequency:(NSNumber**)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuL2Cache:(NSNumber**)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuL3Cache:(NSNumber**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuType:(PFSystemKitArches*)ret __attribute__((nonnull (1)));
++(PFSystemKitError) cpuType:(PFSystemKitCPUArches*)ret __attribute__((nonnull (1)));
++(PFSystemKitError) cpuVendor:(PFSystemKitCPUVendors*)ret __attribute__((nonnull (1)));
 @end
