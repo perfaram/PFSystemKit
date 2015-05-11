@@ -72,4 +72,10 @@ std::map<int, char const*> PFSystemKitEndiannessStrings = {
 	{ PFSKEndiannessBigEndian, "Big Endian" }
 };
 
+std::map<int, char const*> PFSystemKitCPUVendorsStrings = {
+	{ PFSKCPUVendorUnknown, "Unknown" },
+	{ PFSKCPUVendorGenuineIntel, "GenuineIntel" },
+	{ PFSKCPUVendorAuthenticAMD, "AuthenticAMD" }
+};
+
 #endif

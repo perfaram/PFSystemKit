@@ -43,19 +43,21 @@
  */
 -(NSString*)platformString;
 
+
+
 /*!
  @discussion Translates a PFSystemKitError to a human-readable string
  @param err Any member of the PFSystemKitError enum
  @returns A NSString holding the PFSystemKitError string value
  */
-NSString* errorToString(PFSystemKitError);
++(NSString*) errorToString:(PFSystemKitError)err;
 
 /*!
  @discussion Explains a PFSystemKitError
  @param err Any member of the PFSystemKitError enum
  @returns A NSString holding the explanation
  */
-NSString* errorToExplanation(PFSystemKitError err);
++(NSString*) errorToExplanation:(PFSystemKitError)err;
 
 /*!
  @discussion Translates a kern_return_t to a human-readable string
@@ -63,21 +65,21 @@ NSString* errorToExplanation(PFSystemKitError err);
  @param err Any int, that is a valid error code
  @returns A NSString holding the error string
  */
-NSString* iokitErrorToString(kern_return_t);
++(NSString*) iokitErrorToString:(kern_return_t)err;
 
 /*!
  @discussion Matches a PFSystemKitPlatform to a displayable NSString
  @param platform Any member of the PFSystemKitPlatform enum
  @returns A NSString holding the platform string
  */
-NSString* platformToString(PFSystemKitPlatform);
++(NSString*) platformToString:(PFSystemKitPlatform)platform;
 
 /*!
  @discussion Matches a NSString to its PFSystemKitPlatform value
  @param string Any NSString, that could be a valid platform from Apple
  @returns A member of the PFSystemKitPlatform enum if found, PFSystemKitPlatformUnknown else
  */
-PFSystemKitPlatform stringToPlatform(NSString*);
++(PFSystemKitPlatform) stringToPlatform:(NSString*)str;
 
 /*!
  @discussion Matches a PFSystemKitFamily to a displayable NSString
@@ -98,7 +100,14 @@ PFSystemKitPlatform stringToPlatform(NSString*);
  @param string Any NSString, that could be a valid Apple device family
  @returns A member of the PFSystemKitFamily enum if found, PFSystemKitFamilyUnknown else
  */
-PFSystemKitDeviceFamily stringToFamily(NSString*);
++(PFSystemKitDeviceFamily) stringToFamily:(NSString*)str;
+
+/*!
+ @discussion Translates a member of PFSystemKitCPUVendors to a displayable NSString
+ @param vendor Any member of the PFSystemKitCPUVendors enum
+ @returns A NSString holding either "GenuineIntel", "AuthenticAMD" (for hackintoshes, most likely), or "Unknown" if unknown
+ */
++(NSString*) cpuVendorToString:(PFSystemKitCPUVendors) vendor;
 
 #if defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
 PFSystemKitError _sysctlStringForKey(char* key, std::string& answerString);

@@ -14,22 +14,22 @@
 #import "PFSKPrivateTypes.h"
 
 @implementation PFSK_Common
-NSString* errorToString(PFSystemKitError err) {
++(NSString*) errorToString:(PFSystemKitError)err {
 	return @(PFSystemKitErrorStrings[err]);
 }
 
-NSString* errorToExplanation(PFSystemKitError err) {
++(NSString*) errorToExplanation:(PFSystemKitError)err {
 	return @(PFSystemKitErrorExplanations[err]);
 }
 
-NSString* iokitErrorToString(kern_return_t err) {
++(NSString*) iokitErrorToString:(kern_return_t)err {
 	return [NSString.alloc initWithCString:mach_error_string(err) encoding:NSUTF8StringEncoding];
 }
 
-NSString* platformToString(PFSystemKitPlatform pf) {
-	return @(PFSystemKitPlatformStrings[pf]);
++(NSString*) platformToString:(PFSystemKitPlatform)platform {
+	return @(PFSystemKitPlatformStrings[platform]);
 }
-PFSystemKitPlatform stringToPlatform(NSString* str) {
++(PFSystemKitPlatform) stringToPlatform:(NSString*)str {
 	str = [str lowercaseString];
 	if ([PFSKHelper NSString:str contains:@"i"])
 		return PFSKPlatformIOS;
@@ -42,7 +42,7 @@ PFSystemKitPlatform stringToPlatform(NSString* str) {
 +(NSString*) familyToString:(PFSystemKitDeviceFamily)family {
 	return @(PFSystemKitDeviceFamilyStrings[family]);
 }
-PFSystemKitDeviceFamily stringToFamily(NSString* str) {
++(PFSystemKitDeviceFamily) stringToFamily:(NSString*)str {
 	//[mydict objectForKey:[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]];
 	str = [str lowercaseString]; //transform to lowercase, meaning less code afterwards
 	if ([PFSKHelper NSString:str contains:@"mac"]) {
@@ -77,12 +77,16 @@ PFSystemKitDeviceFamily stringToFamily(NSString* str) {
 	return @(PFSystemKitEndiannessStrings[endianness]);
 }
 
++(NSString*) cpuVendorToString:(PFSystemKitCPUVendors) vendor {
+	return @(PFSystemKitCPUVendorsStrings[vendor]);
+}
+
 -(NSString*) stringifyError {
-	return errorToString(_error);
+	return [self.class errorToString:_error];
 }
 
 -(NSString*) stringifyExtError {
-	return iokitErrorToString(_extError);
+	return [self.class iokitErrorToString:_extError];
 }
 
 -(NSString*)platformString {
