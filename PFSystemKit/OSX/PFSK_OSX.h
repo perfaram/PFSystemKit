@@ -26,5 +26,4 @@
 #endif
 +(PFSystemKitError) systemEndianness:(PFSystemKitEndianness*)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) memorySize:(NSNumber**)ret;
 @end

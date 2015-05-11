@@ -69,19 +69,6 @@ finish:
 	return locResult;
 }
 
-+(PFSystemKitError) memorySize:(NSNumber**)ret __attribute__((nonnull (1)))
-{
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.memsize", size);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(size/1073741824);
-finish:
-	return result;
-}
-
 +(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)))
 {
 	std::string machineModel;
