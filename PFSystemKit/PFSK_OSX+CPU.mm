@@ -11,6 +11,59 @@
 #import <string>
 
 @implementation PFSystemKit(CPU)
+-(NSNumber*) cpuCount {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = [self.class cpuCount:&ret];
+	return ret;
+}
+
+-(NSString*) cpuBrand {
+	NSString* ret = [NSString.alloc init];
+	_error = [self.class cpuBrand:&ret];
+	return ret;
+}
+
+-(NSNumber*) cpuCoreCount {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = [self.class cpuCoreCount:&ret];
+	return ret;
+}
+
+-(NSNumber*) cpuThreadCount {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = [self.class cpuThreadCount:&ret];
+	return ret;
+}
+
+-(NSNumber*) cpuFrequency {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = [self.class cpuFrequency:&ret];
+	return ret;
+}
+
+-(NSNumber*) cpuL2Cache {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = [self.class cpuL2Cache:&ret];
+	return ret;
+}
+
+-(NSNumber*) cpuL3Cache {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = [self.class cpuL3Cache:&ret];
+	return ret;
+}
+
+-(PFSystemKitCPUArches) cpuType {
+	PFSystemKitCPUArches ret;
+	_error = [self.class cpuType:&ret];
+	return ret;
+}
+-(PFSystemKitCPUVendors) cpuVendor {
+	PFSystemKitCPUVendors ret;
+	_error = [self.class cpuVendor:&ret];
+	return ret;
+}
+
 +(PFSystemKitError) cpuCount:(NSNumber**)ret __attribute__((nonnull (1)))
 {
 	CGFloat count = 0;

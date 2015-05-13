@@ -183,5 +183,4 @@ PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat) { //functio
 	*answerNumber = @(answerFloat);
 	return result;
 }
-
 @end

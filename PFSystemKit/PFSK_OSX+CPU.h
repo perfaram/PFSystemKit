@@ -19,4 +19,14 @@
 +(PFSystemKitError) cpuL3Cache:(NSNumber**)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuType:(PFSystemKitCPUArches*)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuVendor:(PFSystemKitCPUVendors*)ret __attribute__((nonnull (1)));
+
+-(NSNumber*) cpuCount;
+-(NSString*) cpuBrand;
+-(NSNumber*) cpuCoreCount;
+-(NSNumber*) cpuThreadCount;
+-(NSNumber*) cpuFrequency;
+-(NSNumber*) cpuL2Cache;
+-(NSNumber*) cpuL3Cache;
+-(PFSystemKitCPUArches) cpuType;
+-(PFSystemKitCPUVendors) cpuVendor;
 @end

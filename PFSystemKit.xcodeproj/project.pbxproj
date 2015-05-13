@@ -23,8 +23,12 @@
 		0BB7B5BC1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7B5B81AF7B7E4003C46A1 /* NSString+CPPAdditions.mm */; };
 		0BB7B5C11AFE6BB1003C46A1 /* PFSK_OSX+CPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5BF1AFE6BB1003C46A1 /* PFSK_OSX+CPU.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BB7B5C21AFE6BB1003C46A1 /* PFSK_OSX+CPU.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7B5C01AFE6BB1003C46A1 /* PFSK_OSX+CPU.mm */; };
-		0BCAF3541B00FC0800278750 /* PFSK_OSX+RAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BCAF3521B00FC0800278750 /* PFSK_OSX+RAM.h */; };
+		0BCAF3541B00FC0800278750 /* PFSK_OSX+RAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BCAF3521B00FC0800278750 /* PFSK_OSX+RAM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BCAF3551B00FC0800278750 /* PFSK_OSX+RAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF3531B00FC0800278750 /* PFSK_OSX+RAM.mm */; };
+		0BCAF35A1B039AE100278750 /* PFSK_OSX+GPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BCAF3581B039AE100278750 /* PFSK_OSX+GPU.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0BCAF35B1B039AE100278750 /* PFSK_OSX+GPU.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF3591B039AE100278750 /* PFSK_OSX+GPU.m */; };
+		0BCAF35E1B039E3200278750 /* PCI.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BCAF35C1B039E3200278750 /* PCI.h */; };
+		0BCAF35F1B039E3200278750 /* PCI.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCAF35D1B039E3200278750 /* PCI.m */; };
 		0BE6EE661AE3FE2F0070B83F /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EE6C1AE3FE2F0070B83F /* PFSystemKit_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE601AE3FE2F0070B83F /* PFSystemKit_osx.framework */; };
 		0BE6EE731AE3FE2F0070B83F /* PFSystemKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EE721AE3FE2F0070B83F /* PFSystemKitTests.m */; };
@@ -75,6 +79,11 @@
 		0BB7B5C01AFE6BB1003C46A1 /* PFSK_OSX+CPU.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+CPU.mm"; sourceTree = "<group>"; };
 		0BCAF3521B00FC0800278750 /* PFSK_OSX+RAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_OSX+RAM.h"; sourceTree = "<group>"; };
 		0BCAF3531B00FC0800278750 /* PFSK_OSX+RAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+RAM.mm"; sourceTree = "<group>"; };
+		0BCAF3561B02664100278750 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = PFSystemKit/SynthesizeSingleton.h; sourceTree = "<group>"; };
+		0BCAF3581B039AE100278750 /* PFSK_OSX+GPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFSK_OSX+GPU.h"; path = "PFSystemKit/PFSK_OSX+GPU.h"; sourceTree = SOURCE_ROOT; };
+		0BCAF3591B039AE100278750 /* PFSK_OSX+GPU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PFSK_OSX+GPU.m"; path = "PFSystemKit/PFSK_OSX+GPU.m"; sourceTree = SOURCE_ROOT; };
+		0BCAF35C1B039E3200278750 /* PCI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCI.h; sourceTree = "<group>"; };
+		0BCAF35D1B039E3200278750 /* PCI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCI.m; sourceTree = "<group>"; };
 		0BE6EE601AE3FE2F0070B83F /* PFSystemKit_osx.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PFSystemKit_osx.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE641AE3FE2F0070B83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PFSystemKit.h; path = PFSystemKit/PFSystemKit.h; sourceTree = "<group>"; };
@@ -159,7 +168,38 @@
 		0BB7B5BE1AF7B7F3003C46A1 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				0BCAF3571B02665300278750 /* Runtime */,
 				0BB7B5BD1AF7B7EE003C46A1 /* NSString */,
+			);
+			name = Additions;
+			sourceTree = "<group>";
+		};
+		0BCAF3571B02665300278750 /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				0BCAF3561B02664100278750 /* SynthesizeSingleton.h */,
+			);
+			name = Runtime;
+			sourceTree = "<group>";
+		};
+		0BCAF3601B039E3900278750 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				0BCAF35C1B039E3200278750 /* PCI.h */,
+				0BCAF35D1B039E3200278750 /* PCI.m */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		0BCAF3611B039E5C00278750 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				0BCAF3581B039AE100278750 /* PFSK_OSX+GPU.h */,
+				0BCAF3591B039AE100278750 /* PFSK_OSX+GPU.m */,
+				0BCAF3521B00FC0800278750 /* PFSK_OSX+RAM.h */,
+				0BCAF3531B00FC0800278750 /* PFSK_OSX+RAM.mm */,
+				0BB7B5BF1AFE6BB1003C46A1 /* PFSK_OSX+CPU.h */,
+				0BB7B5C01AFE6BB1003C46A1 /* PFSK_OSX+CPU.mm */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -190,12 +230,10 @@
 		0BE6EE621AE3FE2F0070B83F /* OSX */ = {
 			isa = PBXGroup;
 			children = (
+				0BCAF3601B039E3900278750 /* External */,
 				0BE6EEB21AE40A070070B83F /* PFSK_OSX.h */,
 				0BE6EEB31AE40A070070B83F /* PFSK_OSX.mm */,
-				0BCAF3521B00FC0800278750 /* PFSK_OSX+RAM.h */,
-				0BCAF3531B00FC0800278750 /* PFSK_OSX+RAM.mm */,
-				0BB7B5BF1AFE6BB1003C46A1 /* PFSK_OSX+CPU.h */,
-				0BB7B5C01AFE6BB1003C46A1 /* PFSK_OSX+CPU.mm */,
+				0BCAF3611B039E5C00278750 /* Additions */,
 				0BE6EE631AE3FE2F0070B83F /* Supporting Files */,
 			);
 			name = OSX;
@@ -309,11 +347,13 @@
 				0BCAF3541B00FC0800278750 /* PFSK_OSX+RAM.h in Headers */,
 				0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */,
 				0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */,
+				0BCAF35E1B039E3200278750 /* PCI.h in Headers */,
 				0BB7B5B91AF7B7E4003C46A1 /* NSString+CPPAdditions.h in Headers */,
 				0BE6EEB41AE40A070070B83F /* PFSK_OSX.h in Headers */,
 				0BB7B5B51AF68365003C46A1 /* PFSKPrivateTypes.h in Headers */,
 				0BE6EEAB1AE407210070B83F /* PFSKTypes.h in Headers */,
 				0BB7B5C11AFE6BB1003C46A1 /* PFSK_OSX+CPU.h in Headers */,
+				0BCAF35A1B039AE100278750 /* PFSK_OSX+GPU.h in Headers */,
 				0B74D8CE1AE41682005E0DF3 /* PFSKHelper.h in Headers */,
 				0BE6EE661AE3FE2F0070B83F /* PFSystemKit.h in Headers */,
 			);
@@ -491,6 +531,8 @@
 				0BB7B5C21AFE6BB1003C46A1 /* PFSK_OSX+CPU.mm in Sources */,
 				0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */,
 				0BE6EEB51AE40A070070B83F /* PFSK_OSX.mm in Sources */,
+				0BCAF35B1B039AE100278750 /* PFSK_OSX+GPU.m in Sources */,
+				0BCAF35F1B039E3200278750 /* PCI.m in Sources */,
 				0BCAF3551B00FC0800278750 /* PFSK_OSX+RAM.mm in Sources */,
 				0B74D8D01AE41682005E0DF3 /* PFSKHelper.mm in Sources */,
 				0BB7B5BB1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */,

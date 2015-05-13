@@ -15,6 +15,18 @@
 #import <mach/task.h>
 
 @implementation PFSystemKit(RAM)
+-(NSNumber*) memorySize {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = [self.class memorySize:&ret];
+	return ret;
+}
+
+-(NSDictionary*) memoryStats {
+	NSDictionary* ret = [NSDictionary.alloc init];
+	_error = [self.class memoryStats:&ret];
+	return ret;
+}
+
 +(PFSystemKitError) memorySize:(NSNumber**)ret __attribute__((nonnull (1)))
 {
 	CGFloat size = 0;
