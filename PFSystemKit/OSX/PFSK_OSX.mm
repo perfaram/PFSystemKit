@@ -7,22 +7,26 @@
 //
 
 #import <sys/sysctl.h>
+#import <CoreFoundation/CoreFoundation.h>
 #import <string>
+#import <vector>
 #import "NSString+CPPAdditions.h"
 #import "PFSKHelper.h"
 #import "PFSK_OSX.h"
-
-io_connect_t conn;
-static mach_port_t   		masterPort;
-static io_registry_entry_t 	nvrEntry;
-static io_registry_entry_t 	pexEntry;
-static io_registry_entry_t 	smcEntry;
-static io_registry_entry_t 	romEntry;
+#import "PFSK_OSX+CPU.h"
+#import "PFSK_OSX+GPU.h"
+#import "PFSK_OSX+RAM.h"
+#define val4Key(key, val) setValueForKey(key, val, self)
 
 @interface PFSK_Common()
 //+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
 //+(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
 @end
+
+inline __attribute__((__visibility__("hidden")))
+void setValueForKey(const char* key, id value, id cSelf) {
+	[cSelf setValue:value forKey:@(key)];
+};
 
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
@@ -35,7 +39,7 @@ static io_registry_entry_t 	romEntry;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
 	});
-	
+	//@synchronized;
 	return sharedInstance;
 }
 
@@ -80,6 +84,135 @@ finish:
 		*ret = [NSString stringWithSTDString:machineModel];
 finish:
 	return result;
+}
+
+-(BOOL) refreshGroup:(PFSystemKitGroup)group {
+	kern_return_t result;
+	switch (group) {
+		case PFSKGroupPlatformExpertDevice: {
+			CFMutableDictionaryRef pexProps = NULL;
+			pexEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPlatformExpertDevice"));
+			if (pexEntry == 0) {
+				_error = PFSKReturnComponentUnavailable;
+				return false;
+			}
+			result = IORegistryEntryCreateCFProperties(pexEntry, &pexProps, NULL, 0);
+			if (result!=kIOReturnSuccess) {
+				_error = PFSKReturnIOKitCFFailure;
+				_extError = result;
+				return false;
+			} else {
+				[self setValue:[NSString.alloc initWithData:(__bridge NSData*)CFDictionaryGetValue(pexProps, "model") encoding:NSASCIIStringEncoding] forKey:@"model"]; //easier than calling machineModel:
+				[self setValue:[NSString.alloc initWithData:(__bridge NSData*)CFDictionaryGetValue(pexProps, "board-id") encoding:NSASCIIStringEncoding] forKey:@"boardID"];
+				[self setValue:(__bridge NSString*)CFDictionaryGetValue(pexProps, kIOPlatformSerialNumberKey) forKey:@"serial"];
+				[self setValue:(__bridge NSString*)CFDictionaryGetValue(pexProps, kIOPlatformUUIDKey) forKey:@"platformID"];
+				//not related to expert device, but looks good here ;)
+				val4Key("memorySize", [self memorySize]);
+				
+				
+			}
+			CFRelease(pexProps);
+		}
+		case PFSKGroupROM: {
+			CFMutableDictionaryRef romProps = NULL;
+			romEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/rom@0");
+			if (romEntry == 0) {
+				_error = PFSKReturnComponentUnavailable;
+				return false;
+			}
+			result = IORegistryEntryCreateCFProperties(romEntry, &romProps, NULL, 0);
+			if (result!=kIOReturnSuccess) {
+				_error = PFSKReturnIOKitCFFailure;
+				_extError = result;
+				return false;
+			} else {
+				[self setValue:[NSString.alloc initWithData:(__bridge NSData*)CFDictionaryGetValue(romProps, "version") encoding:NSASCIIStringEncoding] forKey:@"romVersion"]; //wtf
+				NSString* dateStr = [NSString.alloc initWithData:(__bridge NSData*)CFDictionaryGetValue(romProps, "release-date") encoding:NSASCIIStringEncoding];//(__bridge NSString*)CFDictionaryGetValue(romProps, "release-date")
+				//[self setValue:[PFSKHelper parseDate:dateStr format:@"MM/dd/yy"] forKey:@"romReleaseDate"];
+				NSDateComponents* romDateComps = [NSDateComponents.alloc init];
+				NSArray* romDateStrSplitted = [dateStr componentsSeparatedByString:@"/"];
+				[romDateComps setMonth:[[romDateStrSplitted objectAtIndex:0] integerValue]];
+				[romDateComps setDay:[[romDateStrSplitted objectAtIndex:1] integerValue]];
+				[romDateComps setYear:(2000+[[romDateStrSplitted objectAtIndex:2] integerValue])];
+				[self setValue:[[NSCalendar currentCalendar] dateFromComponents:romDateComps] forKey:@"romReleaseDate"];
+			}
+			CFRelease(romProps);
+		}
+		case PFSKGroupNVRam: {
+			CFMutableDictionaryRef 		nvrProps;
+			nvrEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/options");
+			if (nvrEntry == 0) {
+				_error = PFSKReturnComponentUnavailable;
+				return false;
+			}
+			result = IORegistryEntryCreateCFProperties(nvrEntry, &nvrProps, NULL, 0);
+			if (result!=kIOReturnSuccess) {
+				_error = PFSKReturnIOKitCFFailure;
+				_extError = result;
+				return false;
+			} else {
+				[self setValue:[NSMutableDictionary.alloc init] forKey:@"nvramDict"];
+				[(__bridge NSDictionary*)nvrProps enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+					NSString* representation = [NSString stringWithUTF8String:(const char*)[obj bytes]];
+					if (representation!=nil) {
+						[[self valueForKey:@"nvramDict"] setObject:representation forKey:key];
+					} else {
+						[[self valueForKey:@"nvramDict"] setObject:obj forKey:key];
+					}
+				}];
+			}
+			CFRelease(nvrProps);
+		}
+		case PFSKGroupSMC: {
+			CFMutableDictionaryRef smcProps = NULL;
+			smcEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("AppleSMC"));
+			if (smcEntry == 0) {
+				_error = PFSKReturnComponentUnavailable;
+				return false;
+			}
+			
+			result = IORegistryEntryCreateCFProperties(smcEntry, &smcProps, NULL, 0);
+			if (result!=kIOReturnSuccess) {
+				_error = PFSKReturnIOKitCFFailure;
+				_extError = result;
+				return false;
+			} else {
+				//[self setValue:(__bridge NSString*)CFDictionaryGetValue(smcProps, "smc-version") forKey:@"smcVersion"];
+				val4Key("smcVersion", (__bridge NSString*)CFDictionaryGetValue(smcProps, "smc-version"));
+				[self setValue:(__bridge NSNumber*)CFDictionaryGetValue(smcProps, "SleepCause") forKey:@"sleepCause"];
+				[self setValue:(__bridge NSNumber*)CFDictionaryGetValue(smcProps, "ShutdownCause") forKey:@"shutdownCause"];
+			}
+			CFRelease(smcProps);
+		}
+		case PFSKGroupGraphics: {
+			[self setValue:[self listGraphics] forKey:@"graphics"];
+		}
+		case PFSKGroupLMU: {
+			
+		}
+		case PFSKGroupTerminator: { //just in case
+			;//return U MAD BRO
+		}
+	}
+	_error = PFSKReturnSuccess;
+	return true;
+}
+
+-(BOOL) refresh {
+	BOOL ref = 0;
+	std::vector<PFSystemKitGroup> vGroups;
+	for ( auto i = vGroups.begin(); i != vGroups.end(); i++ ) {
+		ref = [self refreshGroup:*i]; //refresh data for each.
+		if (ref!=true) { //It failed, so we
+			break; //stop there
+		}
+	}
+	
+	if (ref!=true) { //we had to break because of error, we
+		return false;//return false
+	} else { //everything is good, we
+		return true;//are happy !
+	}
 }
 
 #pragma mark - Getters

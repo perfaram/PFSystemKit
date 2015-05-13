@@ -9,7 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
 
-@interface PFSystemKit : PFSK_Common <PFSystemKitProtocol>
+@interface PFSystemKit : PFSK_Common <PFSystemKitProtocol> {
+	@protected
+	io_connect_t 			conn;
+	mach_port_t   			masterPort;
+	io_registry_entry_t 	nvrEntry;
+	io_registry_entry_t 	pexEntry;
+	io_registry_entry_t 	smcEntry;
+	io_registry_entry_t 	romEntry;
+}
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init NS_DESIGNATED_INITIALIZER;
 -(void) dealloc;
