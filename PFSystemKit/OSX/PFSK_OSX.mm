@@ -101,8 +101,24 @@ finish:
 				[self setValue:(__bridge NSString*)CFDictionaryGetValue(pexProps, kIOPlatformSerialNumberKey) forKey:@"serial"];
 				[self setValue:(__bridge NSString*)CFDictionaryGetValue(pexProps, kIOPlatformUUIDKey) forKey:@"platformID"];
 				//not related to expert device, but looks good here ;)
-				val4Key("memorySize", [self memorySize]);
+				val4Key("ram.size", [self memorySize]);
+				NSDictionary* ramStats = [self memoryStats];
+				if (_error==PFSKReturnSuccess) {
+					val4KeyPh("ram.stats.wired", [ramStats valueForKey:@"wired"]);
+					val4KeyPh("ram.stats.active", [ramStats valueForKey:@"active"]);
+					val4KeyPh("ram.stats.inactive", [ramStats valueForKey:@"inactive"]);
+					val4KeyPh("ram.stats.free", [ramStats valueForKey:@"free"]);
+				}
 				
+				val4KeyPh("cpu.brand", [self cpuBrand]);
+				val4KeyPh("cpu.vendor", [self cpuVendor]);
+				val4KeyPh("cpu.count", [self cpuCount]);
+				val4KeyPh("cpu.coreCount", [self cpuCoreCount]);
+				val4KeyPh("cpu.threadCount", [self cpuThreadCount]);
+				val4KeyPh("cpu.frequency", [self cpuFrequency]);
+				val4KeyPh("cpu.l2cache", [self cpuL2Cache]);
+				val4KeyPh("cpu.l3cache", [self cpuL3Cache]);
+				val4KeyPh("cpu.architecture", [self.class cpuArchToString:[self cpuArchitecture]]);
 				
 			}
 			CFRelease(pexProps);
