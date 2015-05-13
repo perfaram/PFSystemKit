@@ -53,13 +53,13 @@
 	return ret;
 }
 
--(PFSystemKitCPUArches) cpuType {
+-(PFSystemKitCPUArches) cpuArchitecture {
 	PFSystemKitCPUArches ret;
-	_error = [self.class cpuType:&ret];
+	_error = [self.class cpuArchitecture:&ret];
 	return ret;
 }
--(PFSystemKitCPUVendors) cpuVendor {
-	PFSystemKitCPUVendors ret;
+-(NSString*) cpuVendor {
+	NSString* ret = [NSString.alloc init];
 	_error = [self.class cpuVendor:&ret];
 	return ret;
 }
@@ -155,7 +155,7 @@ finish:
 	return result;
 }
 
-+(PFSystemKitError) cpuType:(PFSystemKitCPUArches*)ret __attribute__((nonnull (1))) {
++(PFSystemKitError) cpuArchitecture:(PFSystemKitCPUArches*)ret __attribute__((nonnull (1))) {
 	CGFloat arch = 0;
 	PFSystemKitError locResult;
 	locResult = _sysctlFloatForKey((char*)"hw.cputype", arch);
@@ -186,7 +186,20 @@ finish:
 	return locResult;
 }
 
-+(PFSystemKitError) cpuVendor:(PFSystemKitCPUVendors*)ret __attribute__((nonnull (1))) {
++(PFSystemKitError) cpuVendor:(NSString**)ret __attribute__((nonnull (1)))
+{
+	std::string vendor;
+	PFSystemKitError locResult;
+	locResult = _sysctlStringForKey((char*)"machdep.cpu.vendor", vendor);
+	if (locResult != PFSKReturnSuccess)
+		goto finish;
+	else
+		*ret = [NSString stringWithSTDString:vendor];
+finish:
+	return locResult;
+}
+
+/*+(PFSystemKitError) cpuVendor:(PFSystemKitCPUVendors*)ret __attribute__((nonnull (1))) {
 	std::string vendor;
 	PFSystemKitError locResult;
 	locResult = _sysctlStringForKey((char*)"machdep.cpu.vendor", vendor);
@@ -211,6 +224,6 @@ finish:
 	}
 finish:
 	return locResult;
-}
+}*/
 
 @end

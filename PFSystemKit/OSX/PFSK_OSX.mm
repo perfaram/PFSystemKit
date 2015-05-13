@@ -16,17 +16,11 @@
 #import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+GPU.h"
 #import "PFSK_OSX+RAM.h"
-#define val4Key(key, val) setValueForKey(key, val, self)
 
 @interface PFSK_Common()
 //+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
 //+(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
 @end
-
-inline __attribute__((__visibility__("hidden")))
-void setValueForKey(const char* key, id value, id cSelf) {
-	[cSelf setValue:value forKey:@(key)];
-};
 
 @implementation PFSystemKit
 #pragma mark - Singleton pattern

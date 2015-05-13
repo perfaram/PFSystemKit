@@ -11,6 +11,8 @@
 #define _error self->error
 #define _extError self->extError
 #define _writeLockState self->writeLockState
+#define val4Key(key, val) setValueForKey(key, val, self)
+#define val4KeyPh(key, val) setValueForKeyPath(key, val, self)
 
 /*!
  @typedef PFSystemKitLockState
@@ -158,5 +160,14 @@ typedef struct {
 	 */
 	NSInteger                                          patch;
 } PFSystemKitOSVersion;
+
+inline __attribute__((__visibility__("hidden")))
+void setValueForKey(const char* key, id value, id cSelf) {
+	[cSelf setValue:value forKey:@(key)];
+};
+inline __attribute__((__visibility__("hidden")))
+void setValueForKeyPath(const char* key, id value, id cSelf) {
+	[cSelf setValue:value forKeyPath:@(key)];
+};
 
 #endif
