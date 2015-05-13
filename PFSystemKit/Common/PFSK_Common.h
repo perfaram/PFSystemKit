@@ -109,6 +109,13 @@
  */
 +(NSString*) cpuVendorToString:(PFSystemKitCPUVendors) vendor;
 
+/*!
+ @discussion Translates a member of PFSystemKitCPUArches to a displayable NSString
+ @param vendor Any member of the PFSystemKitCPUArches enum
+ @returns A NSString holding either a CPU architecture (x86_64, ARM, i860, etc...), or "Unknown" if unknown
+ */
++(NSString*) cpuArchToString:(PFSystemKitCPUArches) arch;
+
 #if defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
 PFSystemKitError _sysctlStringForKey(char* key, std::string& answerString);
 PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat);

@@ -104,6 +104,7 @@ typedef NS_ENUM(int, PFSystemKitCPUArches) {
 	PFSKCPUArchesPPC_64,
 	PFSKCPUArchesI860,
 	PFSKCPUArchesARM,
+	PFSKCPUArchesARM_64,
 };
 
 /*!

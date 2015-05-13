@@ -78,4 +78,15 @@ std::map<int, char const*> PFSystemKitCPUVendorsStrings = {
 	{ PFSKCPUVendorAuthenticAMD, "AuthenticAMD" }
 };
 
+std::map<int, char const*> PFSystemKitCPUArchesStrings = {
+	{ PFSKCPUArchesUnknown, "Unknown" },
+	{ PFSKCPUArchesX86, "x86" },
+	{ PFSKCPUArchesX86_64, "x86_64" },
+	{ PFSKCPUArchesPPC, "PPC" },
+	{ PFSKCPUArchesPPC_64, "PPC_64" },
+	{ PFSKCPUArchesI860, "i860" },
+	{ PFSKCPUArchesARM, "ARM" },
+	{ PFSKCPUArchesARM_64, "ARM_64" },
+};
+
 #endif

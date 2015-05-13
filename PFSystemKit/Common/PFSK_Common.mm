@@ -81,6 +81,10 @@
 	return @(PFSystemKitCPUVendorsStrings[vendor]);
 }
 
++(NSString*) cpuArchToString:(PFSystemKitCPUArches) arch {
+	return @(PFSystemKitCPUArchesStrings[arch]);
+}
+
 -(NSString*) stringifyError {
 	return [self.class errorToString:_error];
 }
