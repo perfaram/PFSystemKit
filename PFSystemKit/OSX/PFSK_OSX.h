@@ -17,7 +17,36 @@
 	io_registry_entry_t 	pexEntry;
 	io_registry_entry_t 	smcEntry;
 	io_registry_entry_t 	romEntry;
+	@private
+	NSDictionary*			platformExpert;
 }
+
+/*!
+ The mainboard identifier
+ */
+@property (strong, atomic, readonly) NSString*							boardID;
+
+/*!
+ The platform identifier
+ */
+@property (strong, atomic, readonly) NSString*							platformID;
+
+/*!
+ The total RAM size
+ */
+@property (strong, atomic, readonly) NSNumber*							ramSize;
+
+/*!
+ The RAM usage statistics
+ */
+@property (strong, atomic, readonly) NSDictionary*						ramStats;
+
+/*!
+ Various CPU informations
+ */
+@property (strong, atomic, readonly) NSDictionary*						cpuReport;
+
+
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init NS_DESIGNATED_INITIALIZER;
 -(void) dealloc;

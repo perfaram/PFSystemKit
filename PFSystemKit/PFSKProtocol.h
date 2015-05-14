@@ -19,7 +19,7 @@
 /*!
  The device family string. e.g. @"iPhone"
  */
-@property (assign, atomic, readonly) NSString*							familyString;
+@property (strong, atomic, readonly) NSString*							familyString;
 
 /*!
  The device version. (a PFSystemKitDeviceVersion)
@@ -28,7 +28,7 @@
 /*!
  The device version string. e.g. @"5,1"
  */
-@property (assign, atomic, readonly) NSString*							versionString;
+@property (strong, atomic, readonly) NSString*							versionString;
 
 /*!
  The system endianness. (a PFSystemKitEndianness)
@@ -37,12 +37,17 @@
 /*!
  The system endianness string. e.g. @"Little Endian"
  */
-@property (assign, atomic, readonly) NSString*							endiannessString;
+@property (strong, atomic, readonly) NSString*							endiannessString;
 
 /*!
  The device model. e.g. @"MacBookPro8,1"
  */
-@property (assign, atomic, readonly) NSString*							model;
+@property (strong, atomic, readonly) NSString*							model;
+
+/*!
+ The device serial
+ */
+@property (strong, atomic, readonly) NSString*							serial;
 
 +(PFSystemKit*)investigate;
 /*!

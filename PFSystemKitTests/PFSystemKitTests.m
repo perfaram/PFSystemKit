@@ -22,7 +22,7 @@
 
 - (void)setUp {
     [super setUp];
-	//pfsys = [PFSystemKit.alloc init];
+	pfsys = [PFSystemKit.alloc init];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -33,6 +33,7 @@
 
 - (void)testExample {
     // This is an example of a functional test case.
+	PFSystemKit* pfkit = [PFSystemKit.alloc init];
 	NSNumber* res;
 	[PFSystemKit memorySize:&res];
 	NSLog(@"%@", res);
@@ -47,9 +48,14 @@
 	[PFSystemKit systemEndianness:&endianness];
 	printf("%i", endianness);
 	//[PFSK_Common sysctlStringForKey:"brah" intoNSString:&machineModel];
-	
+/*
 	NSDictionary* memStats;
-	[PFSystemKit memoryStats:&memStats];
+	[PFSystemKit memoryStats:&memStats];*/
+	//BOOL brah = [pfkit refreshGroup:PFSKGroupGraphics];
+	BOOL refReturn = [pfkit refreshGroup:PFSKGroupPlatformExpertDevice];
+	NSLog(@"%i", refReturn);
+	NSArray* graphicsDevices = [pfkit valueForKeyPath:@"serial"];
+	NSLog(@"%@", graphicsDevices);
 	
     XCTAssert(YES, @"Pass");
 }

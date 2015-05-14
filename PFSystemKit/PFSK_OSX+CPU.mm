@@ -11,6 +11,12 @@
 #import <string>
 
 @implementation PFSystemKit(CPU)
+-(NSDictionary*) cpuReport {
+	NSMutableDictionary* ret = [NSMutableDictionary.alloc init];
+	_error = [self.class cpuReport:&ret];
+	return [ret copy]; //ensure immutability
+}
+
 -(NSNumber*) cpuCount {
 	NSNumber* ret = [NSNumber.alloc init];
 	_error = [self.class cpuCount:&ret];
@@ -195,6 +201,90 @@ finish:
 		goto finish;
 	else
 		*ret = [NSString stringWithSTDString:vendor];
+finish:
+	return locResult;
+}
+
++(PFSystemKitError) cpuReport:(NSMutableDictionary**)ret __attribute__((nonnull (1)))
+{
+	PFSystemKitError locResult;
+	BOOL errorOccured;
+	NSString* tempStr;
+	NSNumber* tempNum;
+	PFSystemKitCPUArches arch;
+	
+	locResult = [self.class cpuVendor:&tempStr];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"vendor"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempStr forKey:@"vendor"];
+	
+	locResult = [self.class cpuBrand:&tempStr];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"brand"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempStr forKey:@"brand"];
+	
+	locResult = [self.class cpuArchitecture:&arch];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"architecture"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:[self.class cpuArchToString:arch] forKey:@"architecture"];
+	
+	locResult = [self.class cpuThreadCount:&tempNum];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"threads"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempNum forKey:@"threads"];
+	
+	locResult = [self.class cpuCoreCount:&tempNum];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"cores"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempNum forKey:@"cores"];
+	
+	locResult = [self.class cpuCount:&tempNum];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"cpus"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempNum forKey:@"cpus"];
+	
+	locResult = [self.class cpuFrequency:&tempNum];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"frequency"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempNum forKey:@"frequency"];
+	
+	locResult = [self.class cpuL2Cache:&tempNum];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"l2cache"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempNum forKey:@"l2cache"];
+	
+	locResult = [self.class cpuL3Cache:&tempNum];
+	if (locResult != PFSKReturnSuccess) {
+		[*ret setObject:@"-" forKey:@"l3cache"];
+		errorOccured = 1;
+	}
+	else
+		[*ret setObject:tempNum forKey:@"l3cache"];
+	
 finish:
 	return locResult;
 }

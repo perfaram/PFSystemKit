@@ -96,34 +96,20 @@ finish:
 				_extError = result;
 				return false;
 			} else {
-				[self setValue:[NSString.alloc initWithData:(__bridge NSData*)CFDictionaryGetValue(pexProps, "model") encoding:NSASCIIStringEncoding] forKey:@"model"]; //easier than calling machineModel:
-				[self setValue:[NSString.alloc initWithData:(__bridge NSData*)CFDictionaryGetValue(pexProps, "board-id") encoding:NSASCIIStringEncoding] forKey:@"boardID"];
-				[self setValue:(__bridge NSString*)CFDictionaryGetValue(pexProps, kIOPlatformSerialNumberKey) forKey:@"serial"];
-				[self setValue:(__bridge NSString*)CFDictionaryGetValue(pexProps, kIOPlatformUUIDKey) forKey:@"platformID"];
+				platformExpert = (__bridge NSDictionary*)pexProps;
+				[self setValue:[platformExpert objectForKey:@"model"] forKey:@"model"];
+				[self setValue:[platformExpert objectForKey:@"board-id"] forKey:@"boardID"];
+				[self setValue:[platformExpert objectForKey:@kIOPlatformSerialNumberKey] forKey:@"serial"];
+				[self setValue:[platformExpert objectForKey:@kIOPlatformUUIDKey] forKey:@"platformID"];
 				//not related to expert device, but looks good here ;)
-				val4Key("ram.size", [self memorySize]);
-				NSDictionary* ramStats = [self memoryStats];
-				if (_error==PFSKReturnSuccess) {
-					val4KeyPh("ram.stats.wired", [ramStats valueForKey:@"wired"]);
-					val4KeyPh("ram.stats.active", [ramStats valueForKey:@"active"]);
-					val4KeyPh("ram.stats.inactive", [ramStats valueForKey:@"inactive"]);
-					val4KeyPh("ram.stats.free", [ramStats valueForKey:@"free"]);
-				}
-				
-				val4KeyPh("cpu.brand", [self cpuBrand]);
-				val4KeyPh("cpu.vendor", [self cpuVendor]);
-				val4KeyPh("cpu.count", [self cpuCount]);
-				val4KeyPh("cpu.coreCount", [self cpuCoreCount]);
-				val4KeyPh("cpu.threadCount", [self cpuThreadCount]);
-				val4KeyPh("cpu.frequency", [self cpuFrequency]);
-				val4KeyPh("cpu.l2cache", [self cpuL2Cache]);
-				val4KeyPh("cpu.l3cache", [self cpuL3Cache]);
-				val4KeyPh("cpu.architecture", [self.class cpuArchToString:[self cpuArchitecture]]);
+				val4Key("ramSize", [self memorySize]);
+				val4Key("ramStats", [self memoryStats]);
+				val4Key("cpuReport", [self cpuReport]);
 				
 			}
 			CFRelease(pexProps);
 		}
-		case PFSKGroupROM: {
+		/*case PFSKGroupROM: {
 			CFMutableDictionaryRef romProps = NULL;
 			romEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/rom@0");
 			if (romEntry == 0) {
@@ -187,7 +173,6 @@ finish:
 				_extError = result;
 				return false;
 			} else {
-				//[self setValue:(__bridge NSString*)CFDictionaryGetValue(smcProps, "smc-version") forKey:@"smcVersion"];
 				val4Key("smcVersion", (__bridge NSString*)CFDictionaryGetValue(smcProps, "smc-version"));
 				[self setValue:(__bridge NSNumber*)CFDictionaryGetValue(smcProps, "SleepCause") forKey:@"sleepCause"];
 				[self setValue:(__bridge NSNumber*)CFDictionaryGetValue(smcProps, "ShutdownCause") forKey:@"shutdownCause"];
@@ -202,7 +187,7 @@ finish:
 		}
 		case PFSKGroupTerminator: { //just in case
 			;//return U MAD BRO
-		}
+		}*/
 	}
 	_error = PFSKReturnSuccess;
 	return true;
@@ -210,6 +195,7 @@ finish:
 
 -(BOOL) refresh {
 	BOOL ref = 0;
+//	return [self refreshGroup:PFSKGroupPlatformExpertDevice];
 	std::vector<PFSystemKitGroup> vGroups;
 	for ( auto i = vGroups.begin(); i != vGroups.end(); i++ ) {
 		ref = [self refreshGroup:*i]; //refresh data for each.
@@ -233,6 +219,13 @@ finish:
 @synthesize endianness;
 @synthesize endiannessString;
 @synthesize model;
+@synthesize serial;
+
+@synthesize boardID;
+@synthesize platformID;
+@synthesize ramSize;
+@synthesize ramStats;
+@synthesize cpuReport;
 
 
 #pragma mark - NSObject std methods
@@ -265,11 +258,11 @@ finish:
 			return nil;
 		}
 		
-		BOOL REFresult = [self refresh];
+		/*BOOL REFresult = [self refresh];
 		if (REFresult!=true) {
 			//error/extError already setted
 			return nil;
-		}
+		}*/
 	}
 	return self;
 }

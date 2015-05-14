@@ -156,6 +156,15 @@
 			name = Helper;
 			sourceTree = "<group>";
 		};
+		0B9DF3E31B047A9100DE2175 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				0BE6EEAA1AE407210070B83F /* PFSKTypes.h */,
+				0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */,
+			);
+			name = Types;
+			sourceTree = "<group>";
+		};
 		0BB7B5BD1AF7B7EE003C46A1 /* NSString */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,8 +326,7 @@
 				0B74D8D21AE4168B005E0DF3 /* Helper */,
 				0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */,
 				0BE6EEAF1AE4099F0070B83F /* PFSKProtocol.h */,
-				0BE6EEAA1AE407210070B83F /* PFSKTypes.h */,
-				0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */,
+				0B9DF3E31B047A9100DE2175 /* Types */,
 				0B74D8C61AE4109C005E0DF3 /* PFSK_Common.h */,
 				0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */,
 			);
