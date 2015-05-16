@@ -17,8 +17,16 @@
 	io_registry_entry_t 	pexEntry;
 	io_registry_entry_t 	smcEntry;
 	io_registry_entry_t 	romEntry;
+	io_registry_entry_t 	batEntry;
+	BOOL					firstRunDoneForExpertDevice;
+	BOOL					firstRunDoneForROM;
+	BOOL					firstRunDoneForSMC;
+	BOOL					firstRunDoneForBattery;
 	@private
-	NSDictionary*			platformExpert;
+	NSDictionary*			platformExpertRawDict;
+	NSDictionary*			romRawDict;
+	NSDictionary*			smcRawDict;
+	NSDictionary*			batteryRawDict;
 }
 
 /*!
@@ -30,6 +38,16 @@
  The platform identifier
  */
 @property (strong, atomic, readonly) NSString*							platformID;
+
+/*!
+ The ROM firmware version
+ */
+@property (strong, atomic, readonly) NSString*							romVersion;
+
+/*!
+ The ROM firmware release date
+ */
+@property (strong, atomic, readonly) NSString*							romReleaseDate;
 
 /*!
  The total RAM size
@@ -45,6 +63,31 @@
  Various CPU informations
  */
 @property (strong, atomic, readonly) NSDictionary*						cpuReport;
+
+/*!
+ Various battery informations
+ */
+@property (strong, atomic, readonly) NSDictionary*				batteryReport;
+
+/*!
+ NSArray of NSDictionaries holding a graphic device and its informations
+ */
+@property (strong, atomic, readonly) NSArray*							graphicReport;
+
+/*!
+ The SMC firmware version
+ */
+@property (strong, atomic, readonly) NSString*							smcVersion;
+
+/*!
+ The last sleep cause
+ */
+@property (strong, atomic, readonly) NSNumber*							sleepCause;
+
+/*!
+ The last shutdown cause
+ */
+@property (strong, atomic, readonly) NSNumber*							shutdownCause;
 
 
 +(PFSystemKit*) investigate;

@@ -79,7 +79,6 @@
 		0BB7B5C01AFE6BB1003C46A1 /* PFSK_OSX+CPU.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+CPU.mm"; sourceTree = "<group>"; };
 		0BCAF3521B00FC0800278750 /* PFSK_OSX+RAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_OSX+RAM.h"; sourceTree = "<group>"; };
 		0BCAF3531B00FC0800278750 /* PFSK_OSX+RAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+RAM.mm"; sourceTree = "<group>"; };
-		0BCAF3561B02664100278750 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SynthesizeSingleton.h; path = PFSystemKit/SynthesizeSingleton.h; sourceTree = "<group>"; };
 		0BCAF3581B039AE100278750 /* PFSK_OSX+GPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFSK_OSX+GPU.h"; path = "PFSystemKit/PFSK_OSX+GPU.h"; sourceTree = SOURCE_ROOT; };
 		0BCAF3591B039AE100278750 /* PFSK_OSX+GPU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PFSK_OSX+GPU.m"; path = "PFSystemKit/PFSK_OSX+GPU.m"; sourceTree = SOURCE_ROOT; };
 		0BCAF35C1B039E3200278750 /* PCI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCI.h; sourceTree = "<group>"; };
@@ -177,18 +176,9 @@
 		0BB7B5BE1AF7B7F3003C46A1 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				0BCAF3571B02665300278750 /* Runtime */,
 				0BB7B5BD1AF7B7EE003C46A1 /* NSString */,
 			);
 			name = Additions;
-			sourceTree = "<group>";
-		};
-		0BCAF3571B02665300278750 /* Runtime */ = {
-			isa = PBXGroup;
-			children = (
-				0BCAF3561B02664100278750 /* SynthesizeSingleton.h */,
-			);
-			name = Runtime;
 			sourceTree = "<group>";
 		};
 		0BCAF3601B039E3900278750 /* External */ = {

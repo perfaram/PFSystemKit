@@ -52,6 +52,7 @@ typedef NS_ENUM(int, PFSystemKitGroup) {
 	PFSKGroupSMC = 4,
 	PFSKGroupLMU = 5,
 	PFSKGroupGraphics = 6,
+	PFSKGroupBattery = 7,
 	PFSKGroupTerminator
 };
 

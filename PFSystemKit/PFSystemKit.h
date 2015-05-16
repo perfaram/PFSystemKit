@@ -39,4 +39,6 @@ FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
 /*
  simulator policy (#if (TARGET_IPHONE_SIMULATOR && SIMULATOR_SHORTCUTS))
  target #
+ fix methods calling sysctl
+ moar classes ? e.g. for Battery, CPU ?
  */

@@ -53,9 +53,20 @@
 	[PFSystemKit memoryStats:&memStats];*/
 	//BOOL brah = [pfkit refreshGroup:PFSKGroupGraphics];
 	BOOL refReturn = [pfkit refreshGroup:PFSKGroupPlatformExpertDevice];
-	NSLog(@"%i", refReturn);
-	NSArray* graphicsDevices = [pfkit valueForKeyPath:@"serial"];
-	NSLog(@"%@", graphicsDevices);
+	NSArray* serial = [pfkit valueForKeyPath:@"serial"];
+	NSLog(@"%@", serial);
+	refReturn = [pfkit refreshGroup:PFSKGroupROM];
+	NSDate* romRD = [pfkit valueForKey:@"romReleaseDate"];
+	NSLog(@"%@", romRD);
+	refReturn = [pfkit refreshGroup:PFSKGroupSMC];
+	NSDate* slC = [pfkit valueForKey:@"sleepCause"];
+	NSLog(@"%@", slC);
+	refReturn = [pfkit refreshGroup:PFSKGroupGraphics];
+	NSArray* graphs = [pfkit valueForKey:@"graphicReport"];
+	NSLog(@"%@", graphs);
+	refReturn = [pfkit refreshGroup:PFSKGroupBattery];
+	NSDictionary* batt = [pfkit valueForKey:@"batteryReport"];
+	NSLog(@"%@", batt);
 	
     XCTAssert(YES, @"Pass");
 }
