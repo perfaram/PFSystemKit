@@ -10,7 +10,7 @@
 #import "PFSK_OSX.h"
 
 @interface PFSystemKit(CPU)
-+(PFSystemKitError) cpuReport:(NSMutableDictionary**)ret __attribute__((nonnull (1)));
++(PFSystemKitError) cpuCompleteReport:(NSMutableDictionary**)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuCount:(NSNumber**)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuBrand:(NSString**)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuCoreCount:(NSNumber**)ret __attribute__((nonnull (1)));
@@ -22,7 +22,7 @@
 //+(PFSystemKitError) cpuVendor:(PFSystemKitCPUVendors*)ret __attribute__((nonnull (1)));
 +(PFSystemKitError) cpuVendor:(NSString**)ret __attribute__((nonnull (1)));
 
--(NSDictionary*) cpuReport;
+-(NSDictionary*) cpuCompleteReport;
 -(NSNumber*) cpuCount;
 -(NSString*) cpuBrand;
 -(NSNumber*) cpuCoreCount;

@@ -11,9 +11,9 @@
 #import <string>
 
 @implementation PFSystemKit(CPU)
--(NSDictionary*) cpuReport {
+-(NSDictionary*) cpuCompleteReport {
 	NSMutableDictionary* ret = [NSMutableDictionary.alloc init];
-	_error = [self.class cpuReport:&ret];
+	_error = [self.class cpuCompleteReport:&ret];
 	return [ret copy]; //ensure immutability
 }
 
@@ -205,7 +205,7 @@ finish:
 	return locResult;
 }
 
-+(PFSystemKitError) cpuReport:(NSMutableDictionary**)ret __attribute__((nonnull (1)))
++(PFSystemKitError) cpuCompleteReport:(NSMutableDictionary**)ret __attribute__((nonnull (1)))
 {
 	PFSystemKitError locResult;
 	BOOL errorOccured;
