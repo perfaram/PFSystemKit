@@ -140,27 +140,23 @@ typedef struct {
 } PFSystemKitDeviceVersion;
 
 /*!
- @typedef @struct PFSystemKitOSVersion
- Structure holding a OS version's Major, Minor and Patch components
- 
- For iOS 8.1.3 : 8 as major, 1 as minor, 3 as patch
+ Creates a NSOperatingSystemVersion struct from major, minor, patch components
  */
-typedef struct {
-	/*!
-	 Major component of OS version
-	 */
-	NSInteger                                          major;
-	
-	/*!
-	 Minor component of OS version
-	 */
-	NSInteger                                          minor;
-	
-	/*!
-	 Patch component of OS version
-	 */
-	NSInteger                                          patch;
-} PFSystemKitOSVersion;
+inline static NSOperatingSystemVersion NSOperatingSystemVersionWithComponents(NSInteger major, NSInteger minor, NSInteger patch) {
+	return (NSOperatingSystemVersion){major, minor, patch};
+};
+
+/*!
+ Creates a NSOperatingSystemVersion struct from a NSString, being parsed
+ */
+inline static NSOperatingSystemVersion NSOperatingSystemVersionWithNSString(NSString *versionString) {
+	NSArray *components = [versionString componentsSeparatedByString:@"."];
+	NSUInteger major = components.count >= 1 ? [components[0] unsignedIntegerValue] : 0;
+	NSUInteger minor = components.count >= 2 ? [components[1] unsignedIntegerValue] : 0;
+	NSUInteger patch = components.count >= 3 ? [components[2] unsignedIntegerValue] : 0;
+	return NSOperatingSystemVersionWithComponents(major, minor, patch);
+};
+
 
 inline __attribute__((__visibility__("hidden")))
 void setValueForKey(const char* key, id value, id cSelf) {

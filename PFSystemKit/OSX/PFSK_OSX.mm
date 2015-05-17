@@ -159,9 +159,9 @@ finish:
 			} else {
 				smcRawDict = (__bridge NSDictionary*)smcProps;
 				CFRelease(smcProps);
-				val4Key("smcVersion",  [smcRawDict objectForKey:@"smc-version"]);
-				val4Key("sleepCause",  [smcRawDict objectForKey:@"SleepCause"]);
-				val4Key("shutdownCause",  [smcRawDict objectForKey:@"ShutdownCause"]);
+				val4Key("smcVersion",   [smcRawDict objectForKey:@"smc-version"]);
+				val4Key("sleepCause",   [smcRawDict objectForKey:@"SleepCause"]);
+				val4Key("shutdownCause",[smcRawDict objectForKey:@"ShutdownCause"]);
 			}
 			break;
 		}
@@ -180,9 +180,10 @@ finish:
 			}
 		//NOTHING TO SEE HERE YET : create custom KVObserving class
 		}*/
-		/*case PFSKGroupLMU: {
+		case PFSKGroupLMU: {
 			//take from iolang, transfer to separate class
-		}*/
+			break;
+		}
 		case PFSKGroupBattery: { //to get more informations or to subscribe for events about power sources, use the IOPowerSources API
 			if (!firstRunDoneForBattery) {
 				batEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPMPowerSource"));
@@ -231,19 +232,16 @@ finish:
 												  toDate:[NSDate date]
 												 options:0];
 				[temp setObject:@([differenceDate day]) forKey:@"Age"];
-				NSLog(@"--------------------------------------------------------");
 				batteryReport = [temp copy];
 			}
-			_error = PFSKReturnSuccess;
-			return true;
+			break;
 		}
 		case PFSKGroupTerminator: { //just in case
 			break;//return U MAD BRO
 		}
 		default: {
-		}	_error = PFSKReturnSuccess;
-			return true;
-		
+			break;
+		}
 	}
 	_error = PFSKReturnSuccess;
 	return true;

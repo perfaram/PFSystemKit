@@ -14,6 +14,50 @@
 #import "PFSKPrivateTypes.h"
 
 @implementation PFSK_Common
++(BOOL)isVersion:(NSOperatingSystemVersion)version
+		 between:(NSOperatingSystemVersion)lowVersion
+			 and:(NSOperatingSystemVersion)highVersion {
+	
+	// major in range
+	if (lowVersion.majorVersion >= version.majorVersion <= highVersion.majorVersion) {
+		return YES;
+	} else {
+		if (lowVersion.minorVersion >= version.minorVersion <= highVersion.minorVersion) {
+			return YES;
+		} else {
+			if (lowVersion.patchVersion >= version.patchVersion <= highVersion.patchVersion) {
+				return YES;
+			} else {
+				return NO;
+			}
+		}
+	}
+}
+
++(BOOL)isVersion:(NSOperatingSystemVersion)version
+  atLeastVersion:(NSOperatingSystemVersion)leastVersion {
+	
+	if (version.majorVersion == leastVersion.majorVersion) {
+		if (version.minorVersion == leastVersion.minorVersion) {
+			return version.patchVersion >= leastVersion.patchVersion;
+		}
+		return version.minorVersion >= leastVersion.minorVersion;
+	}
+	return version.majorVersion >= leastVersion.majorVersion;
+}
+
++(BOOL)isVersion:(NSOperatingSystemVersion)version
+   atBestVersion:(NSOperatingSystemVersion)bestVersion {
+
+	if (version.majorVersion == bestVersion.majorVersion) {
+		if (version.minorVersion == bestVersion.minorVersion) {
+			return version.patchVersion <= bestVersion.patchVersion;
+		}
+		return version.minorVersion <= bestVersion.minorVersion;
+	}
+	return version.majorVersion <= bestVersion.majorVersion;
+}
+
 +(NSString*) errorToString:(PFSystemKitError)err {
 	return @(PFSystemKitErrorStrings[err]);
 }
@@ -83,6 +127,10 @@
 
 +(NSString*) cpuArchToString:(PFSystemKitCPUArches) arch {
 	return @(PFSystemKitCPUArchesStrings[arch]);
+}
+
++(NSOperatingSystemVersion) osVersionFromString:(NSString*) string {
+	return NSOperatingSystemVersionWithNSString(string);
 }
 
 -(NSString*) stringifyError {

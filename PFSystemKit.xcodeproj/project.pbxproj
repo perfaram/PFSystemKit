@@ -15,6 +15,8 @@
 		0B74D8CF1AE41682005E0DF3 /* PFSKHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B74D8CC1AE41682005E0DF3 /* PFSKHelper.h */; };
 		0B74D8D01AE41682005E0DF3 /* PFSKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8CD1AE41682005E0DF3 /* PFSKHelper.mm */; };
 		0B74D8D11AE41682005E0DF3 /* PFSKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B74D8CD1AE41682005E0DF3 /* PFSKHelper.mm */; };
+		0B9DF41D1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B9DF41B1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.h */; };
+		0B9DF41F1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9DF41C1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.m */; };
 		0BB7B5B51AF68365003C46A1 /* PFSKPrivateTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */; };
 		0BB7B5B61AF68365003C46A1 /* PFSKPrivateTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */; };
 		0BB7B5B91AF7B7E4003C46A1 /* NSString+CPPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BB7B5B71AF7B7E4003C46A1 /* NSString+CPPAdditions.h */; };
@@ -72,6 +74,8 @@
 		0B74D8C71AE4109C005E0DF3 /* PFSK_Common.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PFSK_Common.mm; path = PFSystemKit/Common/PFSK_Common.mm; sourceTree = "<group>"; };
 		0B74D8CC1AE41682005E0DF3 /* PFSKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSKHelper.h; path = PFSystemKit/Helper/PFSKHelper.h; sourceTree = "<group>"; };
 		0B74D8CD1AE41682005E0DF3 /* PFSKHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PFSKHelper.mm; path = PFSystemKit/Helper/PFSKHelper.mm; sourceTree = "<group>"; };
+		0B9DF41B1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSProcessInfo+PECocoaBackports.h"; sourceTree = "<group>"; };
+		0B9DF41C1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSProcessInfo+PECocoaBackports.m"; sourceTree = "<group>"; };
 		0BB7B5B41AF68365003C46A1 /* PFSKPrivateTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = PFSKPrivateTypes.h; path = PFSystemKit/PFSKPrivateTypes.h; sourceTree = "<group>"; };
 		0BB7B5B71AF7B7E4003C46A1 /* NSString+CPPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+CPPAdditions.h"; path = "PFSystemKit/NSString+CPPAdditions.h"; sourceTree = "<group>"; };
 		0BB7B5B81AF7B7E4003C46A1 /* NSString+CPPAdditions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "NSString+CPPAdditions.mm"; path = "PFSystemKit/NSString+CPPAdditions.mm"; sourceTree = "<group>"; };
@@ -164,6 +168,15 @@
 			name = Types;
 			sourceTree = "<group>";
 		};
+		0B9DF4211B07C31B00DE2175 /* NSProcessInfo */ = {
+			isa = PBXGroup;
+			children = (
+				0B9DF41B1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.h */,
+				0B9DF41C1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.m */,
+			);
+			name = NSProcessInfo;
+			sourceTree = "<group>";
+		};
 		0BB7B5BD1AF7B7EE003C46A1 /* NSString */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +189,7 @@
 		0BB7B5BE1AF7B7F3003C46A1 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				0B9DF4211B07C31B00DE2175 /* NSProcessInfo */,
 				0BB7B5BD1AF7B7EE003C46A1 /* NSString */,
 			);
 			name = Additions;
@@ -343,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BCAF3541B00FC0800278750 /* PFSK_OSX+RAM.h in Headers */,
+				0B9DF41D1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.h in Headers */,
 				0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */,
 				0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */,
 				0BCAF35E1B039E3200278750 /* PCI.h in Headers */,
@@ -532,6 +547,7 @@
 				0BCAF35B1B039AE100278750 /* PFSK_OSX+GPU.m in Sources */,
 				0BCAF35F1B039E3200278750 /* PCI.m in Sources */,
 				0BCAF3551B00FC0800278750 /* PFSK_OSX+RAM.mm in Sources */,
+				0B9DF41F1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.m in Sources */,
 				0B74D8D01AE41682005E0DF3 /* PFSKHelper.mm in Sources */,
 				0BB7B5BB1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */,
 			);
