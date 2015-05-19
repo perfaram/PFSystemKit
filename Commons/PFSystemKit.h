@@ -40,5 +40,6 @@ FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
  simulator policy (#if (TARGET_IPHONE_SIMULATOR && SIMULATOR_SHORTCUTS))
  target #
  fix methods calling sysctl
- moar classes ? e.g. for Battery, CPU ?
+ moar classes ? e.g. for Battery, CPU infos ?
+ More inlines, so no ObjC method resolving when calling instance methods of categories ?
  */

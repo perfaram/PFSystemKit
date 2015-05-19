@@ -10,12 +10,13 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <string>
 #import <vector>
-#import "NSString+CPPAdditions.h"
 #import "PFSKHelper.h"
 #import "PFSK_OSX.h"
-#import "PFSK_OSX+CPU.h"
+/*#import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+GPU.h"
 #import "PFSK_OSX+RAM.h"
+#import "PFSK_OSX+GPU.h"*/
+#import "PFSK_Common+Machine.h"
 
 @interface PFSK_Common()
 //+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
@@ -39,46 +40,6 @@
 
 
 #pragma mark - Class methods (actual core code)
-
-+(PFSystemKitError)systemEndianness:(PFSystemKitEndianness*)ret __attribute__((nonnull (1)))
-{
-	CGFloat order = 0;
-	PFSystemKitError locResult;
-	locResult = _sysctlFloatForKey((char*)"hw.byteorder", order);
-	if (locResult != PFSKReturnSuccess) {
-		//memcpy(ret, (const int*)PFSKEndiannessUnknown, sizeof(PFSystemKitEndianness*));
-		*ret = PFSKEndiannessUnknown;
-		goto finish;
-	}
-	else {
-		if (order == 1234) {
-			//memcpy(ret, (const int*)PFSKEndiannessLittleEndian, sizeof(PFSystemKitEndianness*));
-			*ret = PFSKEndiannessLittleEndian;
-		} else if (order == 4321) {
-			//memcpy(ret, (const int*)PFSKEndiannessBigEndian, sizeof(PFSystemKitEndianness*));
-			*ret = PFSKEndiannessBigEndian;
-		} else {
-			//memcpy(ret, (const int*)PFSKEndiannessUnknown, sizeof(PFSystemKitEndianness*));
-			*ret = PFSKEndiannessUnknown;
-		}
-		goto finish;
-	}
-finish:
-	return locResult;
-}
-
-+(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)))
-{
-	std::string machineModel;
-	PFSystemKitError result;
-	result = _sysctlStringForKey((char*)"hw.model", machineModel);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = [NSString stringWithSTDString:machineModel];
-finish:
-	return result;
-}
 
 -(BOOL) refreshGroup:(PFSystemKitGroup)group {
 	kern_return_t result;
@@ -105,10 +66,10 @@ finish:
 				[self setValue:[platformExpertRawDict objectForKey:@"board-id"] forKey:@"boardID"];
 				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey] forKey:@"serial"];
 				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey] forKey:@"platformID"];
-				//not related to expert device, but looks good here ;)
-				val4Key("ramSize", [self memorySize]);
-				val4Key("ramStats", [self memoryStats]);
-				val4Key("cpuReport", [self cpuReport]);
+				//now, PSFK is modulable. If people want these, they'll call these.
+				//val4Key("ramSize", [self memorySize]);
+				//val4Key("ramStats", [self memoryStats]);
+				//val4Key("cpuReport", [self cpuReport]);
 			}
 			break;
 		}
@@ -165,10 +126,10 @@ finish:
 			}
 			break;
 		}
-		case PFSKGroupGraphics: {
+		/*case PFSKGroupGraphics: {
 			val4Key("graphicReport", [self listGraphics]);
 			break;
-		}
+		}*/
 		/*case PFSKGroupNVRam: {
 			if (!iokitIsManagedForNVRam) {
 				nvrEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/options");

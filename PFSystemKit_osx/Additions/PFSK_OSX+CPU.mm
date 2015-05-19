@@ -14,6 +14,7 @@
 -(NSDictionary*) cpuCompleteReport {
 	NSMutableDictionary* ret = [NSMutableDictionary.alloc init];
 	_error = [self.class cpuCompleteReport:&ret];
+	[self setValue:[ret copy] forKey:@"cpuReport"];
 	return [ret copy]; //ensure immutability
 }
 

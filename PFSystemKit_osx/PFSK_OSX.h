@@ -67,7 +67,7 @@
 /*!
  Various battery informations
  */
-@property (strong, atomic, readonly) NSDictionary*				batteryReport;
+@property (strong, atomic, readonly) NSDictionary*						batteryReport;
 
 /*!
  NSArray of NSDictionaries holding a graphic device and its informations
@@ -104,6 +104,4 @@
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
 
 #endif
-+(PFSystemKitError) systemEndianness:(PFSystemKitEndianness*)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) machineModel:(NSString**)ret __attribute__((nonnull (1)));
 @end

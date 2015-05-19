@@ -28,6 +28,7 @@ typedef NS_ENUM(int, PFSystemKitError) {
 	PFSKReturnLockedWrite = 6,
 	PFSKReturnCastError = 7,
 	PFSKReturnNotWritable = 8,
+	PFSKReturnNoGraphicDevicesFound = 9,
 	PFSKReturnGeneral = 65533, //too bad
 	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen)
 };
@@ -131,13 +132,20 @@ typedef struct {
 	/*!
 	 Major device version
 	 */
-	NSInteger                                          major;
+	NSUInteger                                          major;
 	
 	/*!
 	 Minor device version
 	 */
-	NSInteger                                          minor;
+	NSUInteger                                          minor;
 } PFSystemKitDeviceVersion;
+
+/*!
+ Creates a PFSystemKitDeviceVersion struct from major and minor components
+ */
+inline static PFSystemKitDeviceVersion PFSKDeviceVersionWithComponents(NSUInteger major, NSUInteger minor) {
+	return (PFSystemKitDeviceVersion){major, minor};
+};
 
 /*!
  Creates a NSOperatingSystemVersion struct from major, minor, patch components

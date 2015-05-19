@@ -18,12 +18,14 @@
 -(NSNumber*) memorySize {
 	NSNumber* ret = [NSNumber.alloc init];
 	_error = [self.class memorySize:&ret];
+	val4Key("ramSize", ret);
 	return ret;
 }
 
 -(NSDictionary*) memoryStats {
 	NSDictionary* ret = [NSDictionary.alloc init];
 	_error = [self.class memoryStats:&ret];
+	val4Key("ramStats", ret);
 	return ret;
 }
 

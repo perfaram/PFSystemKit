@@ -8,10 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "PFSK_Common.h"
-#import "PFSK_OSX.h"
+//#import "PFSK_Common.h"
+//#import "PFSK_OSX.h"
 #import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+RAM.h"
+#import "PFSK_Common+Machine.h"
 
 @interface PFSystemKitTests : XCTestCase {
 	PFSystemKit* pfsys;
