@@ -49,11 +49,11 @@ typedef NS_ENUM(int, PFSystemKitLockState) {
 typedef NS_ENUM(int, PFSystemKitGroup) {
 	PFSKGroupPlatformExpertDevice = 1,
 	PFSKGroupROM = 2,
-	PFSKGroupNVRam = 3,
-	PFSKGroupSMC = 4,
-	PFSKGroupLMU = 5,
-	PFSKGroupGraphics = 6,
-	PFSKGroupBattery = 7,
+	//PFSKGroupNVRam = 3, no more
+	PFSKGroupSMC = 3,
+	PFSKGroupLMU = 4,
+	PFSKGroupGraphics = 5,
+	PFSKGroupBattery = 6,
 	PFSKGroupTerminator
 };
 

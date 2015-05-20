@@ -126,25 +126,6 @@
 			}
 			break;
 		}
-		/*case PFSKGroupGraphics: {
-			val4Key("graphicReport", [self listGraphics]);
-			break;
-		}*/
-		/*case PFSKGroupNVRam: {
-			if (!iokitIsManagedForNVRam) {
-				nvrEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/options");
-				if (nvrEntry == 0) {
-					_error = PFSKReturnComponentUnavailable;
-					return false;
-				}
-			iokitIsManagedForNVRam = 1;
-			}
-		//NOTHING TO SEE HERE YET : create custom KVObserving class
-		}*/
-		case PFSKGroupLMU: {
-			//take from iolang, transfer to separate class
-			break;
-		}
 		case PFSKGroupBattery: { //to get more informations or to subscribe for events about power sources, use the IOPowerSources API
 			if (!firstRunDoneForBattery) {
 				batEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPMPowerSource"));

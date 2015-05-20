@@ -62,8 +62,7 @@
 	refReturn = [pfkit refreshGroup:PFSKGroupSMC];
 	NSDate* slC = [pfkit valueForKey:@"sleepCause"];
 	NSLog(@"%@", slC);
-	refReturn = [pfkit refreshGroup:PFSKGroupGraphics];
-	NSArray* graphs = [pfkit valueForKey:@"graphicReport"];
+	NSArray* graphs = [pfkit graphicReport];
 	NSLog(@"%@", graphs);
 	refReturn = [pfkit refreshGroup:PFSKGroupBattery];
 	NSDictionary* batt = [pfkit valueForKey:@"batteryReport"];
