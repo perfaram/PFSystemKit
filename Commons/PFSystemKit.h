@@ -41,5 +41,4 @@ FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
  target #
  fix methods calling sysctl
  moar classes ? e.g. for Battery, CPU infos ?
- More inlines, so no ObjC method resolving when calling instance methods of categories ?
  */
