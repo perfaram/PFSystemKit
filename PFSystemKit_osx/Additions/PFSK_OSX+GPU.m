@@ -10,7 +10,7 @@
 #import "PFSystemKit/PCI.h"
 
 @implementation PFSystemKit(GPU)
--(NSArray *)listGraphics
+-(NSArray *)graphicsCreateReport
 {
 	NSMutableArray *temp = [NSMutableArray array];
 	io_iterator_t itThis;
@@ -18,7 +18,6 @@
 	io_service_t parent;
 	io_name_t name;
 	kern_return_t result;
-	int typeCount = 0;
 	
 	if (IOServiceGetMatchingServices(masterPort, IOServiceMatching("AtiFbStub"), &itThis) == KERN_SUCCESS) {
 		NSMutableDictionary *card;
@@ -28,18 +27,9 @@
 		service = 1;
 		while(service) {
 			service = IOIteratorNext(itThis);
-			if (!card && !service) {
-				_error = PFSKReturnIOKitError;
-				_extError = result;
-				break;
-			};
-			result = IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent);
-			result = IORegistryEntryGetRegistryEntryID(parent, &new);
-			if (result!=kIOReturnSuccess) {
-				_error = PFSKReturnIOKitError;
-				_extError = result;
-				break;
-			};
+			if (!card && !service) break;
+			IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent);
+			IORegistryEntryGetRegistryEntryID(parent, &new);
 			if (card && new!=old){
 				[card setObject:@(ports) forKey:@"ports"];
 				[temp addObject:[card copy]];
@@ -49,6 +39,11 @@
 			if (!card && service) {
 				result = IORegistryEntryGetRegistryEntryID(parent, &old);
 				result = IORegistryEntryGetName(service, name);
+				if (result!=kIOReturnSuccess) {
+					_error = PFSKReturnIOKitError;
+					_extError = result;
+					continue;
+				}
 				card = [@{@"device":[pciDevice create:parent], @"model":[pciDevice grabString:CFSTR("model") forService:parent], @"framebuffer":@(name)} mutableCopy];
 			}
 			ports++;
@@ -56,8 +51,6 @@
 			IOObjectRelease(service);
 		}
 		IOObjectRelease(itThis);
-	} else {
-		++typeCount;
 	}
 	if (IOServiceGetMatchingServices(masterPort, IOServiceMatching("IONDRVDevice"), &itThis) == KERN_SUCCESS){
 		NSMutableDictionary *card;
@@ -67,18 +60,9 @@
 		service = 1;
 		while(service) {
 			service = IOIteratorNext(itThis);
-			if (!card && !service) {
-				_error = PFSKReturnIOKitError;
-				_extError = result;
-				break;
-			};;
-			result = IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent);
-			result = IORegistryEntryGetRegistryEntryID(parent, &new);
-			if (result!=kIOReturnSuccess) {
-				_error = PFSKReturnIOKitError;
-				_extError = result;
-				break;
-			};
+			if (!card && !service) break;
+			IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent);
+			IORegistryEntryGetRegistryEntryID(parent, &new);
 			if (card && new!=old){
 				[card setObject:@(ports) forKey:@"ports"];
 				[temp addObject:[card copy]];
@@ -93,8 +77,8 @@
 				if (result!=kIOReturnSuccess) {
 					_error = PFSKReturnIOKitError;
 					_extError = result;
-					break;
-				};
+					continue;
+				}
 				card = [@{@"device":[pciDevice create:parent], @"model":[pciDevice grabString:CFSTR("model") forService:parent], @"framebuffer":@(name)} mutableCopy];
 				IOObjectRelease(child);
 			}
@@ -103,8 +87,6 @@
 			IOObjectRelease(service);
 		}
 		IOObjectRelease(itThis);
-	} else {
-		++typeCount;
 	}
 	if (IOServiceGetMatchingServices(masterPort, IOServiceMatching("AppleIntelFramebuffer"), &itThis) == KERN_SUCCESS){
 		NSMutableDictionary *card;
@@ -114,17 +96,19 @@
 		service = 1;
 		while(service) {
 			service = IOIteratorNext(itThis);
-			if (!card && !service) {
+			if (!card && !service) break;
+			/*result = */IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent);
+			/*if (result!=kIOReturnSuccess) {
 				_error = PFSKReturnIOKitError;
 				_extError = result;
-			};;
-			result = IORegistryEntryGetParentEntry(service, kIOServicePlane, &parent);
-			result = IORegistryEntryGetRegistryEntryID(parent, &new);
-			if (result!=kIOReturnSuccess) {
+				//continue;
+			}*/
+			/*result = */IORegistryEntryGetRegistryEntryID(parent, &new);
+			/*if (result!=kIOReturnSuccess) {
 				_error = PFSKReturnIOKitError;
 				_extError = result;
-				break;
-			}
+				//continue;
+			}*/
 			if (card && new!=old){
 				[card setObject:@(ports) forKey:@"ports"];
 				[temp addObject:[card copy]];
@@ -138,11 +122,16 @@
 				if (result!=kIOReturnSuccess) {
 					_error = PFSKReturnIOKitError;
 					_extError = result;
-					break;
-				};
+					continue;
+				}
 				NSUInteger framebuffer = [[pciDevice grabNumber:CFSTR("AAPL,ig-platform-id") forService:parent] longValue];
 				if (framebuffer) sprintf(name, "0x%08lX", framebuffer);
-				else IORegistryEntryGetName(child, name);
+				else result = IORegistryEntryGetName(child, name);
+				if (result!=kIOReturnSuccess) {
+					_error = PFSKReturnIOKitError;
+					_extError = result;
+					continue;
+				}
 				card = [@{@"device":[pciDevice create:parent], @"model":[pciDevice grabString:CFSTR("model") forService:parent], @"framebuffer":@(name)} mutableCopy];
 				IOObjectRelease(child);
 			}
@@ -151,13 +140,6 @@
 			IOObjectRelease(service);
 		}
 		IOObjectRelease(itThis);
-	} else {
-		++typeCount;
-	}
-	if (typeCount==3) {
-		_error = PFSKReturnNoGraphicDevicesFound;
-	} else {
-		_error = PFSKReturnSuccess;
 	}
 	[self setValue:[temp copy] forKey:@"graphicReport"];
 	return self.graphicReport;

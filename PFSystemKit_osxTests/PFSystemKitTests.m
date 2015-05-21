@@ -12,6 +12,7 @@
 //#import "PFSK_OSX.h"
 #import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+RAM.h"
+#import "PFSK_OSX+GPU.h"
 #import "PFSK_Common+Machine.h"
 
 @interface PFSystemKitTests : XCTestCase {
@@ -62,7 +63,7 @@
 	refReturn = [pfkit refreshGroup:PFSKGroupSMC];
 	NSDate* slC = [pfkit valueForKey:@"sleepCause"];
 	NSLog(@"%@", slC);
-	NSArray* graphs = [pfkit graphicReport];
+	NSArray* graphs = [pfkit graphicsCreateReport];
 	NSLog(@"%@", graphs);
 	refReturn = [pfkit refreshGroup:PFSKGroupBattery];
 	NSDictionary* batt = [pfkit valueForKey:@"batteryReport"];

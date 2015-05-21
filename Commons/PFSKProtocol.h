@@ -65,7 +65,6 @@
 -(void) dealloc;
 -(void) finalize;
 -(BOOL) refreshGroup:(PFSystemKitGroup)group; 					//overrides any non-commited modification
--(BOOL) refresh;
 @end
 
 #endif

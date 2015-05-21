@@ -30,7 +30,7 @@ typedef NS_ENUM(int, PFSystemKitError) {
 	PFSKReturnNotWritable = 8,
 	PFSKReturnNoGraphicDevicesFound = 9,
 	PFSKReturnGeneral = 65533, //too bad
-	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen)
+	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen), could serve as a terminator
 };
 
 /*!
@@ -49,11 +49,11 @@ typedef NS_ENUM(int, PFSystemKitLockState) {
 typedef NS_ENUM(int, PFSystemKitGroup) {
 	PFSKGroupPlatformExpertDevice = 1,
 	PFSKGroupROM = 2,
-	//PFSKGroupNVRam = 3, no more
-	PFSKGroupSMC = 3,
-	PFSKGroupLMU = 4,
-	PFSKGroupGraphics = 5,
-	PFSKGroupBattery = 6,
+	//PFSKGroupNVRam no more, see : github.com/perfaram/NVRAM-Wrapper
+	PFSKGroupSMC = 3,//to tweak SMC values, use SMCWrapper by @fmorrow
+	//PFSKGroupLMU = 4 no more
+	PFSKGroupGraphics = 4,
+	PFSKGroupBattery = 5,
 	PFSKGroupTerminator
 };
 

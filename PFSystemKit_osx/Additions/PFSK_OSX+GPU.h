@@ -10,5 +10,5 @@
 #import "PFSK_OSX.h"
 
 @interface PFSystemKit(GPU)
--(NSArray *)listGraphics;
+-(NSArray *)graphicsCreateReport;
 @end

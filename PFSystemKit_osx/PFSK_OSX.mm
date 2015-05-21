@@ -28,13 +28,12 @@
 /**
  * PFSystemKit singleton instance retrieval method
  */
-+(instancetype) investigate{
-	static id sharedInstance;
++(instancetype) investigate {
+	static PFSystemKit* sharedInstance;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
 	});
-	//@synchronized;
 	return sharedInstance;
 }
 
@@ -66,10 +65,6 @@
 				[self setValue:[platformExpertRawDict objectForKey:@"board-id"] forKey:@"boardID"];
 				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey] forKey:@"serial"];
 				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey] forKey:@"platformID"];
-				//now, PSFK is modulable. If people want these, they'll call these.
-				//val4Key("ramSize", [self memorySize]);
-				//val4Key("ramStats", [self memoryStats]);
-				//val4Key("cpuReport", [self cpuReport]);
 			}
 			break;
 		}
@@ -189,24 +184,6 @@
 	return true;
 }
 
--(BOOL) refresh {
-	BOOL ref = 0;
-//	return [self refreshGroup:PFSKGroupPlatformExpertDevice];
-	std::vector<PFSystemKitGroup> vGroups;
-	for ( auto i = vGroups.begin(); i != vGroups.end(); i++ ) {
-		ref = [self refreshGroup:*i]; //refresh data for each.
-		if (ref!=true) { //It failed, so we
-			break; //stop there
-		}
-	}
-	
-	if (ref!=true) { //we had to break because of error, we
-		return false;//return false
-	} else { //everything is good, we
-		return true;//are happy !
-	}
-}
-
 #pragma mark - Getters
 @synthesize family;
 @synthesize familyString;
@@ -239,29 +216,21 @@
 }
 
 -(void) dealloc {
-	//[super dealloc];
 }
 
--(id) init {
-	self = [super init];
-	if (self) {
-		_writeLockState = PFSKLockStateLocked;
-		_error = PFSKReturnUnknown;
-		_extError = 0;
-		
-		kern_return_t IOresult;
-		IOresult = IOMasterPort(bootstrap_port, &masterPort);
-		if (IOresult!=kIOReturnSuccess) {
-			_error = PFSKReturnNoMasterPort;
-			_extError = IOresult;
-			return nil;
-		}
-		
-		/*BOOL REFresult = [self refresh];
-		if (REFresult!=true) {
-			//error/extError already setted
-			return nil;
-		}*/
+-(instancetype) init {
+	if (!(self = [super init])) {
+		return nil;
+	}
+	_writeLockState = PFSKLockStateLocked;
+	_error = PFSKReturnUnknown;
+	_extError = 0;
+	kern_return_t IOresult;
+	IOresult = IOMasterPort(bootstrap_port, &masterPort);
+	if (IOresult!=kIOReturnSuccess) {
+		_error = PFSKReturnNoMasterPort;
+		_extError = IOresult;
+		return nil;
 	}
 	return self;
 }

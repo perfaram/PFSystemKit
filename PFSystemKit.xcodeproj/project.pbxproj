@@ -20,8 +20,6 @@
 		0B9DF4231B08B0DF00DE2175 /* PFSystemKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9DF4221B08B0DF00DE2175 /* PFSystemKitTests.m */; };
 		0B9DF4261B08B25F00DE2175 /* PFSK_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B9DF4241B08B25F00DE2175 /* PFSK_OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B9DF4271B08B25F00DE2175 /* PFSK_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B9DF4251B08B25F00DE2175 /* PFSK_OSX.mm */; };
-		0B9DF4301B08B27900DE2175 /* PFSK_OSX+Battery.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B9DF4281B08B27900DE2175 /* PFSK_OSX+Battery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B9DF4311B08B27900DE2175 /* PFSK_OSX+Battery.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9DF4291B08B27900DE2175 /* PFSK_OSX+Battery.m */; };
 		0B9DF4321B08B27900DE2175 /* PFSK_OSX+CPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B9DF42A1B08B27900DE2175 /* PFSK_OSX+CPU.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B9DF4331B08B27900DE2175 /* PFSK_OSX+CPU.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B9DF42B1B08B27900DE2175 /* PFSK_OSX+CPU.mm */; };
 		0B9DF4341B08B27900DE2175 /* PFSK_OSX+GPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B9DF42C1B08B27900DE2175 /* PFSK_OSX+GPU.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,8 +84,6 @@
 		0B9DF4221B08B0DF00DE2175 /* PFSystemKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSystemKitTests.m; path = PFSystemKit_osxTests/PFSystemKitTests.m; sourceTree = SOURCE_ROOT; };
 		0B9DF4241B08B25F00DE2175 /* PFSK_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSK_OSX.h; path = PFSystemKit_osx/PFSK_OSX.h; sourceTree = SOURCE_ROOT; };
 		0B9DF4251B08B25F00DE2175 /* PFSK_OSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PFSK_OSX.mm; path = PFSystemKit_osx/PFSK_OSX.mm; sourceTree = SOURCE_ROOT; };
-		0B9DF4281B08B27900DE2175 /* PFSK_OSX+Battery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFSK_OSX+Battery.h"; path = "PFSystemKit_osx/Additions/PFSK_OSX+Battery.h"; sourceTree = SOURCE_ROOT; };
-		0B9DF4291B08B27900DE2175 /* PFSK_OSX+Battery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PFSK_OSX+Battery.m"; path = "PFSystemKit_osx/Additions/PFSK_OSX+Battery.m"; sourceTree = SOURCE_ROOT; };
 		0B9DF42A1B08B27900DE2175 /* PFSK_OSX+CPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFSK_OSX+CPU.h"; path = "PFSystemKit_osx/Additions/PFSK_OSX+CPU.h"; sourceTree = SOURCE_ROOT; };
 		0B9DF42B1B08B27900DE2175 /* PFSK_OSX+CPU.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "PFSK_OSX+CPU.mm"; path = "PFSystemKit_osx/Additions/PFSK_OSX+CPU.mm"; sourceTree = SOURCE_ROOT; };
 		0B9DF42C1B08B27900DE2175 /* PFSK_OSX+GPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PFSK_OSX+GPU.h"; path = "PFSystemKit_osx/Additions/PFSK_OSX+GPU.h"; sourceTree = SOURCE_ROOT; };
@@ -218,8 +214,6 @@
 		0BCAF3611B039E5C00278750 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				0B9DF4281B08B27900DE2175 /* PFSK_OSX+Battery.h */,
-				0B9DF4291B08B27900DE2175 /* PFSK_OSX+Battery.m */,
 				0B9DF42A1B08B27900DE2175 /* PFSK_OSX+CPU.h */,
 				0B9DF42B1B08B27900DE2175 /* PFSK_OSX+CPU.mm */,
 				0B9DF42C1B08B27900DE2175 /* PFSK_OSX+GPU.h */,
@@ -373,7 +367,6 @@
 			files = (
 				0B9DF4321B08B27900DE2175 /* PFSK_OSX+CPU.h in Headers */,
 				0B9DF41D1B07C2AD00DE2175 /* NSProcessInfo+PECocoaBackports.h in Headers */,
-				0B9DF4301B08B27900DE2175 /* PFSK_OSX+Battery.h in Headers */,
 				0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */,
 				0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */,
 				0B9DF4341B08B27900DE2175 /* PFSK_OSX+GPU.h in Headers */,
@@ -561,7 +554,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B9DF4271B08B25F00DE2175 /* PFSK_OSX.mm in Sources */,
-				0B9DF4311B08B27900DE2175 /* PFSK_OSX+Battery.m in Sources */,
 				0B9DF43B1B08B2A200DE2175 /* PCI.m in Sources */,
 				0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */,
 				0B9DF4481B08BBE900DE2175 /* PFSK_Common+Machine.mm in Sources */,
