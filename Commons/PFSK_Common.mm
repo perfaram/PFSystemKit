@@ -129,6 +129,10 @@
 	return @(PFSystemKitCPUArchesStrings[arch]);
 }
 
+NSString* _cpuArchToString(PFSystemKitCPUArches arch) {
+	return @(PFSystemKitCPUArchesStrings[arch]);
+}
+
 +(NSOperatingSystemVersion) osVersionFromString:(NSString*) string {
 	return NSOperatingSystemVersionWithNSString(string);
 }

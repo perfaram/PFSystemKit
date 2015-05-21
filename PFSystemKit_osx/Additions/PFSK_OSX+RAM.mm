@@ -15,22 +15,7 @@
 #import <mach/task.h>
 
 @implementation PFSystemKit(RAM)
--(NSNumber*) memorySize {
-	NSNumber* ret = [NSNumber.alloc init];
-	_error = [self.class memorySize:&ret];
-	val4Key("ramSize", ret);
-	return ret;
-}
-
--(NSDictionary*) memoryStats {
-	NSDictionary* ret = [NSDictionary.alloc init];
-	_error = [self.class memoryStats:&ret];
-	val4Key("ramStats", ret);
-	return ret;
-}
-
-+(PFSystemKitError) memorySize:(NSNumber**)ret __attribute__((nonnull (1)))
-{
+__attribute__((always_inline)) PFSystemKitError _memorySize(NSNumber** ret) {
 	CGFloat size = 0;
 	PFSystemKitError result;
 	result = _sysctlFloatForKey((char*)"hw.memsize", size);
@@ -42,8 +27,7 @@ finish:
 	return result;
 }
 
-+(PFSystemKitError) memoryStats:(NSDictionary**)ret __attribute__((nonnull (1)))
-{
+__attribute__((always_inline)) PFSystemKitError _memoryStats(NSDictionary** ret) {
 	CGFloat pageSize = 0;
 	PFSystemKitError result;
 	result = _sysctlFloatForKey((char*)"hw.pagesize", pageSize);
@@ -57,7 +41,7 @@ finish:
 	task_basic_info_64_data_t infof;
 	unsigned size = sizeof (infof);
 	task_info(mach_task_self(), TASK_BASIC_INFO_64, (task_info_t)&infof, &size);
-
+	
 	const double bytesPerMB = 1024 * 1024;
 	long long total = ((vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count) * pageSize) / bytesPerMB;
 	long long wired = (vmstat.wire_count * pageSize) / bytesPerMB;
@@ -66,5 +50,28 @@ finish:
 	long long free = (vmstat.free_count * pageSize) / bytesPerMB;
 	*ret = [NSDictionary dictionaryWithObjectsAndKeys:@(total), @"total", @(wired), @"wired", @(active), @"active", @(inactive), @"inactive", @(free), @"free", nil];
 	return PFSKReturnSuccess;
+}
+
+-(NSNumber*) memorySize {
+	NSNumber* ret = [NSNumber.alloc init];
+	_error = _memorySize(&ret);
+	val4Key("ramSize", ret);
+	return ret;
+}
+
+-(NSDictionary*) memoryStats {
+	NSDictionary* ret = [NSDictionary.alloc init];
+	_error = _memoryStats(&ret);
+	val4Key("ramStats", ret);
+	return ret;
+}
+
++(PFSystemKitError) memorySize:(NSNumber**)ret __attribute__((nonnull (1)))
+{
+	return _memorySize(ret);
+}
+
++(PFSystemKitError) memoryStats:(NSDictionary**)ret __attribute__((nonnull (1))) {
+	return _memoryStats(ret);
 }
 @end

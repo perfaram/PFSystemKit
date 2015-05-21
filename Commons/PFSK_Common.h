@@ -115,6 +115,7 @@
  @returns A NSString holding either a CPU architecture (x86_64, ARM, i860, etc...), or "Unknown" if unknown
  */
 +(NSString*) cpuArchToString:(PFSystemKitCPUArches) arch;
+NSString* _cpuArchToString(PFSystemKitCPUArches arch);
 
 #if defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
 PFSystemKitError _sysctlStringForKey(char* key, std::string& answerString);

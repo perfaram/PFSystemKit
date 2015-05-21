@@ -68,6 +68,9 @@
 	refReturn = [pfkit refreshGroup:PFSKGroupBattery];
 	NSDictionary* batt = [pfkit valueForKey:@"batteryReport"];
 	NSLog(@"%@", batt);
+	NSMutableDictionary* cBrand = [NSMutableDictionary.alloc init];
+	[PFSystemKit cpuCreateReport:&cBrand];
+	NSLog(@"%@", cBrand);
 	
     XCTAssert(YES, @"Pass");
 }
