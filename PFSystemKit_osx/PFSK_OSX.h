@@ -95,10 +95,6 @@
 -(void) dealloc;
 -(void) finalize;
 -(BOOL) refreshGroup:(PFSystemKitGroup)group; 					//overrides any non-commited modification
-#ifdef WRITE_ABILITY
--(BOOL) commitGroup:(PFSystemKitGroup)group;					//commits any change made in the specified group
--(BOOL) commit;
-#endif
 
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
 
