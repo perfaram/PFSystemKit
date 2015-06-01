@@ -33,13 +33,13 @@
 @synthesize classString;
 @synthesize subClassString;
 
-+(long)nameToLong:(NSString *)name{
++(long)nameToLong:(NSString*)name{
     if (![name hasPrefix:@"pci"] || [name rangeOfString:@","].location == NSNotFound) return 0;
     NSArray *temp = [[name stringByReplacingOccurrencesOfString:@"pci" withString:@""] componentsSeparatedByString:@","];
     return strHexDec([temp objectAtIndex:1]) << 16 | strHexDec([temp objectAtIndex:0]);
 }
 +(bool)isPCI:(io_service_t)service{
-    return [@"IOPCIDevice" isEqualToString:(__bridge_transfer NSString *)IOObjectCopyClass(service)];
+    return [@"IOPCIDevice" isEqualToString:(__bridge_transfer NSString*)IOObjectCopyClass(service)];
 }
 +(NSNumber *)grabNumber:(CFStringRef)entry forService:(io_service_t)service{//FIXME: shift bridge
     id number = (__bridge_transfer id)IORegistryEntryCreateCFProperty(service, entry, kCFAllocatorDefault, 0);
@@ -50,9 +50,9 @@
         temp = @(*(NSInteger *)[number bytes]);
     return temp;
 }
-+(NSString *)grabString:(CFStringRef)entry forService:(io_service_t)service{
++(NSString*)grabString:(CFStringRef)entry forService:(io_service_t)service{
     id string = (__bridge_transfer id)IORegistryEntryCreateCFProperty(service, entry, kCFAllocatorDefault, 0);
-    NSString *temp = @"";
+    NSString*temp = @"";
     if (!string) return temp;
     if ([string isKindOfClass:[NSString class]]) return string;
     else if ([string isKindOfClass:[NSData class]])
@@ -88,7 +88,7 @@
         temp.pciSubClass = @((temp.pciClassCode.integerValue >> 8) &0xFF);
         temp.revision = [self grabNumber:CFSTR("revision-id") forService:service];
         long ids = 0;
-        NSString *string = [pciDevice grabString:CFSTR("IOName") forService:service];
+        NSString*string = [pciDevice grabString:CFSTR("IOName") forService:service];
         if (string.length) ids = [self nameToLong:string];
         //else [NSException raise:@"noioname" format:@"Missing IOName"];
         if (!ids) {
@@ -108,10 +108,10 @@
         return temp;
     }
 }
--(NSString *)fullClassString{
+-(NSString*)fullClassString{
     return [NSString stringWithFormat:@"%@, %@", classString, subClassString];
 }
--(NSString *)lspciString{
+-(NSString*)lspciString{
     return [NSString stringWithFormat:@"%02lx:%02lx.%01lx %@ [%04lx]: %@ %@ [%04lx:%04lx]%@%@", [[bus objectAtIndex:0] integerValue], [[bus objectAtIndex:1] integerValue], [[bus objectAtIndex:2] integerValue], subClassString, pciClassCode.integerValue>>8, vendorString, deviceString, shadowVendor.integerValue, shadowDevice.integerValue, !revision.integerValue?@"":[NSString stringWithFormat:@" (rev %02lx)", revision.integerValue], !subDevice.integerValue?@"":[NSString stringWithFormat:@" (subsys %04lx:%04lx)", subVendor.integerValue, subDevice.integerValue]];
 }
 -(long)fullID{
@@ -195,7 +195,7 @@
 @implementation pciVendor
 @synthesize name;
 @synthesize devices;
-+(pciVendor *)create:(NSString *)name{
++(pciVendor *)create:(NSString*)name{
     pciVendor *temp = [pciVendor new];
     temp.name = name;
     temp.devices = [NSMutableDictionary dictionary];
@@ -206,7 +206,7 @@
 @implementation pciClass
 @synthesize name;
 @synthesize subClasses;
-+(pciClass *)create:(NSString *)name{
++(pciClass *)create:(NSString*)name{
     pciClass *temp = [pciClass new];
     temp.name = name;
     temp.subClasses = [NSMutableDictionary dictionary];
@@ -223,13 +223,13 @@
     temp.device = device;
     return temp;
 }
-+(NSString *)stringWithArray:(NSArray *)array{
++(NSString*)stringWithArray:(NSArray *)array{
     NSMutableString *str = [NSMutableString stringWithFormat:@"%08x%08x", CFSwapInt32HostToBig(1), h64tob32(array.count)];
     for (efiObject *obj in array) {
         NSMutableString *efi = [NSMutableString stringWithFormat:@"%08x", 0x7fff0400];
         io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, (__bridge_retained CFDictionaryRef)[pciDevice match:obj.device]);
         while (true) {
-            NSString *property;
+            NSString*property;
             if ((property = [pciDevice grabString:CFSTR("pcidebug") forService:service]) && property.length) {
                 NSArray *bus = [[[property stringByReplacingOccurrencesOfString:@"(" withString:@":"] componentsSeparatedByString:@":"] valueForKey:@"integerValue"];
                 [efi insertString:[NSString stringWithFormat:@"%08x%02x%02x", 0x01010600, [[bus objectAtIndex:2] intValue], [[bus objectAtIndex:1] intValue]] atIndex:0];
@@ -253,7 +253,7 @@
         }
         IOObjectRelease(service);
         if (!efi) return nil;
-        for(NSString *property in obj.properties) {
+        for(NSString*property in obj.properties) {
             NSUInteger i = 0, j = property.length+1;
             [efi appendFormat:@"%08x", h64tob32(4+j*2)];
             const char *prop = property.UTF8String;

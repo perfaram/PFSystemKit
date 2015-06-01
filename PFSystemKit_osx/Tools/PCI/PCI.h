@@ -23,20 +23,20 @@
 @property NSNumber *pciClassCode;
 @property NSNumber *pciClass;
 @property NSNumber *pciSubClass;
-@property NSString *vendorString;
-@property NSString *deviceString;
-@property NSString *classString;
-@property NSString *subClassString;
-@property (readonly) NSString *fullClassString;
-@property (readonly) NSString *lspciString;
+@property NSString*vendorString;
+@property NSString*deviceString;
+@property NSString*classString;
+@property NSString*subClassString;
+@property (readonly) NSString*fullClassString;
+@property (readonly) NSString*lspciString;
 @property (readonly) long fullID;
 @property (readonly) long fullSubID;
 @property (readonly) short bdf;
 
-+(long)nameToLong:(NSString *)name;
++(long)nameToLong:(NSString*)name;
 +(bool)isPCI:(io_service_t)service;
 +(NSNumber *)grabNumber:(CFStringRef)entry forService:(io_service_t)service;
-+(NSString *)grabString:(CFStringRef)entry forService:(io_service_t)service;
++(NSString*)grabString:(CFStringRef)entry forService:(io_service_t)service;
 +(NSDictionary *)match:(pciDevice *)pci;
 +(pciDevice *)create:(io_service_t)service classes:(NSMutableDictionary *)classes vendors:(NSMutableDictionary *)vendors;
 +(pciDevice *)create:(io_service_t)service;
@@ -45,22 +45,22 @@
 @end
 
 @interface pciVendor : NSObject
-@property NSString *name;
+@property NSString*name;
 @property NSMutableDictionary *devices;
-+(pciVendor *)create:(NSString *)name;
++(pciVendor *)create:(NSString*)name;
 @end
 
 @interface pciClass : NSObject
-@property NSString *name;
+@property NSString*name;
 @property NSMutableDictionary *subClasses;
-+(pciClass *)create:(NSString *)name;
++(pciClass *)create:(NSString*)name;
 @end
 
 @interface efiObject : NSObject
 @property NSDictionary *properties;
 @property pciDevice *device;
 +(efiObject *)create:(pciDevice *)device injecting:(NSDictionary *)properties;
-+(NSString *)stringWithArray:(NSArray *)array;
++(NSString*)stringWithArray:(NSArray *)array;
 @end
 
 @interface hexFormatter : NSValueTransformer

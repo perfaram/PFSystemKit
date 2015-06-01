@@ -14,6 +14,7 @@
 #import "PFSK_OSX+RAM.h"
 #import "PFSK_OSX+GPU.h"
 #import "PFSK_Common+Machine.h"
+#import "PFSK_Common+Language.h"
 
 @interface PFSystemKitTests : XCTestCase {
 	PFSystemKit* pfsys;
@@ -71,6 +72,8 @@
 	NSMutableDictionary* cBrand = [NSMutableDictionary.alloc init];
 	[PFSystemKit cpuCreateReport:&cBrand];
 	NSLog(@"%@", cBrand);
+	
+	NSLog(@"%@", [PFSystemKit userPreferredLanguages]);
 	
     XCTAssert(YES, @"Pass");
 }
