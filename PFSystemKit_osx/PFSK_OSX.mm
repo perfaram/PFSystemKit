@@ -64,7 +64,7 @@
 				[self setValue:[platformExpertRawDict objectForKey:@"model"] forKey:@"model"];
 				[self setValue:[platformExpertRawDict objectForKey:@"board-id"] forKey:@"boardID"];
 				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey] forKey:@"serial"];
-				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey] forKey:@"platformID"];
+				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey] forKey:@"hardwareUUID"];
 			}
 			break;
 		}
@@ -195,9 +195,8 @@
 @synthesize serial;
 
 @synthesize boardID;
-@synthesize platformID;
-@synthesize ramSize;
-@synthesize ramStats;
+@synthesize hardwareUUID;
+@dynamic 	memorySize;
 @synthesize cpuReport;
 @synthesize romReleaseDate;
 @synthesize romVersion;

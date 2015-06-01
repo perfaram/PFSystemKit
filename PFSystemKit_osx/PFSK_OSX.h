@@ -37,7 +37,7 @@
 /*!
  The platform identifier
  */
-@property (strong, atomic, readonly) NSString*							platformID;
+@property (strong, atomic, readonly) NSString*							hardwareUUID;
 
 /*!
  The ROM firmware version
@@ -52,12 +52,7 @@
 /*!
  The total RAM size
  */
-@property (strong, atomic, readonly) NSNumber*							ramSize;
-
-/*!
- The RAM usage statistics
- */
-@property (strong, atomic, readonly) NSDictionary*						ramStats;
+@property (strong, atomic, readonly) NSNumber*							memorySize;
 
 /*!
  Various CPU informations

@@ -22,7 +22,7 @@ __attribute__((always_inline)) PFSystemKitError _memorySize(NSNumber** ret) {
 	if (result != PFSKReturnSuccess)
 		goto finish;
 	else
-		*ret = @(size/1073741824);
+		*ret = @(size/1073741824); //bytes to gibibytes (https://en.wikipedia.org/wiki/Gibibyte)
 finish:
 	return result;
 }
@@ -53,16 +53,17 @@ __attribute__((always_inline)) PFSystemKitError _memoryStats(NSDictionary** ret)
 }
 
 -(NSNumber*) memorySize {
-	NSNumber* ret = [NSNumber.alloc init];
-	_error = _memorySize(&ret);
-	val4Key("ramSize", ret);
-	return ret;
+	if (!self.memorySize) {
+		NSNumber* ret = [NSNumber.alloc init];
+		_error = _memorySize(&ret);
+		val4Key("memorySize", ret);
+	}
+	return self.memorySize;
 }
 
 -(NSDictionary*) memoryStats {
 	NSDictionary* ret = [NSDictionary.alloc init];
 	_error = _memoryStats(&ret);
-	val4Key("ramStats", ret);
 	return ret;
 }
 
