@@ -66,6 +66,14 @@
 	return @(PFSystemKitErrorReasons[err]);
 }
 
++(NSString*) errorToRecovery:(PFSystemKitError)err {
+	return @(PFSystemKitErrorRecovery[err]);
+}
+
+inline NSString* errorToRecovery(PFSystemKitError err) {
+	return @(PFSystemKitErrorRecovery[err]);
+}
+
 inline NSString* errorToExplanation(PFSystemKitError err) {
 	return @(PFSystemKitErrorReasons[err]);
 }
