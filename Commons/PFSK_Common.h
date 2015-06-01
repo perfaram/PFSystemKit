@@ -51,6 +51,7 @@
  @returns A NSString holding the PFSystemKitError string value
  */
 +(NSString*) errorToString:(PFSystemKitError)err;
+inline NSString* errorToString(PFSystemKitError err);
 
 /*!
  @discussion Explains a PFSystemKitError
@@ -58,6 +59,7 @@
  @returns A NSString holding the explanation
  */
 +(NSString*) errorToExplanation:(PFSystemKitError)err;
+inline NSString* errorToExplanation(PFSystemKitError err);
 
 /*!
  @discussion Translates a kern_return_t to a human-readable string

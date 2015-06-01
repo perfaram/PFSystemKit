@@ -63,7 +63,15 @@
 }
 
 +(NSString*) errorToExplanation:(PFSystemKitError)err {
-	return @(PFSystemKitErrorExplanations[err]);
+	return @(PFSystemKitErrorReasons[err]);
+}
+
+inline NSString* errorToExplanation(PFSystemKitError err) {
+	return @(PFSystemKitErrorReasons[err]);
+}
+
+inline NSString* errorToString(PFSystemKitError err) {
+	return @(PFSystemKitErrorStrings[err]);
 }
 
 +(NSString*) iokitErrorToString:(kern_return_t)err {

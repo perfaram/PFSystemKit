@@ -31,18 +31,32 @@ std::map<int, char const*> PFSystemKitErrorStrings = {
 	{ PFSKReturnUnknown, "Unknown state" } //unknown error (shouldn't happen)
 };
 
-std::map<int, char const*> PFSystemKitErrorExplanations = {
-	{ PFSKReturnSuccess, "Success" },
-	{ PFSKReturnNoMasterPort, "Couldn't create an IOKit Master Port" },
+std::map<int, char const*> PFSystemKitErrorReasons = {
+	{ PFSKReturnSuccess, "Nothing bad happened while performing the last operation" },
+	{ PFSKReturnNoMasterPort, "IOKit encountered a problem while creating the MasterPort, see extended error informations for details"/*. See below for details.*/ },
 	{ PFSKReturnComponentUnavailable, "Requested component isn't available on this machine" },
-	{ PFSKReturnIOKitError, "IOKit call failed" }, //see _extError
-	{ PFSKReturnIOKitCFFailure, "Couldn't create property list from IOService" }, //error while making CFProperty
-	{ PFSKReturnSysCtlError, "SysCtl system call failed" },
-	{ PFSKReturnLockedWrite, "Writing is currently forbidden" },
-	{ PFSKReturnCastError, "Cast error" },
-	{ PFSKReturnNotWritable, "Requested component isn't writable" },
-	{ PFSKReturnGeneral, "General error" }, //too bad
-	{ PFSKReturnUnknown, "Unknown state" } //unknown error (shouldn't happen)
+	{ PFSKReturnIOKitError, "IOKit call failed, see extended error informations for details" }, //see _extError
+	{ PFSKReturnIOKitCFFailure, "Couldn't get device properties list from IOService, see extended error informations for details" }, //error while making CFProperty
+	{ PFSKReturnSysCtlError, "SysCtl call failed, system likely doesn't handle the requested key" },
+	{ PFSKReturnLockedWrite, "Writing to device is currently forbidden" },
+	{ PFSKReturnCastError, "Cast error, IOKit likely returned meaningless data" },
+	{ PFSKReturnNotWritable, "IOKit forbids write access to this component" },
+	{ PFSKReturnGeneral, "General error, something went wrong in the program itself!" }, //too bad
+	{ PFSKReturnUnknown, "Unknown state, something went wrong in the program itself!" } //unknown error (shouldn't happen)
+};
+
+std::map<int, char const*> PFSystemKitErrorRecovery = {
+	{ PFSKReturnSuccess, "Nothing to recover from" },
+	{ PFSKReturnNoMasterPort, "Recovery depends on the exact IOKit error"/*. See below for details.*/ },
+	{ PFSKReturnComponentUnavailable, "Nothing to do" },
+	{ PFSKReturnIOKitError, "Recovery depends on the exact IOKit error" }, //see _extError
+	{ PFSKReturnIOKitCFFailure, "Recovery depends on the exact IOKit error; however, it is most likely due a lack of memory" }, //error while calling IORegistryEntryCreateCFProperties
+	{ PFSKReturnSysCtlError, "Nothing to do" },
+	{ PFSKReturnLockedWrite, "Elevate yourself" },
+	{ PFSKReturnCastError, "Nothing particular to do, apart from retrying" },
+	{ PFSKReturnNotWritable, "Nothing to do, privilege escalation won't help" },
+	{ PFSKReturnGeneral, "Reopen the program, then file a bug report" }, //too bad
+	{ PFSKReturnUnknown, "Reopen the program, then file a bug report" } //unknown error (shouldn't happen)
 };
 
 std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {

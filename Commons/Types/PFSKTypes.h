@@ -14,6 +14,8 @@
 #define val4Key(key, val) setValueForKey(key, val, self)
 #define val4KeyPh(key, val) setValueForKeyPath(key, val, self)
 
+NSString* PFSKErrorDomain = @"com.faramaz.PFSystemKit";
+
 /*!
  @typedef PFSystemKitLockState
  Enumeration of integers matching a PFSystemKit error
@@ -157,7 +159,7 @@ inline static NSOperatingSystemVersion NSOperatingSystemVersionWithComponents(NS
 /*!
  Creates a NSOperatingSystemVersion struct from a NSString, being parsed
  */
-inline static NSOperatingSystemVersion NSOperatingSystemVersionWithNSString(NSString *versionString) {
+inline static NSOperatingSystemVersion NSOperatingSystemVersionWithNSString(NSString*versionString) {
 	NSArray *components = [versionString componentsSeparatedByString:@"."];
 	NSUInteger major = components.count >= 1 ? [components[0] unsignedIntegerValue] : 0;
 	NSUInteger minor = components.count >= 2 ? [components[1] unsignedIntegerValue] : 0;
