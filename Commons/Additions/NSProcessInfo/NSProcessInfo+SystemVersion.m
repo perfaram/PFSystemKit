@@ -25,7 +25,7 @@
  * Portions Copyright (C) Perceval <@perfaram> FARAMAZ
  */
 
-#import "NSProcessInfo+PECocoaBackports.h"
+#import "NSProcessInfo+SystemVersion.h"
 
 #if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -33,39 +33,39 @@
 #import <CoreServices/CoreServices.h>
 #endif
 
-@interface NSProcessInfo (PECocoaBackportsPrivate)
+@interface NSProcessInfo (SystemVersionPrivate)
 
 #if LOAD_OPERATING_SYSTEM_VERSION
-- (NSOperatingSystemVersion)PECocoaBackports_operatingSystemVersion;
-- (BOOL)PECocoaBackports_isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion)version;
-- (BOOL)PECocoaBackports_isOperatingSystemAtBestVersion:(NSOperatingSystemVersion)version;
+- (NSOperatingSystemVersion)SystemVersion_operatingSystemVersion;
+- (BOOL)SystemVersion_isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion)version;
+- (BOOL)SystemVersion_isOperatingSystemAtBestVersion:(NSOperatingSystemVersion)version;
 #endif
 
 @end
 
-@implementation NSProcessInfo (PECocoaBackportsPrivate)
+@implementation NSProcessInfo (SystemVersionPrivate)
 
-+ (void)load
++(void)load
 {
 #if LOAD_OPERATING_SYSTEM_VERSION
 	// Public API since OS X 10.10 (present since 10.9) and iOS 8.0
 	class_addInstanceMethodIfNecessary([self class],
 									   NSSelectorFromString(@"operatingSystemVersion"),
-									   @selector(PECocoaBackports_operatingSystemVersion));
+									   @selector(SystemVersion_operatingSystemVersion));
 	
 	// Public API since OS X 10.10 (present since 10.9) and iOS 8.0
 	class_addInstanceMethodIfNecessary([self class],
 									   NSSelectorFromString(@"isOperatingSystemAtLeastVersion:"),
-									   @selector(PECocoaBackports_isOperatingSystemAtLeastVersion:));
+									   @selector(SystemVersion_isOperatingSystemAtLeastVersion:));
 	// No API for this one, added by @perfaram
 	class_addInstanceMethodIfNecessary([self class],
 									   NSSelectorFromString(@"isOperatingSystemAtBestVersion:"),
-									   @selector(PECocoaBackports_isOperatingSystemAtBestVersion:));
+									   @selector(SystemVersion_isOperatingSystemAtBestVersion:));
 #endif
 }
 
 #if LOAD_OPERATING_SYSTEM_VERSION
-- (NSOperatingSystemVersion)PECocoaBackports_operatingSystemVersion
+- (NSOperatingSystemVersion)SystemVersion_operatingSystemVersion
 {
 	NSOperatingSystemVersion v = {0, 0, 0};
 	SInt32 major = 0, minor = 0, patch = 0;
@@ -94,7 +94,7 @@
 	return v;
 }
 
-- (BOOL)PECocoaBackports_isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion)version
+- (BOOL)SystemVersion_isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion)version
 {
 	const NSOperatingSystemVersion systemVersion = [self operatingSystemVersion];
 	if (systemVersion.majorVersion == version.majorVersion) {
@@ -106,7 +106,7 @@
 	return systemVersion.majorVersion >= version.majorVersion;
 }
 
-- (BOOL)PECocoaBackports_isOperatingSystemAtBestVersion:(NSOperatingSystemVersion)version {
+- (BOOL)SystemVersion_isOperatingSystemAtBestVersion:(NSOperatingSystemVersion)version {
 	
 	const NSOperatingSystemVersion systemVersion = [self operatingSystemVersion];
 	if (systemVersion.majorVersion == version.majorVersion) {
@@ -116,6 +116,13 @@
 		return systemVersion.minorVersion <= version.minorVersion;
 	}
 	return systemVersion.majorVersion <= version.majorVersion;
+}
+
+- (BOOL)SystemVersion_isMacAppStoreAvailable {
+	const NSOperatingSystemVersion osVersion = [self operatingSystemVersion];
+	
+	return ((osVersion.minorVersion >= 7) ||
+			(osVersion.minorVersion == 6 && osVersion.patchVersion >=  6));
 }
 
 #endif

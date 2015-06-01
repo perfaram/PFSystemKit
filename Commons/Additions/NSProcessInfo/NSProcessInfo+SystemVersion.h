@@ -71,7 +71,7 @@ typedef struct {
 } NSOperatingSystemVersion;
 #endif
 
-@interface NSProcessInfo (PECocoaBackports)
+@interface NSProcessInfo (SystemVersion)
 
 #if DECLARE_OPERATING_SYSTEM_VERSION
 - (NSOperatingSystemVersion)operatingSystemVersion NS_AVAILABLE(10_5, 2_0);
