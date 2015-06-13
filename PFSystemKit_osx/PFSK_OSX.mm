@@ -33,156 +33,235 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
+		[sharedInstance updateExpertReport];
+		[sharedInstance updateRomReport];
+		[sharedInstance updateSmcReport];
+		[sharedInstance updateBatteryReport];
 	});
 	return sharedInstance;
 }
 
-
-#pragma mark - Class methods (actual core code)
-
--(BOOL) refreshGroup:(PFSystemKitGroup)group {
-	kern_return_t result;
-	switch (group) {
-		case PFSKGroupPlatformExpertDevice: {
-			if (!firstRunDoneForExpertDevice) {
-				pexEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPlatformExpertDevice"));
-				if (pexEntry == 0) {
-					_error = PFSKReturnComponentUnavailable;
-					return false;
-				}
-				firstRunDoneForExpertDevice = 1;
-			}
-			CFMutableDictionaryRef pexProps = NULL;
-			result = IORegistryEntryCreateCFProperties(pexEntry, &pexProps, NULL, 0);
-			if (result!=kIOReturnSuccess) {
-				_error = PFSKReturnIOKitCFFailure;
-				_extError = result;
-				return false;
-			} else {
-				platformExpertRawDict = (__bridge NSDictionary*)pexProps;
-				CFRelease(pexProps);
-				[self setValue:[platformExpertRawDict objectForKey:@"model"] forKey:@"model"];
-				[self setValue:[platformExpertRawDict objectForKey:@"board-id"] forKey:@"boardID"];
-				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey] forKey:@"serial"];
-				[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey] forKey:@"hardwareUUID"];
-			}
-			break;
+-(BOOL) updateExpertReport {
+	if (!firstRunDoneForExpertDevice) {
+		kern_return_t result;
+		pexEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPlatformExpertDevice"));
+		if (pexEntry == 0) {
+			_error = PFSKReturnComponentUnavailable;
+			return false;
 		}
-		case PFSKGroupROM: {
-			if (!firstRunDoneForROM) {
-				romEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/rom@0");
-				if (romEntry == 0) {
-					_error = PFSKReturnComponentUnavailable;
-					return false;
-				}
-				firstRunDoneForROM = 1;
-			}
-			CFMutableDictionaryRef romProps = NULL;
-			result = IORegistryEntryCreateCFProperties(romEntry, &romProps, NULL, 0);
-			if (result!=kIOReturnSuccess) {
-				_error = PFSKReturnIOKitCFFailure;
-				_extError = result;
-				return false;
-			} else {
-				romRawDict = (__bridge NSDictionary*)romProps;
-				CFRelease(romProps);
-				val4Key("romVersion", [romRawDict objectForKey:@"version"]);
-				NSString* dateStr = [NSString.alloc initWithData:[romRawDict objectForKey:@"release-date"] encoding:NSUTF8StringEncoding];
-				NSDateComponents* romDateComps = [NSDateComponents.alloc init];
-				NSArray* romDateStrSplitted = [dateStr componentsSeparatedByString:@"/"];
-				[romDateComps setMonth:[[romDateStrSplitted objectAtIndex:0] integerValue]];
-				[romDateComps setDay:[[romDateStrSplitted objectAtIndex:1] integerValue]];
-				[romDateComps setYear:(2000+[[romDateStrSplitted objectAtIndex:2] integerValue])];
-				val4Key("romReleaseDate", [[NSCalendar currentCalendar] dateFromComponents:romDateComps]);
-			}
-			break;
+		CFMutableDictionaryRef pexProps = NULL;
+		result = IORegistryEntryCreateCFProperties(pexEntry, &pexProps, NULL, 0);
+		if (result!=kIOReturnSuccess) {
+			_error = PFSKReturnIOKitCFFailure;
+			_extError = result;
+			return false;
+		} else {
+			platformExpertRawDict = (__bridge_transfer NSDictionary*)pexProps;
+			[self setValue:[platformExpertRawDict objectForKey:@"model"] forKey:@"model"];
+			[self setValue:[platformExpertRawDict objectForKey:@"board-id"] forKey:@"boardID"];
+			[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey] forKey:@"serial"];
+			[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey] forKey:@"hardwareUUID"];
 		}
-		case PFSKGroupSMC: { //to tweak SMC values, use SMCWrapper by @fmorrow
-			if (!firstRunDoneForSMC) {
-				smcEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("AppleSMC"));
-				if (smcEntry == 0) {
-					_error = PFSKReturnComponentUnavailable;
-					return false;
-				}
-				firstRunDoneForSMC = 1;
-			}
-			CFMutableDictionaryRef smcProps = NULL;
-			result = IORegistryEntryCreateCFProperties(smcEntry, &smcProps, NULL, 0);
-			if (result!=kIOReturnSuccess) {
-				_error = PFSKReturnIOKitCFFailure;
-				_extError = result;
-				return false;
-			} else {
-				smcRawDict = (__bridge NSDictionary*)smcProps;
-				CFRelease(smcProps);
-				val4Key("smcVersion",   [smcRawDict objectForKey:@"smc-version"]);
-				val4Key("sleepCause",   [smcRawDict objectForKey:@"SleepCause"]);
-				val4Key("shutdownCause",[smcRawDict objectForKey:@"ShutdownCause"]);
-			}
-			break;
-		}
-		case PFSKGroupBattery: { //to get more informations or to subscribe for events about power sources, use the IOPowerSources API
-			if (!firstRunDoneForBattery) {
-				batEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPMPowerSource"));
-				if (batEntry == 0) {
-					_error = PFSKReturnComponentUnavailable;
-					return false;
-				}
-			}
-			CFMutableDictionaryRef	batProps = NULL;
-			result = IORegistryEntryCreateCFProperties(batEntry, &batProps, NULL, 0);
-			if (result!=kIOReturnSuccess) {
-				_error = PFSKReturnIOKitCFFailure;
-				_extError = result;
-				return false;
-			} else {
-				batteryRawDict = (__bridge_transfer NSDictionary*)batProps;
-				NSMutableDictionary* temp = [NSMutableDictionary.alloc init];
-				if (!firstRunDoneForBattery) { //static keys
-					//[temp setObject:[batteryRawDict objectForKey:@"DesignCapacity"] forKey:@"DesignedCapacity"];
-					[temp setObject:[batteryRawDict objectForKey:@"DesignCycleCount9C"] forKey:@"DesignedCycleCount"];
-					[temp setObject:[batteryRawDict objectForKey:@"BatterySerialNumber"] forKey:@"Serial"];
-					[temp setObject:[batteryRawDict objectForKey:@"DeviceName"] forKey:@"Model"];
-					[temp setObject:[batteryRawDict objectForKey:@"Manufacturer"] forKey:@"Manufacturer"];
-					unsigned int manufactureDateAsInt = [[batteryRawDict objectForKey:@"ManufactureDate"] intValue];
-					NSDateComponents* manufactureDateComponents = [[NSDateComponents alloc]init];
-					manufactureDateComponents.year = (manufactureDateAsInt >> 9) + 1980;
-					manufactureDateComponents.month = (manufactureDateAsInt >> 5) & 0xF;
-					manufactureDateComponents.day = manufactureDateAsInt & 0x1F;
-					[temp setObject:[[NSCalendar currentCalendar] dateFromComponents:manufactureDateComponents] forKey:@"ManufactureDate"];
-					firstRunDoneForBattery = 1;
-				}
-				[temp setObject:[batteryRawDict objectForKey:@"BatteryInstalled"] forKey:@"isPresent"];
-				[temp setObject:[batteryRawDict objectForKey:@"FullyCharged"] forKey:@"isFull"];
-				[temp setObject:[batteryRawDict objectForKey:@"IsCharging"] forKey:@"isCharging"];
-				[temp setObject:[batteryRawDict objectForKey:@"ExternalConnected"] forKey:@"isACConnected"];
-				[temp setObject:[batteryRawDict objectForKey:@"Amperage"] forKey:@"Amperage"];
-				[temp setObject:[batteryRawDict objectForKey:@"CurrentCapacity"] forKey:@"CurrentCapacity"];
-				[temp setObject:[batteryRawDict objectForKey:@"MaxCapacity"] forKey:@"MaxCapacity"];
-				[temp setObject:[batteryRawDict objectForKey:@"Voltage"] forKey:@"Voltage"];
-				[temp setObject:[batteryRawDict objectForKey:@"CycleCount"] forKey:@"CycleCount"];
-				[temp setObject:@(([[batteryRawDict objectForKey:@"MaxCapacity"] intValue] / [[batteryRawDict objectForKey:@"DesignCapacity"] intValue])*100) forKey:@"Health"]; //percentage
-				[temp setObject:@([[batteryRawDict objectForKey:@"Temperature"] doubleValue] / 100) forKey:@"Temperature"];
-				/*to be checked*/[temp setObject:@([[batteryRawDict objectForKey:@"Amperage"] doubleValue] / 1000 * [[batteryRawDict objectForKey:@"Voltage"] doubleValue] / 1000) forKey:@"Power"];
-				NSDateComponents* differenceDate = [[NSCalendar currentCalendar] components:NSCalendarUnitDay
-												fromDate:[temp objectForKey:@"ManufactureDate"]
-												  toDate:[NSDate date]
-												 options:0];
-				[temp setObject:@([differenceDate day]) forKey:@"Age"];
-				batteryReport = [temp copy];
-			}
-			break;
-		}
-		case PFSKGroupTerminator: { //just in case
-			break;//return U MAD BRO
-		}
-		default: {
-			break;
-		}
+		firstRunDoneForExpertDevice = 1;
 	}
-	_error = PFSKReturnSuccess;
 	return true;
 }
+
+-(BOOL) updateRomReport {
+	if (!firstRunDoneForROM) {
+		kern_return_t result;
+		romEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/rom@0");
+		if (romEntry == 0) {
+			_error = PFSKReturnComponentUnavailable;
+			return false;
+		}
+		CFMutableDictionaryRef romProps = NULL;
+		result = IORegistryEntryCreateCFProperties(romEntry, &romProps, NULL, 0);
+		if (result!=kIOReturnSuccess) {
+			_error = PFSKReturnIOKitCFFailure;
+			_extError = result;
+			return false;
+		} else {
+			romRawDict = (__bridge_transfer NSDictionary*)romProps;
+			val4Key("romVersion", [romRawDict objectForKey:@"version"]);
+			NSString* dateStr = [NSString.alloc initWithData:[romRawDict objectForKey:@"release-date"] encoding:NSUTF8StringEncoding];
+			NSDateComponents* romDateComps = [NSDateComponents.alloc init];
+			NSArray* romDateStrSplitted = [dateStr componentsSeparatedByString:@"/"];
+			[romDateComps setMonth:[[romDateStrSplitted objectAtIndex:0] integerValue]];
+			[romDateComps setDay:[[romDateStrSplitted objectAtIndex:1] integerValue]];
+			[romDateComps setYear:(2000+[[romDateStrSplitted objectAtIndex:2] integerValue])];
+			val4Key("romReleaseDate", [[NSCalendar currentCalendar] dateFromComponents:romDateComps]);
+		}
+		firstRunDoneForROM = 1;
+	}
+	return true;
+}
+
+-(BOOL) updateSmcReport {
+	kern_return_t result;
+	if (!firstRunDoneForSMC) {
+		smcEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("AppleSMC"));
+		if (smcEntry == 0) {
+			_error = PFSKReturnComponentUnavailable;
+			return false;
+		}
+	}
+	CFMutableDictionaryRef smcProps = NULL;
+	result = IORegistryEntryCreateCFProperties(smcEntry, &smcProps, NULL, 0);
+	if (result!=kIOReturnSuccess) {
+		_error = PFSKReturnIOKitCFFailure;
+		_extError = result;
+		return false;
+	} else {
+		smcRawDict = (__bridge_transfer NSDictionary*)smcProps;
+		if (!firstRunDoneForSMC) { //reboot needed for SMC update, or for the ShutdownCause to change
+			val4Key("smcVersion", [smcRawDict objectForKey:@"smc-version"]);
+			val4Key("shutdownCause", [smcRawDict objectForKey:@"ShutdownCause"]);
+			firstRunDoneForSMC = 1;
+		}
+		val4Key("sleepCause", [smcRawDict objectForKey:@"SleepCause"]);
+	}
+	return true;
+}
+
+-(BOOL) updateCPUReport {
+	PFSystemKitError locResult;
+	BOOL errorOccured;
+	NSString* cpuVendor;
+	NSString* cpuBrand;
+	
+	NSNumber* cpuThreads, cpuCores, cpuS, cpuFreq, cpuL2, cpul3;
+	
+	PFSystemKitCPUArches arch;
+	
+	locResult = _cpuVendor(&cpuVendor);
+	if (locResult != PFSKReturnSuccess) {
+		cpuVendor = @"-";
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuBrand(&cpuBrand);
+	if (locResult != PFSKReturnSuccess) {
+		cpuBrand = @"-";
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuArchitecture(&arch);
+	if (locResult != PFSKReturnSuccess) {
+		arch = PFSKCPUArchesUnknown;
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuThreadCount(&cpuThreads);
+	if (locResult != PFSKReturnSuccess) {
+		cpuThreads = @(-1);
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuCoreCount(&cpuCores);
+	if (locResult != PFSKReturnSuccess) {
+		cpuCores = @(-1);
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuCount(&cpuS);
+	if (locResult != PFSKReturnSuccess) {
+		cpuS = @(-1);
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuFrequency(&cpuFreq);
+	if (locResult != PFSKReturnSuccess) {
+		cpuFreq = @(-1);
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuL2Cache(&cpuL2);
+	if (locResult != PFSKReturnSuccess) {
+		cpuL2 = @(-1);
+		errorOccured = 1;
+	}
+	
+	locResult = _cpuL3Cache(&cpuL3);
+	if (locResult != PFSKReturnSuccess) {
+		cpuL3 = @(-1);
+		errorOccured = 1;
+	}
+	
+	cpuReport = [PFSystemCPUReport.alloc initWithCount:cpuS
+												 brand:cpuBrand
+											 coreCount:cpuCores
+										   threadCount:cpuThreads
+											 frequency:cpuFreq
+													l2:cpuL2
+													l3:cpuL3
+										  architecture:arch
+												vendor:cpuVendor];
+	
+	error = synthesizeError(locResult);
+	if (result != PFSKReturnSuccess) {
+		return false;
+	}
+	return true;
+}
+
+-(BOOL) updateBatteryReport {
+	kern_return_t result;
+	if (!firstRunDoneForBattery) {
+		batEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPMPowerSource"));
+		if (batEntry == 0) {
+			_error = PFSKReturnComponentUnavailable;
+			return false;
+		}
+	}
+	CFMutableDictionaryRef batProps = NULL;
+	result = IORegistryEntryCreateCFProperties(batEntry, &batProps, NULL, 0);
+	if (result!=kIOReturnSuccess) {
+		_error = PFSKReturnIOKitCFFailure;
+		_extError = result;
+		return false;
+	} else {
+		batteryRawDict = (__bridge_transfer NSDictionary*)batProps;
+		NSMutableDictionary* temp = [NSMutableDictionary.alloc init];
+		
+		if (!firstRunDoneForBattery) { //static keys
+			//[temp setObject:[batteryRawDict objectForKey:@"DesignCapacity"] forKey:@"DesignedCapacity"];
+			unsigned int manufactureDateAsInt = [[batteryRawDict objectForKey:@"ManufactureDate"] intValue];
+			NSDateComponents* manufactureDateComponents = [[NSDateComponents alloc]init];
+			manufactureDateComponents.year = (manufactureDateAsInt >> 9) + 1980;
+			manufactureDateComponents.month = (manufactureDateAsInt >> 5) & 0xF;
+			manufactureDateComponents.day = manufactureDateAsInt & 0x1F;
+			[temp setObject:[[NSCalendar currentCalendar] dateFromComponents:manufactureDateComponents] forKey:@"manufactureDate"];
+			batteryReport = [PFSystemBatteryReport.alloc initWithDCC:[batteryRawDict objectForKey:@"DesignCycleCount9C"]
+						 serial:[batteryRawDict objectForKey:@"BatterySerialNumber"]
+						  model:[batteryRawDict objectForKey:@"DeviceName"]
+				   manufacturer:[batteryRawDict objectForKey:@"Manufacturer"]
+				manufactureDate:[[NSCalendar currentCalendar] dateFromComponents:manufactureDateComponents]];
+			firstRunDoneForBattery = 1;
+		}
+		
+		NSDateComponents* differenceDate = [[NSCalendar currentCalendar] components:NSCalendarUnitDay
+																		   fromDate:[temp objectForKey:@"manufactureDate"]
+																			 toDate:[NSDate date]
+																			options:0];
+		[batteryReport updateWithIsPresent:[[batteryRawDict objectForKey:@"BatteryInstalled"] intValue]
+									isFull:[[batteryRawDict objectForKey:@"FullyCharged"] intValue]
+								isCharging:[[batteryRawDict objectForKey:@"IsCharging"] intValue]
+							 isACConnected:[[batteryRawDict objectForKey:@"ExternalConnected"] intValue]
+								  amperage:[batteryRawDict objectForKey:@"Amperage"]
+						   currentCapacity:[batteryRawDict objectForKey:@"CurrentCapacity"]
+							   maxCapacity:[batteryRawDict objectForKey:@"MaxCapacity"]
+								   voltage:[batteryRawDict objectForKey:@"Voltage"]
+								cycleCount:[batteryRawDict objectForKey:@"CycleCount"]
+									health:@(([[batteryRawDict objectForKey:@"MaxCapacity"] intValue] / [[batteryRawDict objectForKey:@"DesignCapacity"] intValue])*100)
+							   temperature:@([[batteryRawDict objectForKey:@"Temperature"] doubleValue] / 100)
+									 power:@([[batteryRawDict objectForKey:@"Amperage"] doubleValue] / 1000 * [[batteryRawDict objectForKey:@"Voltage"] doubleValue] / 1000)
+									   age:@([differenceDate day])];
+		return true;
+	}
+}
+
+#pragma mark - Class methods (actual core code)
 
 #pragma mark - Getters
 @synthesize family;
@@ -193,13 +272,8 @@
 @synthesize endiannessString;
 @synthesize model;
 @synthesize serial;
-
-@synthesize boardID;
-@synthesize hardwareUUID;
 @dynamic 	memorySize;
 @synthesize cpuReport;
-@synthesize romReleaseDate;
-@synthesize romVersion;
 @synthesize batteryReport;
 
 
@@ -212,9 +286,6 @@
 	IOObjectRelease(romEntry);
 	[super finalize];
 	return;
-}
-
--(void) dealloc {
 }
 
 -(instancetype) init {

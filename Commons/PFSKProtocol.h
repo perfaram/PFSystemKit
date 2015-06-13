@@ -9,6 +9,8 @@
 #ifndef PFSystemKit_PFSKProtocol_h
 #define PFSystemKit_PFSKProtocol_h
 #import "PFSKTypes.h"
+#import "PFSystemCPUReport.h"
+#import "PFSystemBatteryReport.h"
 
 @class PFSystemKit;
 @protocol PFSystemKitProtocol
@@ -16,6 +18,7 @@
  The device family. e.g. PFSKDeviceFamilyiPhone
  */
 @property (assign, atomic, readonly) PFSystemKitDeviceFamily			family;
+
 /*!
  The device family string. e.g. @"iPhone"
  */
@@ -25,6 +28,7 @@
  The device version. (a PFSystemKitDeviceVersion)
  */
 @property (assign, atomic, readonly) PFSystemKitDeviceVersion			version;
+
 /*!
  The device version string. e.g. @"5,1"
  */
@@ -34,6 +38,7 @@
  The system endianness. (a PFSystemKitEndianness)
  */
 @property (assign, atomic, readonly) PFSystemKitEndianness				endianness;
+
 /*!
  The system endianness string. e.g. @"Little Endian"
  */
@@ -48,6 +53,21 @@
  The device serial
  */
 @property (strong, atomic, readonly) NSString*							serial;
+
+/*!
+ The total RAM size
+ */
+@property (strong, atomic, readonly) NSNumber*							memorySize;
+
+/*!
+ Various CPU informations
+ */
+@property (strong, atomic, readonly) PFSystemCPUReport*					cpuReport;
+
+/*!
+ Various battery informations
+ */
+@property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
 
 +(PFSystemKit*)investigate;
 /*!
@@ -64,7 +84,6 @@
 -(PFSystemKit*) init;
 -(void) dealloc;
 -(void) finalize;
--(BOOL) refreshGroup:(PFSystemKitGroup)group; 					//overrides any non-commited modification
 @end
 
 #endif

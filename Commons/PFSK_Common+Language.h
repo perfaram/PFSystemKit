@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 /* iOS imports */
 #if TARGET_OS_IPHONE
-#import "PFSK_iOS.h"
+#import <PFSystemKit/PFSK_iOS.h>
 #endif
 /* OS X imports */
 #if !TARGET_OS_IPHONE

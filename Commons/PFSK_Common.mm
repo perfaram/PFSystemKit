@@ -89,6 +89,7 @@ inline NSString* errorToString(PFSystemKitError err) {
 +(NSString*) platformToString:(PFSystemKitPlatform)platform {
 	return @(PFSystemKitPlatformStrings[platform]);
 }
+
 +(PFSystemKitPlatform) stringToPlatform:(NSString*)str {
 	str = [str lowercaseString];
 	if ([PFSKHelper NSString:str contains:@"i"])
@@ -249,10 +250,35 @@ PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat) { //functio
 	
 	return PFSKReturnSysCtlError;
 }
+
 +(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerNumber {
 	CGFloat answerFloat = 0;
 	PFSystemKitError result = __sysctlFloatForKey(key, answerFloat);
 	*answerNumber = @(answerFloat);
 	return result;
+}
+
+__attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error) {
+	return [NSError errorWithDomain:PFSKErrorDomain
+							   code:error
+						   userInfo:@{
+									  NSLocalizedDescriptionKey: errorToExplanation(error),
+									  NSLocalizedFailureReasonErrorKey: errorToRecovery(error)
+									  }];
+}
+
+__attribute__((always_inline)) NSError* synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError) {
+	return [NSError errorWithDomain:PFSKErrorDomain
+							   code:error
+						   userInfo:@{
+									  NSLocalizedDescriptionKey: errorToExplanation(error),
+									  NSLocalizedFailureReasonErrorKey: errorToRecovery(error),
+									  NSUnderlyingErrorKey: [NSError errorWithDomain:PFSKErrorExtendedDomain
+																				code:extendedError
+																			userInfo:@{
+																					   NSLocalizedDescriptionKey: [NSString.alloc initWithCString:mach_error_string(extendedError)
+																																		 encoding:NSUTF8StringEncoding]
+																					   }]
+									  }];
 }
 @end

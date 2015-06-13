@@ -35,6 +35,12 @@
 }
 
 - (void)testExample {
+	{
+		PFSystemKit* pfkit = [PFSystemKit investigate];
+		NSString* batterySerial = [pfkit.batteryReport serial];
+		NSString* model = [pfkit model];
+	}
+	
     // This is an example of a functional test case.
 	PFSystemKit* pfkit = [PFSystemKit.alloc init];
 	NSNumber* res;

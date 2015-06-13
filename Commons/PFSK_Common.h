@@ -13,9 +13,10 @@
 #endif
 
 @interface PFSK_Common : NSObject {
+	NSError *error;
 	@protected
-	PFSystemKitError error;
-	kern_return_t extError;
+	PFSystemKitError errorCode;
+	kern_return_t extErrorCode;
 	PFSystemKitLockState writeLockState;
 }
 
@@ -162,4 +163,7 @@ PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat);
  @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
  */
 +(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerNumber;
+
+__attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error);
+__attribute__((always_inline)) NSError* synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError);
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSK_Common.h"
+#import <PFSystemKit/PFSK_Common.h>
+#import "PFSystemExpertReport.h"
 
 @interface PFSystemKit : PFSK_Common <PFSystemKitProtocol> {
 	@protected
@@ -30,44 +31,19 @@
 }
 
 /*!
- The mainboard identifier
+ Various platform informations
  */
-@property (strong, atomic, readonly) NSString*							boardID;
-
-/*!
- The platform identifier
- */
-@property (strong, atomic, readonly) NSString*							hardwareUUID;
-
-/*!
- The ROM firmware version
- */
-@property (strong, atomic, readonly) NSString*							romVersion;
-
-/*!
- The ROM firmware release date
- */
-@property (strong, atomic, readonly) NSString*							romReleaseDate;
-
-/*!
- The total RAM size
- */
-@property (strong, atomic, readonly) NSNumber*							memorySize;
-
-/*!
- Various CPU informations
- */
-@property (strong, atomic, readonly) NSDictionary*						cpuReport;
-
-/*!
- Various battery informations
- */
-@property (strong, atomic, readonly) NSDictionary*						batteryReport;
+@property (strong, atomic, readonly) PFSystemExpertReport*				expertReport;
 
 /*!
  NSArray of NSDictionaries holding a graphic device and its informations
  */
 @property (strong, atomic, readonly) NSArray*							graphicReport;
+
+/*!
+ NSArray of NSDictionaries holding a screen and its informations
+ */
+@property (strong, atomic, readonly) NSArray*							displayReport;
 
 /*!
  The SMC firmware version
@@ -87,9 +63,12 @@
 
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init NS_DESIGNATED_INITIALIZER;
--(void) dealloc;
 -(void) finalize;
--(BOOL) refreshGroup:(PFSystemKitGroup)group; 					//overrides any non-commited modification
+
+-(BOOL) updateExpertReport;
+-(BOOL) updateRomReport;
+-(BOOL) updateSmcReport;
+-(BOOL) updateBatteryReport;
 
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
 
