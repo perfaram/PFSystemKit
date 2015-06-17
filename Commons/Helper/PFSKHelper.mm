@@ -10,32 +10,6 @@
 #import <string>
 
 @implementation PFSKHelper
-+(BOOL) NSString:(NSString*)string contains:(NSString*)contains {
-	return [string rangeOfString:contains options:NSCaseInsensitiveSearch].location == NSNotFound ? false : true;
-}
-
-+(NSString*) NSString:(NSString*)string removePrefix:(NSString*)thePrefix {
-	if ([string hasPrefix: thePrefix]) {
-		return [string substringFromIndex: [thePrefix length]];
-	} else {
-		return string;
-	}
-}
-
-+(NSString*) NSString:(NSString*)string removeSuffix:(NSString*)theSuffix {
-	if ([string hasSuffix: theSuffix]) {
-		return [string substringToIndex: [string length]-[theSuffix length]];
-	} else {
-		return string;
-	}
-}
-
-+(NSString*) NSString:(NSString*)string replaceString:(NSString*)a byString:(NSString*)b {
-	id result = [NSMutableString stringWithString: string];
-	[result replaceOccurrencesOfString: a withString: b options: 0 range: NSMakeRange(0, [result length])];
-	return result;
-}
-
 +(CFTypeRef) rawValue:(char*)value toCFTypeRef:(CFTypeID)typeID {
 	CFTypeRef     valueRef = 0;
 	long          cnt, cnt2, length;
