@@ -7,8 +7,7 @@
 //
 
 #import "PFSK_OSX+GPU.h"
-#import "PFSystemKit/PCI.h"
-
+#import "PCI.h"
 @implementation PFSystemKit(GPU)
 -(NSArray *)graphicsCreateReport
 {

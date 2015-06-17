@@ -11,242 +11,198 @@
 #import <string>
 
 @implementation PFSystemKit(CPU)
-__attribute__((always_inline)) PFSystemKitError _cpuBrand(NSString** ret) {
-	std::string brand;
-	PFSystemKitError locResult;
-	locResult = _sysctlStringForKey((char*)"machdep.cpu.brand_string", brand);
-	if (locResult != PFSKReturnSuccess)
-		*ret = @"-";
-		goto finish;
-	else
-		*ret = [NSString stringWithSTDString:brand];
-finish:
-	return locResult;
+
++(BOOL) cpuCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    CGFloat count = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"hw.packages", count);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(count);
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuCount(NSNumber** ret) {
-	CGFloat count = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.packages", count);
-	if (result != PFSKReturnSuccess)
-		*ret = @(-1);
-		goto finish;
-	else
-		*ret = @(count);
-finish:
-	return result;
++(BOOL) cpuCoreCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    CGFloat count = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"machdep.cpu.core_count", count);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(count);
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuCoreCount(NSNumber** ret) {
-	CGFloat count = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"machdep.cpu.core_count", count);
-	if (result != PFSKReturnSuccess)
-		*ret = @(-1);
-		goto finish;
-	else
-		*ret = @(count);
-finish:
-	return result;
++(BOOL) cpuThreadCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    CGFloat count = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"machdep.cpu.thread_count", count);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(count);
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuThreadCount(NSNumber** ret) {
-	CGFloat count = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"machdep.cpu.thread_count", count);
-	if (result != PFSKReturnSuccess)
-		*ret = @(-1);
-		goto finish;
-	else
-		*ret = @(count);
-finish:
-	return result;
++(BOOL) cpuBrand:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    std::string brand;
+    PFSystemKitError locResult;
+    locResult = _sysctlStringForKey((char*)"machdep.cpu.brand_string", brand);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @"-";
+        return false;
+    }
+    *ret = [NSString stringWithSTDString:brand];
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuFrequency(NSNumber** ret) {
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.cpufrequency", size);
-	if (result != PFSKReturnSuccess)
-		*ret = @(-1);
-		goto finish;
-	else
-		*ret = @(size/1000000000);//hertz in a gigahertz
-finish:
-	return result;
++(BOOL) cpuFrequency:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    CGFloat size = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"hw.cpufrequency", size);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(size/1000000000);//hertz in a gigahertz
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuL2Cache(NSNumber** ret) {
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.l2cachesize", size);
-	if (result != PFSKReturnSuccess)
-		*ret = @(-1);
-		goto finish;
-	else
-		*ret = @(size/1048576);
-finish:
-	return result;
++(BOOL) cpuL2Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    CGFloat size = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"hw.l2cachesize", size);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(size/1048576);
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuL3Cache(NSNumber** ret) {
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.l3cachesize", size);
-	if (result != PFSKReturnSuccess)
-		*ret = @(-1);
-		goto finish;
-	else
-		*ret = @(size/1048576);
-finish:
-	return result;
++(BOOL) cpuL3Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    CGFloat size = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"hw.l3cachesize", size);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(size/1048576);
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuVendor(NSString** ret) {
-	std::string vendor;
-	PFSystemKitError locResult;
-	locResult = _sysctlStringForKey((char*)"machdep.cpu.vendor", vendor);
-	if (locResult != PFSKReturnSuccess)
-		*ret = @"-";
-		goto finish;
-	else
-		*ret = [NSString stringWithSTDString:vendor];
-finish:
-	return locResult;
++(BOOL) cpuArchitecture:(PFSystemKitCPUArches*)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    CGFloat arch = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"hw.cputype", arch);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = PFSKCPUArchesUnknown;
+        return false;
+    }
+    // values for cputype and cpusubtype defined in mach/machine.h
+    if (arch == CPU_TYPE_X86) {
+        if (arch == CPU_TYPE_X86_64)
+            *ret = PFSKCPUArchesX86_64;
+        *ret = PFSKCPUArchesX86;
+    } else if (arch == CPU_TYPE_POWERPC) {
+        if (arch == CPU_TYPE_POWERPC64)
+            *ret = PFSKCPUArchesPPC_64;
+        *ret = PFSKCPUArchesPPC;
+    } else if (arch == CPU_TYPE_I860) {
+        *ret = PFSKCPUArchesI860;
+    }
+    return true;
 }
 
-__attribute__((always_inline)) PFSystemKitError _cpuArchitecture(PFSystemKitCPUArches* ret) {
-	CGFloat arch = 0;
-	PFSystemKitError locResult;
-	locResult = _sysctlFloatForKey((char*)"hw.cputype", arch);
-	if (locResult != PFSKReturnSuccess) {
-		//memcpy(ret, (const int*)PFSKEndiannessUnknown, sizeof(PFSystemKitEndianness*));
-		*ret = PFSKCPUArchesUnknown;
-		goto finish;
-	}
-	else {
-		// values for cputype and cpusubtype defined in mach/machine.h
-		if (arch == CPU_TYPE_X86)
-		{
-			if (arch == CPU_TYPE_X86_64)
-				*ret = PFSKCPUArchesX86_64;
-			*ret = PFSKCPUArchesX86;
-		} else if (arch == CPU_TYPE_POWERPC)
-		{
-			if (arch == CPU_TYPE_POWERPC64)
-				*ret = PFSKCPUArchesPPC_64;
-			*ret = PFSKCPUArchesPPC;
-		} else if (arch == CPU_TYPE_I860)
-		{
-			*ret = PFSKCPUArchesI860;
-		}
-		goto finish;
-	}
-finish:
-	return locResult;
-}
-
-+(BOOL) cpuCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuCount(ret);
-}
-
-+(BOOL) cpuCoreCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuCoreCount(ret);
-}
-
-+(BOOL) cpuThreadCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuThreadCount(ret);
-}
-
-+(BOOL) cpuBrand:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuBrand(ret);
-}
-
-+(BOOL) cpuFrequency:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuFrequency(ret);
-}
-
-+(BOOL) cpuL2Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuL2Cache(ret);
-}
-
-+(BOOL) cpuL3Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuL3Cache(ret);
-}
-
-+(BOOL) cpuArchitecture:(PFSystemKitCPUArches*)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	return _cpuArchitecture(ret);
-}
-
-+(BOOL) cpuVendor:(NSString**)ret __attribute__((nonnull (1))) {
-	return _cpuVendor(ret);
++(BOOL) cpuVendor:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
+    std::string vendor;
+    PFSystemKitError locResult;
+    locResult = _sysctlStringForKey((char*)"machdep.cpu.vendor", vendor);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @"-";
+        return false;
+    }
+    *ret = [NSString stringWithSTDString:vendor];
+    return true;
 }
 
 +(BOOL) cpuCreateReport:(PFSystemCPUReport**)ret error:(NSError**)error __attribute__((nonnull (1))) {
-	PFSystemKitError locResult;
-	BOOL errorOccured;
-	NSString* cpuVendor;
-	NSString* cpuBrand;
-	
-	NSNumber* cpuThreads, cpuCores, cpuS, cpuFreq, cpuL2, cpul3;
-	
+    BOOL locResult;
+    BOOL errorOccured = false;
+    
+    NSString *cpuVendor, *cpuBrand;
+    NSNumber *cpuThreads, *cpuCores, *cpuS, *cpuFreq, *cpuL2, *cpuL3;
 	PFSystemKitCPUArches arch;
 	
-	locResult = _cpuVendor(&cpuVendor);
-	if (locResult != PFSKReturnSuccess) {
+	locResult = [self cpuVendor:&cpuVendor error:error];
+	if (locResult != true) {
 		cpuVendor = @"-";
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	locResult = _cpuBrand(&cpuBrand);
+	locResult = [self cpuBrand:&cpuBrand error:error];
 	if (locResult != PFSKReturnSuccess) {
 		cpuBrand = @"-";
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	locResult = _cpuArchitecture(&arch);
+	locResult = [self cpuArchitecture:&arch error:error];
 	if (locResult != PFSKReturnSuccess) {
 		arch = PFSKCPUArchesUnknown;
-		errorOccured = 1;
+        errorOccured = true;
 	}
 	
-	locResult = _cpuThreadCount(&cpuThreads);
+	locResult = [self cpuThreadCount:&cpuThreads error:error];
 	if (locResult != PFSKReturnSuccess) {
 		cpuThreads = @(-1);
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	locResult = _cpuCoreCount(&cpuCores);
+	locResult = [self cpuCoreCount:&cpuCores error:error];
 	if (locResult != PFSKReturnSuccess) {
 		cpuCores = @(-1);
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	locResult = _cpuCount(&cpuS);
+	locResult = [self cpuCount:&cpuS error:error];
 	if (locResult != PFSKReturnSuccess) {
 		cpuS = @(-1);
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	locResult = _cpuFrequency(&cpuFreq);
+	locResult = [self cpuFrequency:&cpuFreq error:error];
 	if (locResult != PFSKReturnSuccess) {
 		cpuFreq = @(-1);
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	locResult = _cpuL2Cache(&cpuL2);
+	locResult = [self cpuL2Cache:&cpuL2 error:error];
 	if (locResult != PFSKReturnSuccess) {
 		cpuL2 = @(-1);
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	locResult = _cpuL3Cache(&cpuL3);
+	locResult = [self cpuL3Cache:&cpuL3 error:error];
 	if (locResult != PFSKReturnSuccess) {
 		cpuL3 = @(-1);
-		errorOccured = 1;
+		errorOccured = true;
 	}
 	
-	ret = [PFSystemCPUReport.alloc initWithCount:cpuS
+	*ret = [PFSystemCPUReport.alloc initWithCount:cpuS
 										   brand:cpuBrand
 									   coreCount:cpuCores
 									 threadCount:cpuThreads
@@ -256,8 +212,7 @@ finish:
 									architecture:arch
 										  vendor:cpuVendor];
 	
-	error = synthesizeError(locResult);
-	if (result != PFSKReturnSuccess) {
+	if (errorOccured != false) {
 		return false;
 	}
 	return true;

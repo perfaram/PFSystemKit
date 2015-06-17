@@ -10,25 +10,14 @@
 #import "PFSK_OSX.h"
 
 @interface PFSystemKit(CPU)
-+(PFSystemKitError) cpuCreateReport:(PFSystemCPUReport**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuCount:(NSNumber**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuBrand:(NSString**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuCoreCount:(NSNumber**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuThreadCount:(NSNumber**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuFrequency:(NSNumber**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuL2Cache:(NSNumber**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuL3Cache:(NSNumber**)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuArchitecture:(PFSystemKitCPUArches*)ret __attribute__((nonnull (1)));
-+(PFSystemKitError) cpuVendor:(NSString**)ret __attribute__((nonnull (1)));
-
--(NSDictionary*) cpuCreateReport:(NSError**)error;
--(NSNumber*) cpuCount;
--(NSString*) cpuBrand;
--(NSNumber*) cpuCoreCount;
--(NSNumber*) cpuThreadCount;
--(NSNumber*) cpuFrequency;
--(NSNumber*) cpuL2Cache;
--(NSNumber*) cpuL3Cache;
--(PFSystemKitCPUArches) cpuArchitecture;
--(NSString*) cpuVendor;
++(BOOL) cpuCreateReport:(PFSystemCPUReport**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuBrand:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuCoreCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuThreadCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuFrequency:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuL2Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuL3Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuArchitecture:(PFSystemKitCPUArches*)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuVendor:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1)));
 @end
