@@ -82,6 +82,7 @@ typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
 	PFSKDeviceFamilyiPhone,
 	PFSKDeviceFamilyiPad,
 	PFSKDeviceFamilyiPod,
+    PFSKDeviceFamilyWatch, //seems to be a good idea, as watchOS now has native apps
 	PFSKDeviceFamilySimulator,
 };
 
