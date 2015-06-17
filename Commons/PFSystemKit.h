@@ -10,6 +10,7 @@
 #import <PFSystemKit/PFSKTypes.h>
 #import <PFSystemKit/PFSKProtocol.h>
 
+
 /* iOS imports */
 #if TARGET_OS_IPHONE
 
@@ -32,9 +33,6 @@ FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
 #import "PFSK_OSX.h"
 
 #endif
-
-// In this header, you should import all the public headers of your framework using statements like #import <PFSystemKit/PublicHeader.h>
-
 
 /*
  simulator policy (#if (TARGET_IPHONE_SIMULATOR && SIMULATOR_SHORTCUTS))

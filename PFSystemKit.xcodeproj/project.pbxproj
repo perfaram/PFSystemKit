@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B5562F51B2751BD00D3D800 /* PFSystemExpertReport.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B5562F31B2751BD00D3D800 /* PFSystemExpertReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B5562F61B2751BD00D3D800 /* PFSystemExpertReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5562F41B2751BD00D3D800 /* PFSystemExpertReport.m */; };
+		0B5562F51B2751BD00D3D800 /* PFSystemPlatformReport.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B5562F31B2751BD00D3D800 /* PFSystemPlatformReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B5562F61B2751BD00D3D800 /* PFSystemPlatformReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5562F41B2751BD00D3D800 /* PFSystemPlatformReport.m */; };
 		0B5562F91B27521000D3D800 /* PFSystemBatteryReport.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B5562F71B27521000D3D800 /* PFSystemBatteryReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B5562FA1B27521000D3D800 /* PFSystemBatteryReport.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B5562F71B27521000D3D800 /* PFSystemBatteryReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B5562FB1B27521000D3D800 /* PFSystemBatteryReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5562F81B27521000D3D800 /* PFSystemBatteryReport.m */; };
@@ -57,7 +57,7 @@
 		0BB7B5BC1AF7B7E4003C46A1 /* NSString+CPPAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7B5B81AF7B7E4003C46A1 /* NSString+CPPAdditions.mm */; };
 		0BE6EE661AE3FE2F0070B83F /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EE6C1AE3FE2F0070B83F /* PFSystemKit_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE601AE3FE2F0070B83F /* PFSystemKit_osx.framework */; };
-		0BE6EE8C1AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE811AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework */; };
+		0BE6EE8C1AE3FE3D0070B83F /* PFSystemKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE811AE3FE3D0070B83F /* PFSystemKit_ios.framework */; };
 		0BE6EE931AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EE921AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m */; };
 		0BE6EE9A1AE3FE740070B83F /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EE9E1AE401240070B83F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE9C1AE401240070B83F /* CoreFoundation.framework */; };
@@ -95,8 +95,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B5562F31B2751BD00D3D800 /* PFSystemExpertReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSystemExpertReport.h; path = PFSystemKit_osx/PFSystemExpertReport.h; sourceTree = SOURCE_ROOT; };
-		0B5562F41B2751BD00D3D800 /* PFSystemExpertReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSystemExpertReport.m; path = PFSystemKit_osx/PFSystemExpertReport.m; sourceTree = SOURCE_ROOT; };
+		0B5562F31B2751BD00D3D800 /* PFSystemPlatformReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSystemPlatformReport.h; path = PFSystemKit_osx/PFSystemPlatformReport.h; sourceTree = SOURCE_ROOT; };
+		0B5562F41B2751BD00D3D800 /* PFSystemPlatformReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSystemPlatformReport.m; path = PFSystemKit_osx/PFSystemPlatformReport.m; sourceTree = SOURCE_ROOT; };
 		0B5562F71B27521000D3D800 /* PFSystemBatteryReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSystemBatteryReport.h; path = Commons/PFSystemBatteryReport.h; sourceTree = SOURCE_ROOT; };
 		0B5562F81B27521000D3D800 /* PFSystemBatteryReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PFSystemBatteryReport.m; path = Commons/PFSystemBatteryReport.m; sourceTree = SOURCE_ROOT; };
 		0B5562FD1B287FDB00D3D800 /* PFSystemCPUReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PFSystemCPUReport.h; path = Commons/PFSystemCPUReport.h; sourceTree = SOURCE_ROOT; };
@@ -133,8 +133,8 @@
 		0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PFSystemKit.h; path = Commons/PFSystemKit.h; sourceTree = "<group>"; };
 		0BE6EE6B1AE3FE2F0070B83F /* PFSystemKitTests_osx.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PFSystemKitTests_osx.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE711AE3FE2F0070B83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = PFSystemKit_osxTests/Info.plist; sourceTree = "<group>"; };
-		0BE6EE811AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PFSystemInfoKit_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0BE6EE8B1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PFSystemInfoKit_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BE6EE811AE3FE3D0070B83F /* PFSystemKit_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PFSystemKit_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BE6EE8B1AE3FE3D0070B83F /* PFSystemKit_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PFSystemKit_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE911AE3FE3D0070B83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = PFSystemKit_iosTests/Info.plist; sourceTree = "<group>"; };
 		0BE6EE921AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PFSystemInfoKit_iosTests.m; path = PFSystemKit_iosTests/PFSystemInfoKit_iosTests.m; sourceTree = "<group>"; };
 		0BE6EE9C1AE401240070B83F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -182,7 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BE6EE8C1AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework in Frameworks */,
+				0BE6EE8C1AE3FE3D0070B83F /* PFSystemKit_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,8 +275,8 @@
 			children = (
 				0BE6EE601AE3FE2F0070B83F /* PFSystemKit_osx.framework */,
 				0BE6EE6B1AE3FE2F0070B83F /* PFSystemKitTests_osx.xctest */,
-				0BE6EE811AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework */,
-				0BE6EE8B1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.xctest */,
+				0BE6EE811AE3FE3D0070B83F /* PFSystemKit_ios.framework */,
+				0BE6EE8B1AE3FE3D0070B83F /* PFSystemKit_iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -286,8 +286,6 @@
 			children = (
 				0B9DF4241B08B25F00DE2175 /* PFSK_OSX.h */,
 				0B9DF4251B08B25F00DE2175 /* PFSK_OSX.mm */,
-				0B5562F31B2751BD00D3D800 /* PFSystemExpertReport.h */,
-				0B5562F41B2751BD00D3D800 /* PFSystemExpertReport.m */,
 				0BCAF3601B039E3900278750 /* External */,
 				0BCAF3611B039E5C00278750 /* Additions */,
 				0BE6EE631AE3FE2F0070B83F /* Supporting Files */,
@@ -375,6 +373,8 @@
 				0B5562F81B27521000D3D800 /* PFSystemBatteryReport.m */,
 				0B5562FD1B287FDB00D3D800 /* PFSystemCPUReport.h */,
 				0B5562FE1B287FDB00D3D800 /* PFSystemCPUReport.m */,
+				0B5562F31B2751BD00D3D800 /* PFSystemPlatformReport.h */,
+				0B5562F41B2751BD00D3D800 /* PFSystemPlatformReport.m */,
 				0BB7B5BE1AF7B7F3003C46A1 /* Additions */,
 				0B74D8D21AE4168B005E0DF3 /* Helper */,
 				0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */,
@@ -413,7 +413,7 @@
 				0B9DF41D1B07C2AD00DE2175 /* NSProcessInfo+SystemVersion.h in Headers */,
 				0BE6EEB01AE4099F0070B83F /* PFSKProtocol.h in Headers */,
 				0B74D8C81AE4109C005E0DF3 /* PFSK_Common.h in Headers */,
-				0B5562F51B2751BD00D3D800 /* PFSystemExpertReport.h in Headers */,
+				0B5562F51B2751BD00D3D800 /* PFSystemPlatformReport.h in Headers */,
 				0B9DF4341B08B27900DE2175 /* PFSK_OSX+GPU.h in Headers */,
 				0BB7B5B91AF7B7E4003C46A1 /* NSString+CPPAdditions.h in Headers */,
 				0B5562FF1B287FDB00D3D800 /* PFSystemCPUReport.h in Headers */,
@@ -491,9 +491,9 @@
 			productReference = 0BE6EE6B1AE3FE2F0070B83F /* PFSystemKitTests_osx.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		0BE6EE801AE3FE3D0070B83F /* PFSystemInfoKit_ios */ = {
+		0BE6EE801AE3FE3D0070B83F /* PFSystemKit_ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0BE6EE941AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemInfoKit_ios" */;
+			buildConfigurationList = 0BE6EE941AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemKit_ios" */;
 			buildPhases = (
 				0BE6EE7C1AE3FE3D0070B83F /* Sources */,
 				0BE6EE7D1AE3FE3D0070B83F /* Frameworks */,
@@ -504,14 +504,14 @@
 			);
 			dependencies = (
 			);
-			name = PFSystemInfoKit_ios;
+			name = PFSystemKit_ios;
 			productName = PFSystemInfoKit_ios;
-			productReference = 0BE6EE811AE3FE3D0070B83F /* PFSystemInfoKit_ios.framework */;
+			productReference = 0BE6EE811AE3FE3D0070B83F /* PFSystemKit_ios.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		0BE6EE8A1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests */ = {
+		0BE6EE8A1AE3FE3D0070B83F /* PFSystemKit_iosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0BE6EE971AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemInfoKit_iosTests" */;
+			buildConfigurationList = 0BE6EE971AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemKit_iosTests" */;
 			buildPhases = (
 				0BE6EE871AE3FE3D0070B83F /* Sources */,
 				0BE6EE881AE3FE3D0070B83F /* Frameworks */,
@@ -522,9 +522,9 @@
 			dependencies = (
 				0BE6EE8E1AE3FE3D0070B83F /* PBXTargetDependency */,
 			);
-			name = PFSystemInfoKit_iosTests;
+			name = PFSystemKit_iosTests;
 			productName = PFSystemInfoKit_iosTests;
-			productReference = 0BE6EE8B1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.xctest */;
+			productReference = 0BE6EE8B1AE3FE3D0070B83F /* PFSystemKit_iosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -564,8 +564,8 @@
 			targets = (
 				0BE6EE5F1AE3FE2F0070B83F /* PFSystemKit_osx */,
 				0BE6EE6A1AE3FE2F0070B83F /* PFSystemKitTests_osx */,
-				0BE6EE801AE3FE3D0070B83F /* PFSystemInfoKit_ios */,
-				0BE6EE8A1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests */,
+				0BE6EE801AE3FE3D0070B83F /* PFSystemKit_ios */,
+				0BE6EE8A1AE3FE3D0070B83F /* PFSystemKit_iosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -610,7 +610,7 @@
 				0B9DF4271B08B25F00DE2175 /* PFSK_OSX.mm in Sources */,
 				0B9DF43B1B08B2A200DE2175 /* PCI.m in Sources */,
 				0B74D8CA1AE4109C005E0DF3 /* PFSK_Common.mm in Sources */,
-				0B5562F61B2751BD00D3D800 /* PFSystemExpertReport.m in Sources */,
+				0B5562F61B2751BD00D3D800 /* PFSystemPlatformReport.m in Sources */,
 				0B9DF4481B08BBE900DE2175 /* PFSK_Common+Machine.mm in Sources */,
 				0BA5DA551B1B67EC0058FE48 /* PFSK_Common+Language.m in Sources */,
 				0B9DF41F1B07C2AD00DE2175 /* NSProcessInfo+SystemVersion.m in Sources */,
@@ -668,7 +668,7 @@
 		};
 		0BE6EE8E1AE3FE3D0070B83F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0BE6EE801AE3FE3D0070B83F /* PFSystemInfoKit_ios */;
+			target = 0BE6EE801AE3FE3D0070B83F /* PFSystemKit_ios */;
 			targetProxy = 0BE6EE8D1AE3FE3D0070B83F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -766,10 +766,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"WRITE_ABILITY=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "$(SRCROOT)/PFSystemKit_osx/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -939,7 +936,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0BE6EE941AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemInfoKit_ios" */ = {
+		0BE6EE941AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemKit_ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0BE6EE951AE3FE3D0070B83F /* Debug */,
@@ -948,7 +945,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0BE6EE971AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemInfoKit_iosTests" */ = {
+		0BE6EE971AE3FE3D0070B83F /* Build configuration list for PBXNativeTarget "PFSystemKit_iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0BE6EE981AE3FE3D0070B83F /* Debug */,

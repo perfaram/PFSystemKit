@@ -11,53 +11,10 @@
 #import "PFSKTypes.h"
 #import "PFSystemCPUReport.h"
 #import "PFSystemBatteryReport.h"
+#import "PFSystemPlatformReport.h"
 
 @class PFSystemKit;
 @protocol PFSystemKitProtocol
-/*!
- The device family. e.g. PFSKDeviceFamilyiPhone
- */
-@property (assign, atomic, readonly) PFSystemKitDeviceFamily			family;
-
-/*!
- The device family string. e.g. @"iPhone"
- */
-@property (strong, atomic, readonly) NSString*							familyString;
-
-/*!
- The device version. (a PFSystemKitDeviceVersion)
- */
-@property (assign, atomic, readonly) PFSystemKitDeviceVersion			version;
-
-/*!
- The device version string. e.g. @"5,1"
- */
-@property (strong, atomic, readonly) NSString*							versionString;
-
-/*!
- The system endianness. (a PFSystemKitEndianness)
- */
-@property (assign, atomic, readonly) PFSystemKitEndianness				endianness;
-
-/*!
- The system endianness string. e.g. @"Little Endian"
- */
-@property (strong, atomic, readonly) NSString*							endiannessString;
-
-/*!
- The device model. e.g. @"MacBookPro8,1"
- */
-@property (strong, atomic, readonly) NSString*							model;
-
-/*!
- The device serial
- */
-@property (strong, atomic, readonly) NSString*							serial;
-
-/*!
- The total RAM size
- */
-@property (strong, atomic, readonly) NSNumber*							memorySize;
 
 /*!
  Various CPU informations

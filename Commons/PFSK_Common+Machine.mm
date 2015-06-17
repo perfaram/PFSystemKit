@@ -60,21 +60,6 @@ finish:
 	return result;
 }
 
--(NSString*) model {
-	static dispatch_once_t onceToken;
-	static NSString* ret;
-	dispatch_once(&onceToken, ^{
-		std::string machineModel;
-		PFSystemKitError result;
-		result = _sysctlStringForKey((char*)"hw.model", machineModel);
-		if (result != PFSKReturnSuccess)
-			ret = @"-";
-		else
-			ret = [NSString stringWithSTDString:machineModel];
-	});
-	return ret;
-}
-
 -(PFSystemKitDeviceVersion) deviceVersion
 {
 	PFSystemKitDeviceVersion ret;

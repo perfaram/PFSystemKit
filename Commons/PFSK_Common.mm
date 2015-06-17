@@ -13,6 +13,9 @@
 #import "PFSKHelper.h"
 #import "PFSKPrivateTypes.h"
 
+NSString* PFSKErrorDomain = @"com.faramaz.PFSystemKit";
+NSString* PFSKErrorExtendedDomain = @"com.faramaz.PFSystemKit.extended";
+
 @implementation PFSK_Common
 +(BOOL)isVersion:(NSOperatingSystemVersion)version
 		 between:(NSOperatingSystemVersion)lowVersion

@@ -5,17 +5,13 @@
 //  Created by Perceval FARAMAZ on 19/04/15.
 //  Copyright (c) 2015 Perceval FARAMAZ. All rights reserved.
 //
-#ifndef PFSystemKit_PFSystemKitTypes_h
+#ifndef PFSKTypes_Header
 #import <Foundation/Foundation.h>
-#define PFSystemKit_PFSystemKitTypes_h
 #define _error self->errorCode
 #define _extError self->extErrorCode
 #define _writeLockState self->writeLockState
 #define val4Key(key, val) setValueForKey(key, val, self)
 #define val4KeyPh(key, val) setValueForKeyPath(key, val, self)
-
-NSString* PFSKErrorDomain = @"com.faramaz.PFSystemKit";
-NSString* PFSKErrorExtendedDomain = @"com.faramaz.PFSystemKit.extended";
 
 /*!
  @typedef PFSystemKitLockState
@@ -177,5 +173,5 @@ inline __attribute__((__visibility__("hidden")))
 void setValueForKeyPath(const char* key, id value, id cSelf) {
 	[cSelf setValue:value forKeyPath:@(key)];
 };
-
+#define PFSKTypes_Header
 #endif

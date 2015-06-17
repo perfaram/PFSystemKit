@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <PFSystemKit/PFSK_Common.h>
-#import "PFSystemExpertReport.h"
+#import "PFSK_Common.h"
 
 @interface PFSystemKit : PFSK_Common <PFSystemKitProtocol> {
 	@protected
@@ -33,7 +32,7 @@
 /*!
  Various platform informations
  */
-@property (strong, atomic, readonly) PFSystemExpertReport*				expertReport;
+@property (strong, atomic, readonly) PFSystemPlatformReport*			platformReport;
 
 /*!
  NSArray of NSDictionaries holding a graphic device and its informations
@@ -45,27 +44,12 @@
  */
 @property (strong, atomic, readonly) NSArray*							displayReport;
 
-/*!
- The SMC firmware version
- */
-@property (strong, atomic, readonly) NSString*							smcVersion;
-
-/*!
- The last sleep cause
- */
-@property (strong, atomic, readonly) NSNumber*							sleepCause;
-
-/*!
- The last shutdown cause
- */
-@property (strong, atomic, readonly) NSNumber*							shutdownCause;
-
 
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init NS_DESIGNATED_INITIALIZER;
 -(void) finalize;
 
--(BOOL) updateExpertReport;
+-(BOOL) updatePlatformReport;
 -(BOOL) updateRomReport;
 -(BOOL) updateSmcReport;
 -(BOOL) updateBatteryReport;
