@@ -19,11 +19,9 @@
 @synthesize shutdownCause;
 #endif
 @synthesize family;
-@synthesize familyString;
+@synthesize platform;
 @synthesize version;
-@synthesize versionString;
 @synthesize endianness;
-@synthesize endiannessString;
 @synthesize model;
 @synthesize serial;
 @synthesize memorySize;
@@ -31,15 +29,12 @@
 -(instancetype) initWithBoardID:(NSString*)boardIDLocal
                    hardwareUUID:(NSString*)UUIDLocal
                      romVersion:(NSString*)romVersionLocal
-                 romReleaseDate:(NSString*)romReleaseDateLocal
+                 romReleaseDate:(NSDate*)romReleaseDateLocal
                      smcVersion:(NSString*)smcVersionLocal
                   shutdownCause:(NSNumber*)shutdownCauseLocal
                          family:(PFSystemKitDeviceFamily)familyLocal
-                   familyString:(NSString*)familyStringLocal
                         version:(PFSystemKitDeviceVersion)versionLocal
-                  versionString:(NSString*)versionStringLocal
                      endianness:(PFSystemKitEndianness)endiannessLocal
-               endiannessString:(NSString*)endiannessStringLocal
                           model:(NSString*)modelStringLocal
                          serial:(NSString*)serialLocal
                      memorySize:(NSNumber*)memorySizeLocal
@@ -54,14 +49,12 @@
     smcVersion = smcVersionLocal;
     shutdownCause = shutdownCauseLocal;
     family = familyLocal;
-    familyString = familyStringLocal;
     version = versionLocal;
-    versionString = versionStringLocal;
     endianness = endiannessLocal;
-    endiannessString = endiannessStringLocal;
     model = modelStringLocal;
     serial = serialLocal;
     memorySize = memorySizeLocal;
+    platform = PFSKPlatformOSX;
     return self;
 }
 -(void) updateWithSleepCause:(NSNumber*)sleepCauseLocal {
@@ -91,6 +84,7 @@
     model = modelStringLocal;
     serial = serialLocal;
     memorySize = memorySizeLocal;
+    platform = PFSKPlatformIOS;
     return self;
 }
 #endif

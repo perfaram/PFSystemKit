@@ -29,7 +29,7 @@
 /*!
  The ROM firmware release date
  */
-@property (strong, atomic, readonly) NSString*							romReleaseDate;
+@property (strong, atomic, readonly) NSDate*							romReleaseDate;
 
 /*!
  The SMC firmware version
@@ -53,9 +53,9 @@
 @property (assign, atomic, readonly) PFSystemKitDeviceFamily			family;
 
 /*!
- The device family string. e.g. @"iPhone"
+ The device platform. e.g. PFSKPlatformIOS
  */
-@property (strong, atomic, readonly) NSString*							familyString;
+@property (assign, atomic, readonly) PFSystemKitPlatform                platform;
 
 /*!
  The device version. (a PFSystemKitDeviceVersion)
@@ -63,19 +63,9 @@
 @property (assign, atomic, readonly) PFSystemKitDeviceVersion			version;
 
 /*!
- The device version string. e.g. @"5,1"
- */
-@property (strong, atomic, readonly) NSString*							versionString;
-
-/*!
- The system endianness. (a PFSystemKitEndianness)
+ The device endianness. (a PFSystemKitEndianness)
  */
 @property (assign, atomic, readonly) PFSystemKitEndianness				endianness;
-
-/*!
- The system endianness string. e.g. @"Little Endian"
- */
-@property (strong, atomic, readonly) NSString*							endiannessString;
 
 /*!
  The device model. e.g. @"MacBookPro8,1"
@@ -96,15 +86,12 @@
 -(instancetype) initWithBoardID:(NSString*)boardIDLocal
                    hardwareUUID:(NSString*)UUIDLocal
                      romVersion:(NSString*)romVersionLocal
-                 romReleaseDate:(NSString*)romReleaseDateLocal
+                 romReleaseDate:(NSDate*)romReleaseDateLocal
                      smcVersion:(NSString*)smcVersionLocal
                   shutdownCause:(NSNumber*)shutdownCauseLocal
                          family:(PFSystemKitDeviceFamily)familyLocal
-                   familyString:(NSString*)familyStringLocal
                         version:(PFSystemKitDeviceVersion)versionLocal
-                  versionString:(NSString*)versionStringLocal
                      endianness:(PFSystemKitEndianness)endiannessLocal
-               endiannessString:(NSString*)endiannessStringLocal
                           model:(NSString*)modelStringLocal
                          serial:(NSString*)serialLocal
                      memorySize:(NSNumber*)memorySizeLocal;
