@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
-#import "PFSK_Common+Language.h"
-#import "PFSK_Common+Machine.h"
 
-@interface PFSystemKit : PFSK_Common <PFSystemKitProtocol> {
+@interface PFSystemKit : PFSK_Common {
 	@protected
 	io_connect_t 			conn;
 	mach_port_t   			masterPort;
@@ -46,6 +44,15 @@
  */
 @property (strong, atomic, readonly) NSArray*							displayReport;
 
+/*!
+ Various CPU informations
+ */
+@property (strong, atomic, readonly) PFSystemCPUReport*					cpuReport;
+
+/*!
+ Various battery informations
+ */
+@property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
 
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init NS_DESIGNATED_INITIALIZER;
@@ -62,3 +69,4 @@
 
 #import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+RAM.h"
+#import "PFSK_OSX+GPU.h"

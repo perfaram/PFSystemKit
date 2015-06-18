@@ -7,31 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <PFSystemKit/PFSKTypes.h>
-#import <PFSystemKit/PFSKProtocol.h>
-
 
 /* iOS imports */
 #if TARGET_OS_IPHONE
-
 //! Project version number for PFSystemInfoKit_ios.
 FOUNDATION_EXPORT double PFSystemInfoKit_iosVersionNumber;
 //! Project version string for PFSystemInfoKit_ios.
 FOUNDATION_EXPORT const unsigned char PFSystemInfoKit_iosVersionString[];
 #import "PFSK_iOS.h"
-
 #endif
 
 
 /* OS X imports */
 #if !TARGET_OS_IPHONE
-
 //! Project version number for PFSystemKit.
 FOUNDATION_EXPORT double PFSystemKitVersionNumber;
 //! Project version string for PFSystemKit.
 FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
 #import "PFSK_OSX.h"
-
 #endif
 
 /*

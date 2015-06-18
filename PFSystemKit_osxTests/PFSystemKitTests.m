@@ -8,13 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
+//#import <PFSystemKit/PFSystemKit_osx.h>
+#import "PFSystemKit_osx.h"
 //#import "PFSK_Common.h"
 //#import "PFSK_OSX.h"
-#import "PFSK_OSX+CPU.h"
-#import "PFSK_OSX+RAM.h"
-#import "PFSK_OSX+GPU.h"
-#import "PFSK_Common+Machine.h"
-#import "PFSK_Common+Language.h"
 
 @interface PFSystemKitTests : XCTestCase {
 	PFSystemKit* pfsys;
@@ -37,14 +34,12 @@
 - (void)testExample {
 	{
 		PFSystemKit* pfkit = [PFSystemKit investigate];
-		NSString* batterySerial = [pfkit.platformReport serial];
-        NSLog(@"Serial : %@", batterySerial);
+        NSLog(@"Serial : %@", [pfkit.platformReport serial]);
+        NSLog(@"Model : %@", [pfkit.platformReport model]);
 		NSString* UUID = [pfkit.platformReport hardwareUUID];
         NSLog(@"UUID : %@", UUID);
         NSNumber* memSize = [pfkit.platformReport memorySize];
         NSLog(@"MemSize : %@ Gb", memSize);
-        NSString* model = [pfkit.platformReport model];
-        NSLog(@"Model : %@", model);
         NSString* cpuVendor = [pfkit.cpuReport vendor];
         NSLog(@"CPU Vendor : %@", cpuVendor);
 	}

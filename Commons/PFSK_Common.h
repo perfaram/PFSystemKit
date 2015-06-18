@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSKProtocol.h"
 #if defined(__cplusplus)
 #import <string>
 #endif
+#import "PFSKTypes.h"
+#import "PFSystemCPUReport.h"
+#import "PFSystemBatteryReport.h"
+#import "PFSystemPlatformReport.h"
+#import "PFSystemRAMStatistics.h"
 
 @interface PFSK_Common : NSObject {
 	NSError *error;
@@ -155,3 +159,6 @@ PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat);
 __attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error);
 __attribute__((always_inline)) NSError* synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError);
 @end
+
+#import "PFSK_Common+Language.h"
+#import "PFSK_Common+Machine.h"

@@ -10,10 +10,8 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <string>
 #import <vector>
-#import "PFSKHelper.h"
 #import "PFSK_OSX.h"
-/*#import "PFSK_OSX+GPU.h"*/
-#import "PFSK_Common+Machine.h"
+#import "PFSKHelper.h"
 
 @interface PFSK_Common()
 //+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
