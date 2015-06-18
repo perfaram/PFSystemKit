@@ -12,9 +12,9 @@
 #import <vector>
 #import "PFSKHelper.h"
 #import "PFSK_OSX.h"
-/*#import "PFSK_OSX+CPU.h"
-#import "PFSK_OSX+GPU.h"
+#import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+RAM.h"
+/*#import "PFSK_OSX+GPU.h"
 #import "PFSK_OSX+GPU.h"*/
 #import "PFSK_Common+Machine.h"
 
@@ -33,176 +33,147 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
-		[sharedInstance updateExpertReport];
-		[sharedInstance updateRomReport];
-		[sharedInstance updateSmcReport];
+		[sharedInstance updatePlatformReport];
+        [sharedInstance updateCPUReport];
 		[sharedInstance updateBatteryReport];
 	});
 	return sharedInstance;
 }
 
--(BOOL) updateExpertReport {
-	if (!firstRunDoneForExpertDevice) {
-		kern_return_t result;
-		pexEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPlatformExpertDevice"));
-		if (pexEntry == 0) {
-			_error = PFSKReturnComponentUnavailable;
-			return false;
-		}
-		CFMutableDictionaryRef pexProps = NULL;
-		result = IORegistryEntryCreateCFProperties(pexEntry, &pexProps, NULL, 0);
-		if (result!=kIOReturnSuccess) {
-			_error = PFSKReturnIOKitCFFailure;
-			_extError = result;
-			return false;
-		} else {
-			platformExpertRawDict = (__bridge_transfer NSDictionary*)pexProps;
-			[self setValue:[platformExpertRawDict objectForKey:@"model"] forKey:@"model"];
-			[self setValue:[platformExpertRawDict objectForKey:@"board-id"] forKey:@"boardID"];
-			[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey] forKey:@"serial"];
-			[self setValue:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey] forKey:@"hardwareUUID"];
-		}
+-(BOOL) updatePlatformReport {
+    kern_return_t result;
+    smcEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("AppleSMC"));
+    if (smcEntry == 0) {
+        _error = PFSKReturnComponentUnavailable;
+        return false;
+    }
+    CFMutableDictionaryRef smcProps = NULL;
+    result = IORegistryEntryCreateCFProperties(smcEntry, &smcProps, NULL, 0);
+    if (result!=kIOReturnSuccess) {
+        _error = PFSKReturnIOKitCFFailure;
+        _extError = result;
+        return false;
+    }
+    smcRawDict = (__bridge_transfer NSDictionary*)smcProps;
+    if (!firstRunDoneForExpertDevice) {
+        pexEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPlatformExpertDevice"));
+        if (pexEntry == 0) {
+            _error = PFSKReturnComponentUnavailable;
+            return false;
+        }
+        CFMutableDictionaryRef pexProps = NULL;
+        result = IORegistryEntryCreateCFProperties(pexEntry, &pexProps, NULL, 0);
+        if (result!=kIOReturnSuccess) {
+            _error = PFSKReturnIOKitCFFailure;
+            _extError = result;
+            return false;
+        }
+        platformExpertRawDict = (__bridge_transfer NSDictionary*)pexProps;
+        romEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/rom@0");
+        if (romEntry == 0) {
+            _error = PFSKReturnComponentUnavailable;
+            return false;
+        }
+        CFMutableDictionaryRef romProps = NULL;
+        result = IORegistryEntryCreateCFProperties(romEntry, &romProps, NULL, 0);
+        if (result!=kIOReturnSuccess) {
+            _error = PFSKReturnIOKitCFFailure;
+            _extError = result;
+            return false;
+        }
+        romRawDict = (__bridge_transfer NSDictionary*)romProps;
+        
+        NSString* dateStr = [NSString.alloc initWithData:[romRawDict objectForKey:@"release-date"] encoding:NSUTF8StringEncoding];
+        NSDateComponents* romDateComps = [NSDateComponents.alloc init];
+        NSArray* romDateStrSplitted = [dateStr componentsSeparatedByString:@"/"];
+        [romDateComps setMonth:[[romDateStrSplitted objectAtIndex:0] integerValue]];
+        [romDateComps setDay:[[romDateStrSplitted objectAtIndex:1] integerValue]];
+        [romDateComps setYear:(2000+[[romDateStrSplitted objectAtIndex:2] integerValue])];
+        BOOL depResult = true;
+        NSError* depError;
+        
+        PFSystemKitDeviceFamily deviceFamily = PFSKDeviceFamilyUnknown;
+        NSString* systemInfoString = [platformExpertRawDict objectForKey:@"model"];
+        if ([systemInfoString length] == 0) { //is systemInfoString initialized, i.e non-nil nor empty
+            systemInfoString = [systemInfoString lowercaseString]; //transform to lowercase, meaning less code afterwards
+            if ([systemInfoString containsString:@"mac"]) {
+                if ([systemInfoString isEqualToString:@"imac"])
+                    deviceFamily = PFSKDeviceFamilyiMac;
+                else if ([systemInfoString containsString:@"air"])
+                    deviceFamily = PFSKDeviceFamilyMacBookAir;
+                else if ([systemInfoString containsString:@"pro"] && [systemInfoString containsString:@"book"])
+                    deviceFamily = PFSKDeviceFamilyMacBookPro;
+                else if ([systemInfoString containsString:@"mini"])
+                    deviceFamily = PFSKDeviceFamilyMacMini;
+                else if ([systemInfoString containsString:@"pro"])
+                    deviceFamily = PFSKDeviceFamilyMacPro;
+                else if ([systemInfoString containsString:@"macbook"])
+                    deviceFamily = PFSKDeviceFamilyMacBook;
+            } else if ([systemInfoString hasPrefix:@"i"]) { //don't care about imac, has been checked before
+                if ([systemInfoString isEqualToString:@"iphone"])
+                    deviceFamily = PFSKDeviceFamilyiPhone;
+                else if ([systemInfoString isEqualToString:@"ipad"])
+                    deviceFamily = PFSKDeviceFamilyiPad;
+                else if ([systemInfoString isEqualToString:@"ipod"])
+                    deviceFamily = PFSKDeviceFamilyiPod;
+            } else if ([systemInfoString isEqualToString:@"xserve"]) {
+                deviceFamily = PFSKDeviceFamilyXserve;
+            } else if ([systemInfoString isEqualToString:@"simulator"]) {
+                deviceFamily = PFSKDeviceFamilySimulator;
+            }
+        }
+
+        NSUInteger positionOfFirstInteger = [systemInfoString rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location;
+        NSUInteger positionOfComma = [systemInfoString rangeOfString:@","].location;
+        NSUInteger major = 0;
+        NSUInteger minor = 0;
+        if (positionOfComma != NSNotFound) {
+            major = [[systemInfoString substringWithRange:NSMakeRange(positionOfFirstInteger, positionOfComma - positionOfFirstInteger)] integerValue];
+            minor = [[systemInfoString substringFromIndex:positionOfComma + 1] integerValue];
+        }
+        PFSystemKitDeviceVersion deviceVer = (PFSystemKitDeviceVersion){major, minor};
+        
+        PFSystemKitEndianness deviceEndian;
+        depResult = [self.class deviceEndianness:&deviceEndian error:&depError];
+        if (!depResult) {
+            error = depError;
+            return false;
+        }
+        
+        NSNumber* memSize;
+        depResult = [self.class memorySize:&memSize error:&depError];
+        if (!depResult) {
+            error = depError;
+            return false;
+        }
+        
+        platformReport = [PFSystemPlatformReport.alloc initWithBoardID:[platformExpertRawDict objectForKey:@"board-id"]
+                                                          hardwareUUID:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey]
+                                                            romVersion:[romRawDict objectForKey:@"version"]
+                                                        romReleaseDate:[[NSCalendar currentCalendar] dateFromComponents:romDateComps]
+                                                            smcVersion:[smcRawDict objectForKey:@"smc-version"]
+                                                         shutdownCause:[smcRawDict objectForKey:@"ShutdownCause"]
+                                                                family:deviceFamily
+                                                               version:deviceVer
+                                                            endianness:deviceEndian
+                                                                 model:[platformExpertRawDict objectForKey:@"model"]
+                                                                serial:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey]
+                                                            memorySize:memSize];
 		firstRunDoneForExpertDevice = 1;
 	}
-	return true;
-}
-
--(BOOL) updateRomReport {
-	if (!firstRunDoneForROM) {
-		kern_return_t result;
-		romEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/rom@0");
-		if (romEntry == 0) {
-			_error = PFSKReturnComponentUnavailable;
-			return false;
-		}
-		CFMutableDictionaryRef romProps = NULL;
-		result = IORegistryEntryCreateCFProperties(romEntry, &romProps, NULL, 0);
-		if (result!=kIOReturnSuccess) {
-			_error = PFSKReturnIOKitCFFailure;
-			_extError = result;
-			return false;
-		} else {
-			romRawDict = (__bridge_transfer NSDictionary*)romProps;
-			val4Key("romVersion", [romRawDict objectForKey:@"version"]);
-			NSString* dateStr = [NSString.alloc initWithData:[romRawDict objectForKey:@"release-date"] encoding:NSUTF8StringEncoding];
-			NSDateComponents* romDateComps = [NSDateComponents.alloc init];
-			NSArray* romDateStrSplitted = [dateStr componentsSeparatedByString:@"/"];
-			[romDateComps setMonth:[[romDateStrSplitted objectAtIndex:0] integerValue]];
-			[romDateComps setDay:[[romDateStrSplitted objectAtIndex:1] integerValue]];
-			[romDateComps setYear:(2000+[[romDateStrSplitted objectAtIndex:2] integerValue])];
-			val4Key("romReleaseDate", [[NSCalendar currentCalendar] dateFromComponents:romDateComps]);
-		}
-		firstRunDoneForROM = 1;
-	}
-	return true;
-}
-
--(BOOL) updateSmcReport {
-	kern_return_t result;
-	if (!firstRunDoneForSMC) {
-		smcEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("AppleSMC"));
-		if (smcEntry == 0) {
-			_error = PFSKReturnComponentUnavailable;
-			return false;
-		}
-	}
-	CFMutableDictionaryRef smcProps = NULL;
-	result = IORegistryEntryCreateCFProperties(smcEntry, &smcProps, NULL, 0);
-	if (result!=kIOReturnSuccess) {
-		_error = PFSKReturnIOKitCFFailure;
-		_extError = result;
-		return false;
-	} else {
-		smcRawDict = (__bridge_transfer NSDictionary*)smcProps;
-		if (!firstRunDoneForSMC) { //reboot needed for SMC update, or for the ShutdownCause to change
-			val4Key("smcVersion", [smcRawDict objectForKey:@"smc-version"]);
-			val4Key("shutdownCause", [smcRawDict objectForKey:@"ShutdownCause"]);
-			firstRunDoneForSMC = 1;
-		}
-		val4Key("sleepCause", [smcRawDict objectForKey:@"SleepCause"]);
-	}
+    [platformReport updateWithSleepCause:[smcRawDict objectForKey:@"SleepCause"]];
 	return true;
 }
 
 -(BOOL) updateCPUReport {
-	PFSystemKitError locResult;
-	BOOL errorOccured;
-	NSString* cpuVendor;
-	NSString* cpuBrand;
-	
-	NSNumber* cpuThreads, cpuCores, cpuS, cpuFreq, cpuL2, cpul3;
-	
-	PFSystemKitCPUArches arch;
-	
-	locResult = _cpuVendor(&cpuVendor);
-	if (locResult != PFSKReturnSuccess) {
-		cpuVendor = @"-";
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuBrand(&cpuBrand);
-	if (locResult != PFSKReturnSuccess) {
-		cpuBrand = @"-";
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuArchitecture(&arch);
-	if (locResult != PFSKReturnSuccess) {
-		arch = PFSKCPUArchesUnknown;
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuThreadCount(&cpuThreads);
-	if (locResult != PFSKReturnSuccess) {
-		cpuThreads = @(-1);
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuCoreCount(&cpuCores);
-	if (locResult != PFSKReturnSuccess) {
-		cpuCores = @(-1);
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuCount(&cpuS);
-	if (locResult != PFSKReturnSuccess) {
-		cpuS = @(-1);
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuFrequency(&cpuFreq);
-	if (locResult != PFSKReturnSuccess) {
-		cpuFreq = @(-1);
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuL2Cache(&cpuL2);
-	if (locResult != PFSKReturnSuccess) {
-		cpuL2 = @(-1);
-		errorOccured = 1;
-	}
-	
-	locResult = _cpuL3Cache(&cpuL3);
-	if (locResult != PFSKReturnSuccess) {
-		cpuL3 = @(-1);
-		errorOccured = 1;
-	}
-	
-	cpuReport = [PFSystemCPUReport.alloc initWithCount:cpuS
-												 brand:cpuBrand
-											 coreCount:cpuCores
-										   threadCount:cpuThreads
-											 frequency:cpuFreq
-													l2:cpuL2
-													l3:cpuL3
-										  architecture:arch
-												vendor:cpuVendor];
-	
-	error = synthesizeError(locResult);
-	if (result != PFSKReturnSuccess) {
-		return false;
-	}
-	return true;
+    PFSystemCPUReport* report;
+    NSError* locError;
+    if (![self.class cpuCreateReport:&report error:&locError]) {
+        cpuReport = report;
+        return false;
+    }
+    cpuReport = report;
+    return true;
 }
 
 -(BOOL) updateBatteryReport {
@@ -264,17 +235,9 @@
 #pragma mark - Class methods (actual core code)
 
 #pragma mark - Getters
-@synthesize family;
-@synthesize familyString;
-@synthesize version;
-@synthesize versionString;
-@synthesize endianness;
-@synthesize endiannessString;
-@synthesize model;
-@synthesize serial;
-@dynamic 	memorySize;
 @synthesize cpuReport;
 @synthesize batteryReport;
+@synthesize platformReport;
 
 
 #pragma mark - NSObject std methods

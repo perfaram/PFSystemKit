@@ -50,8 +50,7 @@
 -(void) finalize;
 
 -(BOOL) updatePlatformReport;
--(BOOL) updateRomReport;
--(BOOL) updateSmcReport;
+-(BOOL) updateCPUReport;
 -(BOOL) updateBatteryReport;
 
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
