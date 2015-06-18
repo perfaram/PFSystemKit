@@ -92,8 +92,10 @@
         NSError* depError;
         
         PFSystemKitDeviceFamily deviceFamily = PFSKDeviceFamilyUnknown;
-        NSString* systemInfoString = [platformExpertRawDict objectForKey:@"model"];
-        if ([systemInfoString length] == 0) { //is systemInfoString initialized, i.e non-nil nor empty
+        //NSString* systemInfoString = [platformExpertRawDict objectForKey:@"model"];
+        NSString* systemInfoString = [[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@"model"]
+                              encoding:NSUTF8StringEncoding];
+        if ([systemInfoString length] != 0) { //is systemInfoString initialized, i.e non-nil nor empty
             systemInfoString = [systemInfoString lowercaseString]; //transform to lowercase, meaning less code afterwards
             if ([systemInfoString containsString:@"mac"]) {
                 if ([systemInfoString isEqualToString:@"imac"])
@@ -146,17 +148,23 @@
             return false;
         }
         
-        platformReport = [PFSystemPlatformReport.alloc initWithBoardID:[platformExpertRawDict objectForKey:@"board-id"]
-                                                          hardwareUUID:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey]
-                                                            romVersion:[romRawDict objectForKey:@"version"]
+        platformReport = [PFSystemPlatformReport.alloc initWithBoardID:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@"board-id"]
+                                                                                             encoding:NSUTF8StringEncoding]
+                                                          hardwareUUID:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey]
+                                                                                             encoding:NSUTF8StringEncoding]
+                                                            romVersion:[[NSString alloc] initWithData:[romRawDict objectForKey:@"version"]
+                                                                                             encoding:NSUTF8StringEncoding]
                                                         romReleaseDate:[[NSCalendar currentCalendar] dateFromComponents:romDateComps]
-                                                            smcVersion:[smcRawDict objectForKey:@"smc-version"]
+                                                            smcVersion:[[NSString alloc] initWithData:[smcRawDict objectForKey:@"smc-version"]
+                                                                                             encoding:NSUTF8StringEncoding]
                                                          shutdownCause:[smcRawDict objectForKey:@"ShutdownCause"]
                                                                 family:deviceFamily
                                                                version:deviceVer
                                                             endianness:deviceEndian
-                                                                 model:[platformExpertRawDict objectForKey:@"model"]
-                                                                serial:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey]
+                                                                 model:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@"model"]
+                                                                                             encoding:NSUTF8StringEncoding]
+                                                                serial:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey]
+                                                                                             encoding:NSUTF8StringEncoding]
                                                             memorySize:memSize];
 		firstRunDoneForExpertDevice = 1;
 	}
