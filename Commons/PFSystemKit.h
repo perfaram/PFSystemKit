@@ -37,6 +37,5 @@ FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
 /*
  simulator policy (#if (TARGET_IPHONE_SIMULATOR && SIMULATOR_SHORTCUTS))
  target #
- fix methods calling sysctl
- moar classes ? e.g. for Battery, CPU infos ?
+ too fucking fragile : for a simple sysctl call failing (not supported key, anything) the whole Kit may lock (because of main instance methods being callable only once)
  */

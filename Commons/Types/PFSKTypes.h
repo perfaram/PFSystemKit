@@ -64,6 +64,7 @@ typedef NS_ENUM(int, PFSystemKitPlatform) {
 	PFSKPlatformUnknown = 0,
 	PFSKPlatformIOS,
 	PFSKPlatformOSX,
+    PFSKPlatformWatchOS,
 };
 
 /*!
