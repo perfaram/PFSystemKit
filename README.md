@@ -1,4 +1,3 @@
-# PFSystemKit
 ![PFSystemKit logo, Apple-style][logo]
 [logo]: https://raw.githubusercontent.com/perfaram/PFSystemKit/master/logo.png?token=ABntO4wgFbPCjuxGaZDKJfgRrAn8gtUIks5Vi6XuwA%3D%3D "PFSystemKit"
 #### iOS/OSX Framework for getting system informations
