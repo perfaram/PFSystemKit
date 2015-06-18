@@ -14,8 +14,7 @@
 #import "PFSK_OSX.h"
 #import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+RAM.h"
-/*#import "PFSK_OSX+GPU.h"
-#import "PFSK_OSX+GPU.h"*/
+/*#import "PFSK_OSX+GPU.h"*/
 #import "PFSK_Common+Machine.h"
 
 @interface PFSK_Common()
@@ -141,7 +140,7 @@
         }
         
         NSNumber* memSize;
-        depResult = [self.class memorySize:&memSize error:&depError];
+        depResult = [self.class ramSize:&memSize error:&depError];
         if (!depResult) {
             error = depError;
             return false;
