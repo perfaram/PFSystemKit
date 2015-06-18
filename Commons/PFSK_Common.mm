@@ -95,9 +95,9 @@ inline NSString* errorToString(PFSystemKitError err) {
 
 +(PFSystemKitPlatform) stringToPlatform:(NSString*)str {
 	str = [str lowercaseString];
-	if ([PFSKHelper NSString:str contains:@"i"])
+	if ([str containsString:@"i"])
 		return PFSKPlatformIOS;
-	else if ([PFSKHelper NSString:str contains:@"x"])
+	else if ([str containsString:@"x"])
 		return PFSKPlatformOSX;
 	else
 		return PFSKPlatformUnknown;
@@ -109,18 +109,18 @@ inline NSString* errorToString(PFSystemKitError err) {
 +(PFSystemKitDeviceFamily) stringToFamily:(NSString*)str {
 	//[mydict objectForKey:[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]];
 	str = [str lowercaseString]; //transform to lowercase, meaning less code afterwards
-	if ([PFSKHelper NSString:str contains:@"mac"]) {
+	if ([str containsString:@"mac"]) {
 		if ([str isEqualToString:@"imac"])
 			return PFSKDeviceFamilyiMac;
-		else if ([PFSKHelper NSString:str contains:@"air"])
+		else if ([str containsString:@"air"])
 			return PFSKDeviceFamilyMacBookAir;
-		else if ([PFSKHelper NSString:str contains:@"pro"] && [PFSKHelper NSString:str contains:@"book"])
+		else if ([str containsString:@"pro"] && [str containsString:@"book"])
 			return PFSKDeviceFamilyMacBookPro;
-		else if ([PFSKHelper NSString:str contains:@"mini"])
+		else if ([str containsString:@"mini"])
 			return PFSKDeviceFamilyMacMini;
-		else if ([PFSKHelper NSString:str contains:@"pro"])
+		else if ([str containsString:@"pro"])
 			return PFSKDeviceFamilyMacPro;
-		else if ([PFSKHelper NSString:str contains:@"macbook"])
+		else if ([str containsString:@"macbook"])
 			return PFSKDeviceFamilyMacBook;
 	} else if ([str hasPrefix:@"i"]) { //don't care about imac, has been checked before
 		if ([str isEqualToString:@"iphone"])
@@ -163,24 +163,6 @@ NSString* _cpuArchToString(PFSystemKitCPUArches arch) {
 
 -(NSString*) stringifyExtError {
 	return [self.class iokitErrorToString:_extError];
-}
-
--(NSString*)platformString {
-#if TARGET_OS_IPHONE
-	return @"iOS";
-#endif
-#if !TARGET_OS_IPHONE
-	return @"OSX";
-#endif
-}
-
--(PFSystemKitPlatform)platform {
-#if TARGET_OS_IPHONE
-	return PFSKPlatformIOS;
-#endif
-#if !TARGET_OS_IPHONE
-	return PFSKPlatformOSX;
-#endif
 }
 
 inline PFSystemKitError __sysctlStringForKey(char* key, std::string& answerChar) {
