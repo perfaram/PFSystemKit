@@ -1,6 +1,6 @@
 # PFSystemKit
 ![PFSystemKit logo, Apple-style][logo]
-[logo]: https://raw.githubusercontent.com/perfaram/PFSystemKit/master/logo.png "PFSystemKit"
+[logo]: https://raw.githubusercontent.com/perfaram/PFSystemKit/master/logo.png?token=ABntO4wgFbPCjuxGaZDKJfgRrAn8gtUIks5Vi6XuwA%3D%3D "PFSystemKit"
 #### iOS/OSX Framework for getting system informations
 OS X (and partially iOS) framework for getting software and hardware informations (such as CPU vendor, RAM size, device model and serial, …) at runtime. Relies on IOKit and SysCtl, as well as on the now-deprecated GestaltManager, for compatibility purposes only.
 
