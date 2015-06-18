@@ -33,14 +33,15 @@
 
 - (void)testExample {
 	{
-		PFSystemKit* pfkit = [PFSystemKit investigate];
-        NSLog(@"Serial : %@", [pfkit.platformReport serial]);
-        NSLog(@"Model : %@", [pfkit.platformReport model]);
-		NSString* UUID = [pfkit.platformReport hardwareUUID];
+		PFSystemKit* systemKit = [PFSystemKit investigate];
+        NSLog(@"Serial : %@", [systemKit.platformReport serial]);
+        NSLog(@"Model : %@", [systemKit.platformReport model]);
+        
+		NSString* UUID = [systemKit.platformReport hardwareUUID];
         NSLog(@"UUID : %@", UUID);
-        NSNumber* memSize = [pfkit.platformReport memorySize];
+        NSNumber* memSize = [systemKit.platformReport memorySize];
         NSLog(@"MemSize : %@ Gb", memSize);
-        NSString* cpuVendor = [pfkit.cpuReport vendor];
+        NSString* cpuVendor = [systemKit.cpuReport vendor];
         NSLog(@"CPU Vendor : %@", cpuVendor);
 	}
 	/*
