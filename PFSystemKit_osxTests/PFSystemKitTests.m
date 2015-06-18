@@ -37,16 +37,24 @@
 - (void)testExample {
 	{
 		PFSystemKit* pfkit = [PFSystemKit investigate];
-		NSString* batterySerial = [pfkit.batteryReport serial];
-		NSString* model = [pfkit model];
+		NSString* batterySerial = [pfkit.platformReport serial];
+        NSLog(@"Serial : %@", batterySerial);
+		NSString* UUID = [pfkit.platformReport hardwareUUID];
+        NSLog(@"UUID : %@ Gb", UUID);
+        NSNumber* memSize = [pfkit.platformReport memorySize];
+        NSLog(@"MemSize : %@", memSize);
+        NSString* model = [pfkit.platformReport model];
+        NSLog(@"Model : %@", model);
+        NSString* cpuVendor = [pfkit.cpuReport vendor];
+        NSLog(@"CPU Vendor : %@", cpuVendor);
 	}
-	
+	/*
     // This is an example of a functional test case.
 	PFSystemKit* pfkit = [PFSystemKit.alloc init];
 	NSNumber* res;
 	[PFSystemKit memorySize:&res];
 	NSLog(@"%@", res);
-	[PFSystemKit cpuL3Cache:&res];
+	[PFSystemKit cpuL3Cache:&res error:nil];
 	NSLog(@"%@", res);
 	NSString* machineModel;
 	[PFSystemKit machineModel:&machineModel];
@@ -57,14 +65,16 @@
 	[PFSystemKit systemEndianness:&endianness];
 	printf("%i", endianness);
 	//[PFSK_Common sysctlStringForKey:"brah" intoNSString:&machineModel];
+     */
 /*
 	NSDictionary* memStats;
 	[PFSystemKit memoryStats:&memStats];*/
 	//BOOL brah = [pfkit refreshGroup:PFSKGroupGraphics];
-	BOOL refReturn = [pfkit refreshGroup:PFSKGroupPlatformExpertDevice];
+    /*
+	BOOL refReturn = [pfkit updateExpertReport];
 	NSArray* serial = [pfkit valueForKeyPath:@"serial"];
 	NSLog(@"%@", serial);
-	refReturn = [pfkit refreshGroup:PFSKGroupROM];
+	refReturn = [pfkit updateRomReport];
 	NSDate* romRD = [pfkit valueForKey:@"romReleaseDate"];
 	NSLog(@"%@", romRD);
 	refReturn = [pfkit refreshGroup:PFSKGroupSMC];
@@ -80,15 +90,16 @@
 	NSLog(@"%@", cBrand);
 	
 	NSLog(@"%@", [PFSystemKit userPreferredLanguages]);
-	
+	*/
     XCTAssert(YES, @"Pass");
 }
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
-		NSDictionary* memStats;
-        [PFSystemKit memoryStats:&memStats];
+        NSError* error;
+        PFSystemRAMStatistics* stats;
+        [PFSystemKit ramStatistics:&stats error:&error];
     }];
 }
 

@@ -10,15 +10,15 @@
 #import "PFSKTypes.h"
 
 @interface PFSystemCPUReport : NSObject
-@property (readonly)  NSNumber* cpuCount;
-@property (readonly)  NSString* cpuBrand;
-@property (readonly)  NSNumber* cpuCoreCount;
-@property (readonly)  NSNumber* cpuThreadCount;
-@property (readonly)  NSNumber* cpuFrequency;
-@property (readonly)  NSNumber* cpuL2Cache;
-@property (readonly)  NSNumber* cpuL3Cache;
-@property (readonly)  PFSystemKitCPUArches cpuArchitecture;
-@property (readonly)  NSString* cpuVendor;
+@property (readonly)  NSNumber* count;
+@property (readonly)  NSString* brand;
+@property (readonly)  NSNumber* coreCount;
+@property (readonly)  NSNumber* threadCount;
+@property (readonly)  NSNumber* frequency;
+@property (readonly)  NSNumber* L2Cache;
+@property (readonly)  NSNumber* L3Cache;
+@property (readonly)  PFSystemKitCPUArches architecture;
+@property (readonly)  NSString* vendor;
 
 -(instancetype) initWithCount:(NSNumber*)countLocal
 						brand:(NSString*)brandLocal

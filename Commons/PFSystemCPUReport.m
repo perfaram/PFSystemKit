@@ -9,15 +9,15 @@
 #import "PFSystemCPUReport.h"
 
 @implementation PFSystemCPUReport
-@synthesize cpuCount;
-@synthesize cpuBrand;
-@synthesize cpuCoreCount;
-@synthesize cpuThreadCount;
-@synthesize cpuFrequency;
-@synthesize cpuL2Cache;
-@synthesize cpuL3Cache;
-@synthesize cpuArchitecture;
-@synthesize cpuVendor;
+@synthesize count;
+@synthesize brand;
+@synthesize coreCount;
+@synthesize threadCount;
+@synthesize frequency;
+@synthesize L2Cache;
+@synthesize L3Cache;
+@synthesize architecture;
+@synthesize vendor;
 
 -(instancetype) initWithCount:(NSNumber*)countLocal
 						brand:(NSString*)brandLocal
@@ -33,15 +33,15 @@
 	if (!(self = [super init])) {
 		return nil;
 	}
-	cpuCount = countLocal;
-	cpuBrand = brandLocal;
-	cpuCoreCount = coreCountLocal;
-	cpuThreadCount = threadNumberLocal;
-	cpuFrequency = frequencyLocal;
-	cpuL2Cache = l2Local;
-	cpuL3Cache = l3Local;
-	cpuArchitecture = architectureLocal;
-	cpuVendor = vendorLocal;
+	count = countLocal;
+	brand = brandLocal;
+	coreCount = coreCountLocal;
+	threadCount = threadNumberLocal;
+	frequency = frequencyLocal;
+	L2Cache = l2Local;
+	L3Cache = l3Local;
+	architecture = architectureLocal;
+	vendor = vendorLocal;
 	return self;
 }
 @end
