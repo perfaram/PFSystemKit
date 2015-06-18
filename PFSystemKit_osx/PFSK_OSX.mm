@@ -150,21 +150,18 @@
         
         platformReport = [PFSystemPlatformReport.alloc initWithBoardID:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@"board-id"]
                                                                                              encoding:NSUTF8StringEncoding]
-                                                          hardwareUUID:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey]
-                                                                                             encoding:NSUTF8StringEncoding]
+                                                          hardwareUUID:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey]
                                                             romVersion:[[NSString alloc] initWithData:[romRawDict objectForKey:@"version"]
                                                                                              encoding:NSUTF8StringEncoding]
                                                         romReleaseDate:[[NSCalendar currentCalendar] dateFromComponents:romDateComps]
-                                                            smcVersion:[[NSString alloc] initWithData:[smcRawDict objectForKey:@"smc-version"]
-                                                                                             encoding:NSUTF8StringEncoding]
+                                                            smcVersion:[smcRawDict objectForKey:@"smc-version"]
                                                          shutdownCause:[smcRawDict objectForKey:@"ShutdownCause"]
                                                                 family:deviceFamily
                                                                version:deviceVer
                                                             endianness:deviceEndian
                                                                  model:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@"model"]
                                                                                              encoding:NSUTF8StringEncoding]
-                                                                serial:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey]
-                                                                                             encoding:NSUTF8StringEncoding]
+                                                                serial:[platformExpertRawDict objectForKey:@kIOPlatformSerialNumberKey]
                                                             memorySize:memSize];
 		firstRunDoneForExpertDevice = 1;
 	}
