@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
+#import "PFSK_Common+Language.h"
+#import "PFSK_Common+Machine.h"
 
 @interface PFSystemKit : PFSK_Common <PFSystemKitProtocol> {
 	@protected
@@ -57,3 +59,6 @@
 
 #endif
 @end
+
+#import "PFSK_OSX+CPU.h"
+#import "PFSK_OSX+RAM.h"

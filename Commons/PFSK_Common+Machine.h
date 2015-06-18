@@ -7,16 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-/* iOS imports */
-#if TARGET_OS_IPHONE
-#import "PFSK_iOS.h"
-#endif
-/* OS X imports */
-#if !TARGET_OS_IPHONE
-#import "PFSK_OSX.h"
-#endif
-
-@interface PFSystemKit(Machine)
+#import "PFSK_Common.h"
+@interface PFSK_Common(Machine)
 +(BOOL) deviceFamily:(PFSystemKitDeviceFamily*)ret error:(NSError**)error __attribute__((nonnull (1,2)));
 +(BOOL) deviceEndianness:(PFSystemKitEndianness*)ret error:(NSError**)error __attribute__((nonnull (1,2)));
 +(BOOL) deviceModel:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2)));

@@ -8,7 +8,7 @@
 
 #import "PFSK_Common+Language.h"
 
-@implementation PFSystemKit(Language)
+@implementation PFSK_Common(Language)
 +(NSString*) userPreferredLanguages {
 	// User preferred language
 	NSUserDefaults *defs = [NSUserDefaults standardUserDefaults];

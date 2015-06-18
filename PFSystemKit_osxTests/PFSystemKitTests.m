@@ -40,9 +40,9 @@
 		NSString* batterySerial = [pfkit.platformReport serial];
         NSLog(@"Serial : %@", batterySerial);
 		NSString* UUID = [pfkit.platformReport hardwareUUID];
-        NSLog(@"UUID : %@ Gb", UUID);
+        NSLog(@"UUID : %@", UUID);
         NSNumber* memSize = [pfkit.platformReport memorySize];
-        NSLog(@"MemSize : %@", memSize);
+        NSLog(@"MemSize : %@ Gb", memSize);
         NSString* model = [pfkit.platformReport model];
         NSLog(@"Model : %@", model);
         NSString* cpuVendor = [pfkit.cpuReport vendor];

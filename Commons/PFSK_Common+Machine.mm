@@ -10,7 +10,7 @@
 #import <string>
 #import "NSString+PFSKAdditions.h"
 
-@implementation PFSystemKit(Machine)
+@implementation PFSK_Common(Machine)
 +(BOOL) deviceFamily:(PFSystemKitDeviceFamily*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
     NSString* str;
