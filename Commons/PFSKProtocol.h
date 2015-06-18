@@ -12,6 +12,7 @@
 #import "PFSystemCPUReport.h"
 #import "PFSystemBatteryReport.h"
 #import "PFSystemPlatformReport.h"
+#import "PFSystemRAMStatistics.h"
 
 @class PFSystemKit;
 @protocol PFSystemKitProtocol

@@ -16,7 +16,7 @@
 
 @implementation PFSystemKit(RAM)
 
-+(BOOL) memorySize:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) ramSize:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
     CGFloat size = 0;
     PFSystemKitError locResult;
@@ -30,7 +30,7 @@
     return true;
 }
 
-+(BOOL) memoryStats:(NSDictionary**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) ramGetStatistics:(PFSystemRAMStatistics**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
     CGFloat pageSize = 0;
     PFSystemKitError result;
@@ -49,12 +49,11 @@
     task_info(mach_task_self(), TASK_BASIC_INFO_64, (task_info_t)&infof, &size); //don't check for success, black magic incoming
     
     const double bytesPerMB = 1024 * 1024;
-    long long total = ((vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count) * pageSize) / bytesPerMB;
     long long wired = (vmstat.wire_count * pageSize) / bytesPerMB;
     long long active = (vmstat.active_count * pageSize) / bytesPerMB;
     long long inactive = (vmstat.inactive_count * pageSize) / bytesPerMB;
     long long free = (vmstat.free_count * pageSize) / bytesPerMB;
-    *ret = [NSDictionary dictionaryWithObjectsAndKeys:@(total), @"total", @(wired), @"wired", @(active), @"active", @(inactive), @"inactive", @(free), @"free", nil];
+    *ret = [PFSystemRAMStatistics.alloc initWithWired:@(wired) active:@(active) inactive:@(inactive) free:@(free)];
     return true;
 }
 @end

@@ -10,6 +10,6 @@
 #import "PFSK_OSX.h"
 
 @interface PFSystemKit(RAM)
-+(BOOL) memorySize:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
-+(BOOL) memoryStats:(NSDictionary**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
++(BOOL) ramSize:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
++(BOOL) memoryStats:(PFSystemRAMStatistics**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
 @end
