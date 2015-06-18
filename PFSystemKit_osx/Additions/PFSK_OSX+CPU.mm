@@ -7,7 +7,7 @@
 //
 
 #import "PFSK_OSX+CPU.h"
-#import "NSString+CPPAdditions.h"
+#import "NSString+PFSKAdditions.h"
 #import <string>
 
 @implementation PFSystemKit(CPU)
