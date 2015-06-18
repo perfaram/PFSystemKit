@@ -32,18 +32,6 @@
  */
 -(NSString*) stringifyExtError;
 
-/*!
- @discussion Returns the current platform as a member of the PFSystemKitPlatform enum
- @returns An int matching the current platform (iOS/OSX)
- */
--(PFSystemKitPlatform)platform;
-
-/*!
- @discussion Returns the current platform
- @returns A NSString holding the current platform (iOS/OSX)
- */
--(NSString*)platformString;
-
 
 
 /*!
