@@ -6,9 +6,14 @@ OS X (and partially iOS) framework for getting software and hardware information
 
 
 ## License (MIT)
-Copyright © 2015 Perceval [**@perfaram**](https://github.com/perfaram) FARAMAZ
-Portions Copyright © 2013 John Winter (john@aptonic.com)
-Portions Copyright © 2012 PHPdev32 (firewater2311@yahoo.com)
+* Copyright © 2015 Perceval [**@perfaram**](https://github.com/perfaram) FARAMAZ
+* Portions Copyright © 2013 John Winter (john@aptonic.com)
+* Portions Copyright © 2012 PHPdev32 (firewater2311@yahoo.com)
+* Portions Copyright © 2008 "Matt" (from Apple-dev mailing list)
+* Portions Copyright © 2009 Sahil [**@sahil**](https://github.com/sahil) Desai
+* Portions Copyright © 2010 Richard [**@rickmark**](https://github.com/rickmark) Penwell
+* Portions Copyright © 2014 Jake [**@jakepetroules**](https://github.com/jakepetroules) Petroules
+* Portions Copyright © 2009 The Contributors of the Chromium Project
 
 > The MIT License (MIT)
 > Copyright (c) 2015 Perceval [**@perfaram**](https://github.com/perfaram) FARAMAZ
