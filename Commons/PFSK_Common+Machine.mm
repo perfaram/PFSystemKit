@@ -11,10 +11,10 @@
 #import "NSString+PFSKAdditions.h"
 
 @implementation PFSystemKit(Machine)
-+(BOOL) machineFamily:(PFSystemKitDeviceFamily*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) deviceFamily:(PFSystemKitDeviceFamily*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
     NSString* str;
-    BOOL result = [self machineModel:&str error:error];
+    BOOL result = [self deviceModel:&str error:error];
     if (result != true) {
         return false;
     }
@@ -49,7 +49,7 @@
 }
 
 
-+(BOOL) systemEndianness:(PFSystemKitEndianness*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) deviceEndianness:(PFSystemKitEndianness*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
     CGFloat order = 0;
     PFSystemKitError locResult;
@@ -70,7 +70,7 @@
     return true;
 }
 
-+(BOOL) machineModel:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) deviceModel:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
     std::string model;
     PFSystemKitError locResult;
@@ -87,7 +87,7 @@
 +(BOOL) deviceVersion:(PFSystemKitDeviceVersion*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
 	NSString* systemInfoString;
-	BOOL result = [self machineModel:&systemInfoString error:error];
+	BOOL result = [self deviceModel:&systemInfoString error:error];
 	if (result != true) {
 		return false;
 	}

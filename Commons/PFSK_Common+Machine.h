@@ -17,7 +17,8 @@
 #endif
 
 @interface PFSystemKit(Machine)
-+(BOOL) systemEndianness:(PFSystemKitEndianness*)ret error:(NSError**)error __attribute__((nonnull (1,2)));
-+(BOOL) machineModel:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
++(BOOL) deviceFamily:(PFSystemKitDeviceFamily*)ret error:(NSError**)error __attribute__((nonnull (1,2)));
++(BOOL) deviceEndianness:(PFSystemKitEndianness*)ret error:(NSError**)error __attribute__((nonnull (1,2)));
++(BOOL) deviceModel:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
 +(BOOL) deviceVersion:(PFSystemKitDeviceVersion*)ret error:(NSError**)error __attribute__((nonnull (1,2)));
 @end
