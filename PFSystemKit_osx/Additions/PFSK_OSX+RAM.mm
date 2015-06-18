@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
 
-#import "PFSK_OSX+CPU.h"
-#import "NSString+CPPAdditions.h"
+#import "PFSK_OSX+RAM.h"
+#import "NSString+PFSKAdditions.h"
 #import <string>
 #import <mach/host_info.h>
 #import <mach/mach_host.h>
@@ -15,64 +15,46 @@
 #import <mach/task.h>
 
 @implementation PFSystemKit(RAM)
-__attribute__((always_inline)) PFSystemKitError _memorySize(NSNumber** ret) {
-	CGFloat size = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.memsize", size);
-	if (result != PFSKReturnSuccess)
-		goto finish;
-	else
-		*ret = @(size/1073741824); //bytes to gibibytes (https://en.wikipedia.org/wiki/Gibibyte)
-finish:
-	return result;
-}
 
-__attribute__((always_inline)) PFSystemKitError _memoryStats(NSDictionary** ret) {
-	CGFloat pageSize = 0;
-	PFSystemKitError result;
-	result = _sysctlFloatForKey((char*)"hw.pagesize", pageSize);
-	
-	mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
-	vm_statistics_data_t vmstat;
-	if (host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t) &vmstat, &count) != KERN_SUCCESS) {
-		return PFSKReturnIOKitError;
-	}
-	
-	task_basic_info_64_data_t infof;
-	unsigned size = sizeof (infof);
-	task_info(mach_task_self(), TASK_BASIC_INFO_64, (task_info_t)&infof, &size);
-	
-	const double bytesPerMB = 1024 * 1024;
-	long long total = ((vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count) * pageSize) / bytesPerMB;
-	long long wired = (vmstat.wire_count * pageSize) / bytesPerMB;
-	long long active = (vmstat.active_count * pageSize) / bytesPerMB;
-	long long inactive = (vmstat.inactive_count * pageSize) / bytesPerMB;
-	long long free = (vmstat.free_count * pageSize) / bytesPerMB;
-	*ret = [NSDictionary dictionaryWithObjectsAndKeys:@(total), @"total", @(wired), @"wired", @(active), @"active", @(inactive), @"inactive", @(free), @"free", nil];
-	return PFSKReturnSuccess;
-}
-
--(NSNumber*) memorySize {
-	if (!self.memorySize) {
-		NSNumber* ret = [NSNumber.alloc init];
-		_error = _memorySize(&ret);
-		val4Key("memorySize", ret);
-	}
-	return self.memorySize;
-}
-
--(NSDictionary*) memoryStats {
-	NSDictionary* ret = [NSDictionary.alloc init];
-	_error = _memoryStats(&ret);
-	return ret;
-}
-
-+(PFSystemKitError) memorySize:(NSNumber**)ret __attribute__((nonnull (1)))
++(BOOL) memorySize:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
-	return _memorySize(ret);
+    CGFloat size = 0;
+    PFSystemKitError locResult;
+    locResult = _sysctlFloatForKey((char*)"hw.memsize", size);
+    *error = synthesizeError(locResult);
+    if (locResult != PFSKReturnSuccess) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(size/1073741824); //bytes to gibibytes ( https://en.wikipedia.org/wiki/Gibibyte )
+    return true;
 }
 
-+(PFSystemKitError) memoryStats:(NSDictionary**)ret __attribute__((nonnull (1))) {
-	return _memoryStats(ret);
++(BOOL) memoryStats:(NSDictionary**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
+{
+    CGFloat pageSize = 0;
+    PFSystemKitError result;
+    result = _sysctlFloatForKey((char*)"hw.pagesize", pageSize);
+    *error = synthesizeError(PFSKReturnSuccess);
+    mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
+    vm_statistics_data_t vmstat;
+    kern_return_t hostResult = host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t) &vmstat, &count);
+    if (hostResult != KERN_SUCCESS) {
+        *error = synthesizeErrorExt(PFSKReturnIOKitError, hostResult);
+        return false;
+    }
+    
+    task_basic_info_64_data_t infof;
+    unsigned size = sizeof (infof);
+    task_info(mach_task_self(), TASK_BASIC_INFO_64, (task_info_t)&infof, &size); //don't check for success, black magic incoming
+    
+    const double bytesPerMB = 1024 * 1024;
+    long long total = ((vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count) * pageSize) / bytesPerMB;
+    long long wired = (vmstat.wire_count * pageSize) / bytesPerMB;
+    long long active = (vmstat.active_count * pageSize) / bytesPerMB;
+    long long inactive = (vmstat.inactive_count * pageSize) / bytesPerMB;
+    long long free = (vmstat.free_count * pageSize) / bytesPerMB;
+    *ret = [NSDictionary dictionaryWithObjectsAndKeys:@(total), @"total", @(wired), @"wired", @(active), @"active", @(inactive), @"inactive", @(free), @"free", nil];
+    return true;
 }
 @end
