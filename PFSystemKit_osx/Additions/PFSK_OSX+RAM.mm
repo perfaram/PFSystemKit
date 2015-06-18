@@ -30,7 +30,7 @@
     return true;
 }
 
-+(BOOL) ramGetStatistics:(PFSystemRAMStatistics**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) ramStatistics:(PFSystemRAMStatistics**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
 {
     CGFloat pageSize = 0;
     PFSystemKitError result;

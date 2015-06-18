@@ -11,5 +11,5 @@
 
 @interface PFSystemKit(RAM)
 +(BOOL) ramSize:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
-+(BOOL) memoryStats:(PFSystemRAMStatistics**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
++(BOOL) ramStatistics:(PFSystemRAMStatistics**)ret error:(NSError**)error __attribute__((nonnull (1,2)));
 @end
