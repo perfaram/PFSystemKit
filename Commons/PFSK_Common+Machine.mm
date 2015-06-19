@@ -19,6 +19,7 @@
         return false;
     }
     str = [str lowercaseString]; //transform to lowercase, meaning less code afterwards
+#if !TARGET_OS_IPHONE
     if ([str containsString:@"mac"]) {
         if ([str isEqualToString:@"imac"])
             *ret = PFSKDeviceFamilyiMac;
@@ -32,18 +33,22 @@
             *ret = PFSKDeviceFamilyMacPro;
         else if ([str containsString:@"macbook"])
             *ret = PFSKDeviceFamilyMacBook;
-    } else if ([str hasPrefix:@"i"]) { //don't care about imac, has been checked before
+    } else if ([str isEqualToString:@"xserve"])
+        *ret = PFSKDeviceFamilyXserve;
+#endif
+#if TARGET_OS_IPHONE
+    if ([str hasPrefix:@"i"]) { //don't care about imac, has been checked before
         if ([str isEqualToString:@"iphone"])
             *ret = PFSKDeviceFamilyiPhone;
         else if ([str isEqualToString:@"ipad"])
             *ret = PFSKDeviceFamilyiPad;
         else if ([str isEqualToString:@"ipod"])
             *ret = PFSKDeviceFamilyiPod;
-    } else if ([str isEqualToString:@"xserve"]) {
-        *ret = PFSKDeviceFamilyXserve;
+    }
     } else if ([str isEqualToString:@"simulator"]) {
         *ret = PFSKDeviceFamilySimulator;
     }
+#endif
     *ret = PFSKDeviceFamilyUnknown;
     return true;
 }

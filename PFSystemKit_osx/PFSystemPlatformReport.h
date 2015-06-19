@@ -47,6 +47,17 @@
 @property (strong, atomic, readonly) NSNumber*							shutdownCause;
 #endif
 
+#if TARGET_OS_IPHONE
+/*!
+ Whether the device is jailbroken (iOS devices only)
+ */
+@property (atomic, readonly)         BOOL                               isJailbroken;
+
+/*!
+ Whether LocalIAPStore tweak is present (to fake IAP receipts)
+ */
+@property (atomic, readonly)         BOOL                               hasIAPFaker;
+#endif
 /*!
  The device family. e.g. PFSKDeviceFamilyiPhone
  */
@@ -107,5 +118,7 @@
                          model:(NSString*)modelStringLocal
                         serial:(NSString*)serialLocal
                     memorySize:(NSNumber*)memorySizeLocal
+                  isJailbroken:(BOOL)isJB
+                         isIAP:(BOOL)isIAP;
 #endif
 @end

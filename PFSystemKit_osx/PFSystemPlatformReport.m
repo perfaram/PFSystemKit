@@ -18,6 +18,10 @@
 @synthesize sleepCause;
 @synthesize shutdownCause;
 #endif
+#if TARGET_OS_IPHONE
+@synthesize isJailbroken;
+@synthesize hasIAPFaker;
+#endif
 @synthesize family;
 @synthesize platform;
 @synthesize version;
@@ -63,14 +67,16 @@
 #endif
 #if TARGET_OS_IPHONE
 -(instancetype) initWithFamily:(PFSystemKitDeviceFamily)familyLocal
-                   familyString:(NSString*)familyStringLocal
-                        version:(PFSystemKitDeviceVersion)versionLocal
-                  versionString:(NSString*)versionStringLocal
-                     endianness:(PFSystemKitEndianness)endiannessLocal
-               endiannessString:(NSString*)endiannessStringLocal
-                          model:(NSString*)modelStringLocal
-                         serial:(NSString*)serialLocal
-                     memorySize:(NSNumber*)memorySizeLocal
+                  familyString:(NSString*)familyStringLocal
+                       version:(PFSystemKitDeviceVersion)versionLocal
+                 versionString:(NSString*)versionStringLocal
+                    endianness:(PFSystemKitEndianness)endiannessLocal
+              endiannessString:(NSString*)endiannessStringLocal
+                         model:(NSString*)modelStringLocal
+                        serial:(NSString*)serialLocal
+                    memorySize:(NSNumber*)memorySizeLocal
+                  isJailbroken:(BOOL)isJB
+                         isIAP:(BOOL)isIAP
 {
     if (!(self = [super init])) {
         return nil;
@@ -85,6 +91,8 @@
     serial = serialLocal;
     memorySize = memorySizeLocal;
     platform = PFSKPlatformIOS;
+    isJailbroken = isJB;
+    hasIAPFaker = isIAP;
     return self;
 }
 #endif

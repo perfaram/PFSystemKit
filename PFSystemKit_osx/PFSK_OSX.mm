@@ -106,17 +106,8 @@
                     deviceFamily = PFSKDeviceFamilyMacPro;
                 else if ([systemInfoString containsString:@"macbook"])
                     deviceFamily = PFSKDeviceFamilyMacBook;
-            } else if ([systemInfoString hasPrefix:@"i"]) { //don't care about imac, has been checked before
-                if ([systemInfoString isEqualToString:@"iphone"])
-                    deviceFamily = PFSKDeviceFamilyiPhone;
-                else if ([systemInfoString isEqualToString:@"ipad"])
-                    deviceFamily = PFSKDeviceFamilyiPad;
-                else if ([systemInfoString isEqualToString:@"ipod"])
-                    deviceFamily = PFSKDeviceFamilyiPod;
-            } else if ([systemInfoString isEqualToString:@"xserve"]) {
+                else if ([systemInfoString isEqualToString:@"xserve"])
                 deviceFamily = PFSKDeviceFamilyXserve;
-            } else if ([systemInfoString isEqualToString:@"simulator"]) {
-                deviceFamily = PFSKDeviceFamilySimulator;
             }
         }
 
@@ -232,8 +223,6 @@
 	}
 }
 
-#pragma mark - Class methods (actual core code)
-
 #pragma mark - Getters
 @synthesize cpuReport;
 @synthesize batteryReport;
@@ -241,7 +230,6 @@
 
 
 #pragma mark - NSObject std methods
-
 -(void) finalize { //cleanup everything
 	IOObjectRelease(nvrEntry);
 	IOObjectRelease(pexEntry);

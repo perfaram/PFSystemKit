@@ -113,6 +113,26 @@ typedef NS_ENUM(int, PFSystemKitCPUArches) {
 };
 
 /*!
+ @typedef PFSystemKitCPUArchesARMTypes
+ Enumeration of integers matching an ARM subtype (ARM v7, v7s, v8, etc...)
+ */
+typedef NS_ENUM(int, PFSystemKitCPUArchesARMTypes) {
+    PFSKCPUArchesARM_Unknown = 0,
+    PFSKCPUArchesARM_XSCALE,
+    PFSKCPUArchesARM_V4T,
+    PFSKCPUArchesARM_V5TEJ,
+    PFSKCPUArchesARM_V6,
+    PFSKCPUArchesARM_V6M,
+    PFSKCPUArchesARM_V7,
+    PFSKCPUArchesARM_V7S,
+    PFSKCPUArchesARM_V7F,
+    PFSKCPUArchesARM_V7K,
+    PFSKCPUArchesARM_V7M,
+    PFSKCPUArchesARM_V7EM,
+    PFSKCPUArchesARM_V8,
+};
+    
+/*!
  @typedef PFSystemKitCPUVendors
  Enumeration of integers matching a CPU vendor (AuthenticAMD, GenuineIntel, or IBM for ppc)
  */
