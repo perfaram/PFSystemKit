@@ -17,26 +17,12 @@
 #import "PFSystemRAMStatistics.h"
 
 @interface PFSK_Common : NSObject {
-	NSError *error;
-	@protected
-	PFSystemKitError errorCode;
-	kern_return_t extErrorCode;
-	PFSystemKitLockState writeLockState;
+    NSError *error;
+@protected
+    PFSystemKitError errorCode;
+    kern_return_t extErrorCode;
+    PFSystemKitLockState writeLockState;
 }
-
-/*!
- @discussion Translates the last PFSystemKitError (stored in the `_error` ivar) to a human-readable string
- @returns A NSString holding the _error ivar string value
- */
--(NSString*) stringifyError;
-
-/*!
- @discussion Translates the last IOKit error (stored in the `_extError` ivar) to a human-readable string
- @returns A NSString holding the _extError ivar string value
- */
--(NSString*) stringifyExtError;
-
-
 
 /*!
  @discussion Translates a PFSystemKitError to a human-readable string
@@ -156,9 +142,10 @@ PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat);
  */
 +(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerNumber;
 
++(NSArray*) userPreferredLanguages;
+
 __attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error);
 __attribute__((always_inline)) NSError* synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError);
 @end
 
-#import "PFSK_Common+Language.h"
 #import "PFSK_Common+Machine.h"
