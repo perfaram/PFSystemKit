@@ -7,9 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSKProtocol.h"
 #import "PFSKTypes.h"
 
-@interface PFSystemKit : NSObject <PFSystemKitProtocol>
-+(PFSystemKitError) memSize:(NSNumber**)ret;
+@interface PFSystemKit : NSObject
+/*!
+ Various platform informations
+ */
+@property (strong, atomic, readonly) PFSystemPlatformReport*			platformReport;
+
+/*!
+ Various CPU informations
+ */
+@property (strong, atomic, readonly) PFSystemCPUReport*					cpuReport;
+
+/*!
+ Various battery informations
+ */
+@property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
 @end

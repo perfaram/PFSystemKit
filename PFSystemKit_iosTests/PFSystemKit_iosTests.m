@@ -1,6 +1,6 @@
 //
-//  PFSystemInfoKit_iosTests.m
-//  PFSystemInfoKit_iosTests
+//  PFSystemKit_iosTests.m
+//  PFSystemKit_iosTests
 //
 //  Created by Perceval FARAMAZ on 19/04/15.
 //  Copyright (c) 2015 Perceval FARAMAZ. All rights reserved.
@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface PFSystemInfoKit_iosTests : XCTestCase
+@interface PFSystemKit_iosTests : XCTestCase
 
 @end
 
-@implementation PFSystemInfoKit_iosTests
+@implementation PFSystemKit_iosTests
 
 - (void)setUp {
     [super setUp];

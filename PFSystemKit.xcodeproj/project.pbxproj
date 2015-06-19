@@ -63,7 +63,7 @@
 		0BE6EE661AE3FE2F0070B83F /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EE6C1AE3FE2F0070B83F /* PFSystemKit_osx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE601AE3FE2F0070B83F /* PFSystemKit_osx.framework */; };
 		0BE6EE8C1AE3FE3D0070B83F /* PFSystemKit_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE811AE3FE3D0070B83F /* PFSystemKit_ios.framework */; };
-		0BE6EE931AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EE921AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m */; };
+		0BE6EE931AE3FE3D0070B83F /* PFSystemKit_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6EE921AE3FE3D0070B83F /* PFSystemKit_iosTests.m */; };
 		0BE6EE9A1AE3FE740070B83F /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE6EE651AE3FE2F0070B83F /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE6EE9E1AE401240070B83F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE9C1AE401240070B83F /* CoreFoundation.framework */; };
 		0BE6EE9F1AE401240070B83F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE6EE9D1AE401240070B83F /* Foundation.framework */; };
@@ -142,7 +142,7 @@
 		0BE6EE811AE3FE3D0070B83F /* PFSystemKit_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PFSystemKit_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE8B1AE3FE3D0070B83F /* PFSystemKit_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PFSystemKit_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BE6EE911AE3FE3D0070B83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = PFSystemKit_iosTests/Info.plist; sourceTree = "<group>"; };
-		0BE6EE921AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PFSystemInfoKit_iosTests.m; path = PFSystemKit_iosTests/PFSystemInfoKit_iosTests.m; sourceTree = "<group>"; };
+		0BE6EE921AE3FE3D0070B83F /* PFSystemKit_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PFSystemKit_iosTests.m; path = PFSystemKit_iosTests/PFSystemKit_iosTests.m; sourceTree = "<group>"; };
 		0BE6EE9C1AE401240070B83F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		0BE6EE9D1AE401240070B83F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0BE6EEA01AE401300070B83F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -307,12 +307,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0BE6EE6F1AE3FE2F0070B83F /* PFSystemKitTests */ = {
+		0BE6EE6F1AE3FE2F0070B83F /* PFSystemKit_osxTests */ = {
 			isa = PBXGroup;
 			children = (
 				0B9DF4221B08B0DF00DE2175 /* PFSystemKitTests.m */,
 				0BE6EE701AE3FE2F0070B83F /* Supporting Files */,
 			);
+			name = PFSystemKit_osxTests;
 			path = PFSystemKitTests;
 			sourceTree = "<group>";
 		};
@@ -345,12 +346,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0BE6EE8F1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests */ = {
+		0BE6EE8F1AE3FE3D0070B83F /* PFSystemKit_iosTests */ = {
 			isa = PBXGroup;
 			children = (
-				0BE6EE921AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m */,
+				0BE6EE921AE3FE3D0070B83F /* PFSystemKit_iosTests.m */,
 				0BE6EE901AE3FE3D0070B83F /* Supporting Files */,
 			);
+			name = PFSystemKit_iosTests;
 			path = PFSystemInfoKit_iosTests;
 			sourceTree = "<group>";
 		};
@@ -365,8 +367,8 @@
 		0BE6EE9B1AE3FECB0070B83F /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				0BE6EE6F1AE3FE2F0070B83F /* PFSystemKitTests */,
-				0BE6EE8F1AE3FE3D0070B83F /* PFSystemInfoKit_iosTests */,
+				0BE6EE6F1AE3FE2F0070B83F /* PFSystemKit_osxTests */,
+				0BE6EE8F1AE3FE3D0070B83F /* PFSystemKit_iosTests */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -664,7 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BE6EE931AE3FE3D0070B83F /* PFSystemInfoKit_iosTests.m in Sources */,
+				0BE6EE931AE3FE3D0070B83F /* PFSystemKit_iosTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

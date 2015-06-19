@@ -7,26 +7,36 @@
 //
 
 #import "PFSK_iOS.h"
+#import <objc/objc.h>
+#import <objc/runtime.h>
 
 @implementation PFSystemKit
-
+#pragma mark - Singleton pattern
+/**
+ * PFSystemKit singleton instance retrieval method
+ */
++(instancetype) investigate {
+    static PFSystemKit* sharedInstance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+        [sharedInstance updatePlatformReport];
+        [sharedInstance updateCPUReport];
+        [sharedInstance updateBatteryReport];
+    });
+    return sharedInstance;
+}
 +(BOOL)isJailbroken{ //objc_copyImageNames() "can't" be fooled (checks for MobileSubstrate)
-	
 #if !(TARGET_IPHONE_SIMULATOR)
-	
 	if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){
 		return YES;
-	}else if([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/MobileSubstrate.dylib"]){
+	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/MobileSubstrate.dylib"]){
 		return YES;
-	}else if([[NSFileManager defaultManager] fileExistsAtPath:@"/bin/bash"]){
+	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/bin/bash"]){
 		return YES;
-	}else if([[NSFileManager defaultManager] fileExistsAtPath:@"/etc/apt"]){
+	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/etc/apt"]){
 		return YES;
-	}else if([[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt/"]){
-		return YES;
-	}
-	
-	if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]){
+	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt/"]){
 		return YES;
 	}
 	
@@ -54,83 +64,56 @@
 		return YES;
 	}
 	fclose(f);
-	
+    
+    int result = fork(); // Check if this process can fork, shouldn't happen if properly sandboxed
+    if (result >= 0) {
+        return YES;
+    }
+    
+    const char **names;
+    unsigned libNamesCount = 0;
+    names = objc_copyImageNames(&libNamesCount); //best effort : check whether substrate is loaded
+    for (unsigned libIdx = 0; libIdx < libNamesCount; ++libIdx) {
+        NSString* name = @(names[libIdx]);
+        if ([name isKindOfClass:NSClassFromString(@"NSString")]) {
+            if ([name.lowercaseString containsString:@"substrate"]) return YES;
+        }
+    }
+    free(names);
 #endif
-	
 	//All checks have failed. Most probably, the device is not jailbroken
 	return NO;
 }
 
-+(NSString*)getCPUType
-{
-	NSMutableString *cpu = [[NSMutableString alloc] init];
-	size_t size;
-	cpu_type_t type;
-	cpu_subtype_t subtype;
-	size = sizeof(type);
-	sysctlbyname("hw.cputype", &type, &size, NULL, 0);
-	
-	size = sizeof(subtype);
-	sysctlbyname("hw.cpusubtype", &subtype, &size, NULL, 0);
-	
-	// values for cputype and cpusubtype defined in mach/machine.h
-	if (type == CPU_TYPE_ARM)
-	{
-		[cpu appendString:@"ARM "];
-		switch(subtype)
-		{
-			case CPU_SUBTYPE_ARM_V7:
-				[cpu appendString:@"V7"];
-				break;
-			case CPU_SUBTYPE_ARM_V4T:
-				[cpu appendString:@"V4T"];
-				break;
-			case CPU_SUBTYPE_ARM_V6:
-				[cpu appendString:@"V6"];
-				break;
-			case CPU_SUBTYPE_ARM_V5TEJ:
-				[cpu appendString:@"V5TEJ"];
-				break;
-			case CPU_SUBTYPE_ARM_XSCALE:
-				[cpu appendString:@"XSCALE"];
-				break;
-			case CPU_SUBTYPE_ARM_V7S:
-				[cpu appendString:@"V7S"];
-				break;
-			case CPU_SUBTYPE_ARM_V7F:
-				[cpu appendString:@"V7F"];
-				break;
-			case CPU_SUBTYPE_ARM_V7K:
-				[cpu appendString:@"V7K"];
-				break;
-			case CPU_SUBTYPE_ARM_V6M:
-				[cpu appendString:@"V6M"];
-				break;
-			case CPU_SUBTYPE_ARM_V7M:
-				[cpu appendString:@"V7M"];
-				break;
-			case CPU_SUBTYPE_ARM_V7EM:
-				[cpu appendString:@"V7EM"];
-				break;
-			case CPU_SUBTYPE_ARM_V8:
-				[cpu appendString:@"V8"];
-				break;
-			case CPU_SUBTYPE_ARM_ALL:
-				break;
-		}
-	} else if (type == CPU_TYPE_ARM64)
-	{
-		[cpu appendString:@"ARM "];
-		switch(subtype)
-		{
-			case CPU_SUBTYPE_ARM_V8:
-				[cpu appendString:@"V8"];
-				break;
-			case CPU_SUBTYPE_ARM_ALL:
-				break;
-		}
-	}
-	return cpu;
+#pragma mark - Getters
+@synthesize cpuReport;
+@synthesize batteryReport;
+@synthesize platformReport;
+
+#pragma mark - NSObject std methods
+-(void) finalize { //cleanup everything
+    IOObjectRelease(nvrEntry);
+    IOObjectRelease(pexEntry);
+    IOObjectRelease(smcEntry);
+    IOObjectRelease(romEntry);
+    [super finalize];
+    return;
 }
 
+-(instancetype) init {
+    if (!(self = [super init])) {
+        return nil;
+    }
+    _writeLockState = PFSKLockStateLocked;
+    _error = PFSKReturnUnknown;
+    _extError = 0;
+    kern_return_t IOresult;
+    IOresult = IOMasterPort(bootstrap_port, &masterPort);
+    if (IOresult!=kIOReturnSuccess) {
+        _error = PFSKReturnNoMasterPort;
+        _extError = IOresult;
+        return nil;
+    }
+    return self;
+}
 @end

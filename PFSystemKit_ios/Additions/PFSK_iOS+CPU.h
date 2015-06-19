@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSK_OSX.h"
+#import "PFSK_iOS.h"
 
 @interface PFSystemKit(CPU)
 

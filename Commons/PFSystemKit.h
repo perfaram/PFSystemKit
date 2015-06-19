@@ -10,19 +10,19 @@
 
 /* iOS imports */
 #if TARGET_OS_IPHONE
-//! Project version number for PFSystemInfoKit_ios.
-FOUNDATION_EXPORT double PFSystemInfoKit_iosVersionNumber;
-//! Project version string for PFSystemInfoKit_ios.
-FOUNDATION_EXPORT const unsigned char PFSystemInfoKit_iosVersionString[];
+//! Project version number for PFSystemKit_ios.
+FOUNDATION_EXPORT double PFSystemKit_iosVersionNumber;
+//! Project version string for PFSystemKit_ios.
+FOUNDATION_EXPORT const unsigned char PFSystemKit_iosVersionString[];
 #import "PFSK_iOS.h"
 #endif
 
 
 /* OS X imports */
 #if !TARGET_OS_IPHONE
-//! Project version number for PFSystemKit.
+//! Project version number for PFSystemKit_osx
 FOUNDATION_EXPORT double PFSystemKitVersionNumber;
-//! Project version string for PFSystemKit.
+//! Project version string for PFSystemKit_osx
 FOUNDATION_EXPORT const unsigned char PFSystemKitVersionString[];
 #import "PFSK_OSX.h"
 #endif
