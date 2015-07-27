@@ -16,7 +16,7 @@
 
 @implementation PFSystemKit(RAM)
 
-+(BOOL) ramSize:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) ramSize:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error 
 {
     CGFloat size = 0;
     PFSystemKitError locResult;
@@ -30,7 +30,7 @@
     return true;
 }
 
-+(BOOL) ramStatistics:(PFSystemRAMStatistics**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) ramStatistics:(PFSystemRAMStatistics Ind2_NNAR)ret error:(NSError Ind2_NUAR)error 
 {
     CGFloat pageSize = 0;
     PFSystemKitError result;
