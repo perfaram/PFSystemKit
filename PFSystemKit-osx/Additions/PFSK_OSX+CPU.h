@@ -10,14 +10,14 @@
 #import "PFSK_OSX.h"
 
 @interface PFSystemKit(CPU)
-+(BOOL) cpuCreateReport:(PFSystemCPUReport**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuBrand:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuCoreCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuThreadCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuFrequency:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuL2Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuL3Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuArchitecture:(PFSystemKitCPUArches*)ret error:(NSError**)error __attribute__((nonnull (1)));
-+(BOOL) cpuVendor:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1)));
++(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuBrand:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuCoreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuThreadCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuFrequency:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuL2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuL3Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuArchitecture:(PFSystemKitCPUArches*__nonnull)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuVendor:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 @end
