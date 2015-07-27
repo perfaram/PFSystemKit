@@ -12,6 +12,8 @@
 #define _writeLockState self->writeLockState
 #define val4Key(key, val) setValueForKey(key, val, self)
 #define val4KeyPh(key, val) setValueForKeyPath(key, val, self)
+#define Ind2_NNAR *__nonnull __autoreleasing*__nonnull //Ind2 = Double Indirection, NNAR = NonNull AutoReleasing
+#define Ind2_NUAR *__nullable __autoreleasing*__nullable //Ind2 = Double Indirection, NUAR = Nullable AutoReleasing
 
 /*!
  @typedef PFSystemKitLockState

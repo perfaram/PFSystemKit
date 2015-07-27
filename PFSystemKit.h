@@ -14,7 +14,7 @@
 FOUNDATION_EXPORT double PFSystemKit_iosVersionNumber;
 //! Project version string for PFSystemKit-ios.
 FOUNDATION_EXPORT const unsigned char PFSystemKit_iosVersionString[];
-#import <PFSystemKit_ios/PFSK_iOS.h>
+#import "PFSK_iOS.h"
 #endif
 
 
