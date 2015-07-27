@@ -12,7 +12,7 @@
 
 @implementation PFSystemKit(CPU)
 
-+(BOOL) cpuCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     CGFloat count = 0;
     PFSystemKitError locResult;
     locResult = _sysctlFloatForKey((char*)"hw.packages", count);
@@ -25,7 +25,7 @@
     return true;
 }
 
-+(BOOL) cpuCoreCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuCoreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     CGFloat count = 0;
     PFSystemKitError locResult;
     locResult = _sysctlFloatForKey((char*)"machdep.cpu.core_count", count);
@@ -38,7 +38,7 @@
     return true;
 }
 
-+(BOOL) cpuThreadCount:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuThreadCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     CGFloat count = 0;
     PFSystemKitError locResult;
     locResult = _sysctlFloatForKey((char*)"machdep.cpu.thread_count", count);
@@ -51,7 +51,7 @@
     return true;
 }
 
-+(BOOL) cpuBrand:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuBrand:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     std::string brand;
     PFSystemKitError locResult;
     locResult = _sysctlStringForKey((char*)"machdep.cpu.brand_string", brand);
@@ -64,7 +64,7 @@
     return true;
 }
 
-+(BOOL) cpuFrequency:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuFrequency:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     CGFloat size = 0;
     PFSystemKitError locResult;
     locResult = _sysctlFloatForKey((char*)"hw.cpufrequency", size);
@@ -77,7 +77,7 @@
     return true;
 }
 
-+(BOOL) cpuL2Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuL2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     CGFloat size = 0;
     PFSystemKitError locResult;
     locResult = _sysctlFloatForKey((char*)"hw.l2cachesize", size);
@@ -90,7 +90,7 @@
     return true;
 }
 
-+(BOOL) cpuL3Cache:(NSNumber**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuL3Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     CGFloat size = 0;
     PFSystemKitError locResult;
     locResult = _sysctlFloatForKey((char*)"hw.l3cachesize", size);
@@ -103,7 +103,7 @@
     return true;
 }
 
-+(BOOL) cpuArchitecture:(PFSystemKitCPUArches*)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuArchitecture:(PFSystemKitCPUArches*__nonnull)ret error:(NSError Ind2_NUAR)error {
     CGFloat arch = 0;
     PFSystemKitError locResult;
     locResult = _sysctlFloatForKey((char*)"hw.cputype", arch);
@@ -127,7 +127,7 @@
     return true;
 }
 
-+(BOOL) cpuVendor:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2))) {
++(BOOL) cpuVendor:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     std::string vendor;
     PFSystemKitError locResult;
     locResult = _sysctlStringForKey((char*)"machdep.cpu.vendor", vendor);
@@ -140,7 +140,8 @@
     return true;
 }
 
-+(BOOL) cpuCreateReport:(PFSystemCPUReport**)ret error:(NSError**)error __attribute__((nonnull (1))) {
++(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
     BOOL locResult;
     BOOL errorOccured = false;
     
