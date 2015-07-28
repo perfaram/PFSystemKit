@@ -13,11 +13,9 @@
 @implementation PFSystemKit(CPU)
 
 +(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    CGFloat count = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.packages", count);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double count = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"hw.packages", count, error);
+    if (!result) {
         *ret = @(-1);
         return false;
     }
@@ -26,11 +24,9 @@
 }
 
 +(BOOL) cpuCoreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    CGFloat count = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"machdep.cpu.core_count", count);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double count = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"machdep.cpu.core_count", count, error);
+    if (!result) {
         *ret = @(-1);
         return false;
     }
@@ -39,11 +35,9 @@
 }
 
 +(BOOL) cpuThreadCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    CGFloat count = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"machdep.cpu.thread_count", count);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double count = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"machdep.cpu.thread_count", count, error);
+    if (!result) {
         *ret = @(-1);
         return false;
     }
@@ -52,37 +46,29 @@
 }
 
 +(BOOL) cpuBrand:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    std::string brand;
-    PFSystemKitError locResult;
-    locResult = _sysctlStringForKey((char*)"machdep.cpu.brand_string", brand);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    BOOL result = _sysctlStringForKeySynthesizing((char*)"machdep.cpu.brand_string", ret, error);
+    if (!result) {
         *ret = @"-";
         return false;
     }
-    *ret = [NSString stringWithSTDString:brand];
     return true;
 }
 
 +(BOOL) cpuFrequency:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    CGFloat size = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.cpufrequency", size);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double freq = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"hw.cpufrequency", freq, error);
+    if (!result) {
         *ret = @(-1);
         return false;
     }
-    *ret = @(size/1000000000);//hertz in a gigahertz
+    *ret = @(freq/1000000000);
     return true;
 }
 
 +(BOOL) cpuL2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    CGFloat size = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.l2cachesize", size);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double size = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"hw.l2cachesize", size, error);
+    if (!result) {
         *ret = @(-1);
         return false;
     }
@@ -91,11 +77,9 @@
 }
 
 +(BOOL) cpuL3Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    CGFloat size = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.l3cachesize", size);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double size = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"hw.l3cachesize", size, error);
+    if (!result) {
         *ret = @(-1);
         return false;
     }
@@ -104,11 +88,9 @@
 }
 
 +(BOOL) cpuArchitecture:(PFSystemKitCPUArches*__nonnull)ret error:(NSError Ind2_NUAR)error {
-    CGFloat arch = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.cputype", arch);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double arch = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"hw.cputype", arch, error);
+    if (!result) {
         *ret = PFSKCPUArchesUnknown;
         return false;
     }
@@ -128,19 +110,15 @@
 }
 
 +(BOOL) cpuVendor:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    std::string vendor;
-    PFSystemKitError locResult;
-    locResult = _sysctlStringForKey((char*)"machdep.cpu.vendor", vendor);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    BOOL result = _sysctlStringForKeySynthesizing((char*)"machdep.cpu.vendor", ret, error);
+    if (!result) {
         *ret = @"-";
         return false;
     }
-    *ret = [NSString stringWithSTDString:vendor];
     return true;
 }
 
-+(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
++(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error //we don't care about having multiple errors, since they're all the same kind.
 {
     BOOL locResult;
     BOOL errorOccured = false;

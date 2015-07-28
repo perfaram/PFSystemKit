@@ -18,11 +18,9 @@
 
 +(BOOL) ramSize:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error 
 {
-    CGFloat size = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.memsize", size);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double size = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"hw.memsize", size, error);
+    if (!result) {
         *ret = @(-1);
         return false;
     }
@@ -32,10 +30,11 @@
 
 +(BOOL) ramStatistics:(PFSystemRAMStatistics Ind2_NNAR)ret error:(NSError Ind2_NUAR)error 
 {
-    CGFloat pageSize = 0;
-    PFSystemKitError result;
-    result = _sysctlFloatForKey((char*)"hw.pagesize", pageSize);
-    *error = synthesizeError(PFSKReturnSuccess);
+    double pageSize = 0;
+    BOOL result = _sysctlDoubleForKey((char*)"hw.memsize", pageSize, error);
+    if (!result) {
+        return false;
+    }
     mach_msg_type_number_t count = HOST_VM_INFO_COUNT;
     vm_statistics_data_t vmstat;
     kern_return_t hostResult = host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t) &vmstat, &count);
