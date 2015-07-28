@@ -22,7 +22,7 @@
 		0B7FCAC71B3403D500835435 /* PFSK_OSX+CPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCABB1B3403D500835435 /* PFSK_OSX+CPU.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCAC81B3403D500835435 /* PFSK_OSX+CPU.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCABC1B3403D500835435 /* PFSK_OSX+CPU.mm */; };
 		0B7FCAC91B3403D500835435 /* PFSK_OSX+GPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCABD1B3403D500835435 /* PFSK_OSX+GPU.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B7FCACA1B3403D500835435 /* PFSK_OSX+GPU.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.m */; };
+		0B7FCACA1B3403D500835435 /* PFSK_OSX+GPU.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.mm */; };
 		0B7FCACB1B3403D500835435 /* PFSK_OSX+RAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCABF1B3403D500835435 /* PFSK_OSX+RAM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCACC1B3403D500835435 /* PFSK_OSX+RAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAC01B3403D500835435 /* PFSK_OSX+RAM.mm */; };
 		0B7FCACD1B3403D500835435 /* PFSK_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAC11B3403D500835435 /* PFSK_OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -115,7 +115,7 @@
 		0B7FCABB1B3403D500835435 /* PFSK_OSX+CPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_OSX+CPU.h"; sourceTree = "<group>"; };
 		0B7FCABC1B3403D500835435 /* PFSK_OSX+CPU.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+CPU.mm"; sourceTree = "<group>"; };
 		0B7FCABD1B3403D500835435 /* PFSK_OSX+GPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_OSX+GPU.h"; sourceTree = "<group>"; };
-		0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFSK_OSX+GPU.m"; sourceTree = "<group>"; };
+		0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+GPU.mm"; sourceTree = "<group>"; };
 		0B7FCABF1B3403D500835435 /* PFSK_OSX+RAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_OSX+RAM.h"; sourceTree = "<group>"; };
 		0B7FCAC01B3403D500835435 /* PFSK_OSX+RAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+RAM.mm"; sourceTree = "<group>"; };
 		0B7FCAC11B3403D500835435 /* PFSK_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSK_OSX.h; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 				0B7FCABB1B3403D500835435 /* PFSK_OSX+CPU.h */,
 				0B7FCABC1B3403D500835435 /* PFSK_OSX+CPU.mm */,
 				0B7FCABD1B3403D500835435 /* PFSK_OSX+GPU.h */,
-				0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.m */,
+				0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.mm */,
 				0B7FCABF1B3403D500835435 /* PFSK_OSX+RAM.h */,
 				0B7FCAC01B3403D500835435 /* PFSK_OSX+RAM.mm */,
 			);
@@ -647,7 +647,7 @@
 				0B7FCB1A1B34040A00835435 /* PFSystemRAMStatistics.m in Sources */,
 				0B7FCB061B34040A00835435 /* PFSK_Common+Machine.mm in Sources */,
 				0B7FCAF21B34040A00835435 /* NSProcessInfo+SystemVersion.m in Sources */,
-				0B7FCACA1B3403D500835435 /* PFSK_OSX+GPU.m in Sources */,
+				0B7FCACA1B3403D500835435 /* PFSK_OSX+GPU.mm in Sources */,
 				0B7FCB0A1B34040A00835435 /* PFSK_Common.mm in Sources */,
 				0B7FCB0E1B34040A00835435 /* PFSystemBatteryReport.m in Sources */,
 				0B7FCAFA1B34040A00835435 /* NSString+PFSKAdditions.mm in Sources */,

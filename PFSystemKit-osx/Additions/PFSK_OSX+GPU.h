@@ -10,5 +10,6 @@
 #import "PFSK_OSX.h"
 
 @interface PFSystemKit(GPU)
--(NSArray *)graphicsCreateReport;
+-(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 @end
