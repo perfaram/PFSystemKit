@@ -11,7 +11,7 @@
 #import "NSString+PFSKAdditions.h"
 
 @implementation PFSK_Common(Machine)
-+(BOOL) deviceFamily:(PFSystemKitDeviceFamily*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) deviceFamily:(PFSystemKitDeviceFamily*)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
 {
     NSString* str;
     BOOL result = [self deviceModel:&str error:error];
@@ -54,13 +54,11 @@
 }
 
 
-+(BOOL) deviceEndianness:(PFSystemKitEndianness*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) deviceEndianness:(PFSystemKitEndianness*)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
 {
-    CGFloat order = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.byteorder", order);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double order = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.byteorder", order, error);
+    if (!result) {
         *ret = PFSKEndiannessUnknown;
         return false;
     }
@@ -75,21 +73,17 @@
     return true;
 }
 
-+(BOOL) deviceModel:(NSString**)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) deviceModel:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
 {
-    std::string model;
-    PFSystemKitError locResult;
-    locResult = _sysctlStringForKey((char*)"hw.model", model);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.model", ret, error);
+    if (!result) {
         *ret = @"-";
         return false;
     }
-    *ret = [NSString stringWithSTDString:model];
     return true;
 }
 
-+(BOOL) deviceVersion:(PFSystemKitDeviceVersion*)ret error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) deviceVersion:(PFSystemKitDeviceVersion*)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
 {
 	NSString* systemInfoString;
 	BOOL result = [self deviceModel:&systemInfoString error:error];
