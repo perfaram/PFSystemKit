@@ -40,6 +40,13 @@
         NSLog(@"MemSize : %@ Gb", memSize);
         NSString* cpuVendor = [systemKit.cpuReport vendor];
         NSLog(@"CPU Vendor : %@", cpuVendor);
+        NSError* err;
+        NSString* str;
+        [PFSystemKit cpuBrand:&str error:&err];
+        NSLog(@"%@", str);
+        NSArray* graph = [NSArray.alloc init];
+        [PFSystemKit graphicsCreateReport:&graph error:&err];
+        NSLog(@"%@", graph);
 	}
 	/*
     // This is an example of a functional test case.
