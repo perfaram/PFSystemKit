@@ -13,11 +13,6 @@
 #import "PFSK_OSX.h"
 #import "PFSKHelper.h"
 
-@interface PFSK_Common()
-//+(PFSystemKitError) sysctlStringForKey:(char*)key intoChar:(std::string&)answerChar;
-//+(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
-@end
-
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
 /**
