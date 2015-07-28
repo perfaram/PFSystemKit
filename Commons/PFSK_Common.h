@@ -107,45 +107,97 @@ inline NSString* errorToRecovery(PFSystemKitError err);
 NSString* _cpuArchToString(PFSystemKitCPUArches arch);
 
 #if defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
-PFSystemKitError _sysctlStringForKey(char* key, std::string& answerString);
-PFSystemKitError _sysctlFloatForKey(char* key, CGFloat& answerFloat);
 /*!
  @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed std::string
  @param key A char array holding the requested key
- @param answerStr A std::string that will be holding the SysCtl-retrieved string
+ @param answerString A std::string that will be holding the SysCtl-retrieved string
  @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
  */
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoSTDString:(std::string&)answerStr;
-
-/*!
- @discussion Makes a SysCtl call with the given key, and assign the received value to the passed CGFloat
- @param key A char array holding the requested key
- @param answerStr A CGFloat instance that will be holding the SysCtl-retrieved value
- @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
- */
-+(PFSystemKitError) sysctlFloatForKey:(char*)key intoFloat:(CGFloat&)answerFloat;
+PFSystemKitError _sysctlStringForKey(char*__nonnull key, std::string& answerString);
 #endif
 
 /*!
  @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed NSString
  @param key A char array holding the requested key
- @param answerStr A NSString that will be holding the SysCtl-retrieved string
+ @param answerString A NSString that will be holding the SysCtl-retrieved string
  @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
  */
-+(PFSystemKitError) sysctlStringForKey:(char*)key intoNSString:(NSString**)answerStr;
+PFSystemKitError _sysctlStringForKey(char*__nonnull key, NSString Ind2_NNAR answerString);
 
 /*!
- @discussion Makes a SysCtl call with the given key, and assign the received value to the passed NSNumber
+ @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed char array
  @param key A char array holding the requested key
- @param answerStr A NSNumber instance that will be holding the SysCtl-retrieved value
+ @param answerString A char array that will be holding the SysCtl-retrieved string
  @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
  */
-+(PFSystemKitError) sysctlFloatForKey:(char*)key intoNSNumber:(NSNumber**)answerNumber;
+PFSystemKitError _sysctlStringForKeySynthesizing(char*__nonnull key, char*__nonnull answerString);
+
+#if defined(__cplusplus)
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed std::string
+ @param key A char array holding the requested key
+ @param answerString A std::string that will be holding the SysCtl-retrieved string
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
+BOOL _sysctlStringForKeySynthesizing(char*__nonnull key, std::string& answerString, NSError Ind2_NUAR error);
+#endif
+
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed NSString
+ @param key A char array holding the requested key
+ @param answerString A NSString that will be holding the SysCtl-retrieved string
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
+BOOL _sysctlStringForKeySynthesizing(char*__nonnull key, NSString Ind2_NNAR answerString, NSError Ind2_NUAR error);
+
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received string value to the passed char array
+ @param key A char array holding the requested key
+ @param answerString A char array that will be holding the SysCtl-retrieved string
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
+BOOL _sysctlStringForKeySynthesizing(char*__nonnull key, char*__nonnull answerString, NSError Ind2_NUAR error);
+
+#if defined(__cplusplus)
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received value to the passed double
+ @param key A char array holding the requested key
+ @param answerDouble A double that will be holding the SysCtl-retrieved value
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
+PFSystemKitError _sysctlDoubleForKey(char*__nonnull key, double& answerDouble);
+#endif
+
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received value to the passed NSNumber instance
+ @param key A char array holding the requested key
+ @param answerDouble A NSNumber instance that will be holding the SysCtl-retrieved value
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
+PFSystemKitError _sysctlNumberForKey(char*__nonnull key, NSNumber Ind2_NNAR answerNumber);
+
+#if defined(__cplusplus)
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received value to the passed double
+ @param key A char array holding the requested key
+ @param answerDouble A double that will be holding the SysCtl-retrieved value
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
+BOOL _sysctlDoubleForKey(char*__nonnull key, double& answerDouble, NSError Ind2_NUAR error);
+#endif
+
+/*!
+ @discussion Makes a SysCtl call with the given key, and assign the received value to the passed NSNumber instance
+ @param key A char array holding the requested key
+ @param answerDouble A NSNumber instance that will be holding the SysCtl-retrieved value
+ @returns A member of the PFSystemKitError enum (PFSKReturnSuccess in case of successful request)
+ */
+BOOL _sysctlNumberForKey(char*__nonnull key, NSNumber Ind2_NNAR answerNumber, NSError Ind2_NUAR error);
 
 +(NSArray*) userPreferredLanguages;
 
-__attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error);
-__attribute__((always_inline)) NSError* synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError);
+__attribute__((always_inline)) NSError*__nonnull synthesizeError(PFSystemKitError error);
+__attribute__((always_inline)) NSError*__nonnull synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError);
 @end
 
 #import "PFSK_Common+Machine.h"
