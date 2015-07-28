@@ -11,7 +11,6 @@
 
 @interface PFSystemKit : PFSK_Common {
 	@protected
-	io_connect_t 			conn;
 	mach_port_t   			masterPort;
 	io_registry_entry_t 	nvrEntry;
 	io_registry_entry_t 	pexEntry;
