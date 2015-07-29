@@ -5,6 +5,13 @@
 #### OSX Framework for getting system informations
 OS X (and partially iOS) framework for getting software and hardware informations (such as CPU vendor, RAM size, device model and serial, …) at runtime. Relies on IOKit and SysCtl, as well as on the now-deprecated GestaltManager, for compatibility purposes only.
 
+Here's what you can gather with PFSystemKit:
+* CPU informations (vendor, nominal clock speed, caches size, core count, thread count, marketing name)
+* RAM infos (size, usage statistics)
+* GPU infos (matching framebuffer, model, ports)
+* Device infos (device family (e.g. MacBook Pro), model (MacBookPro8,1), version (8,1), serial)
+* Battery (voltage, current, serial, manufacturer, age in days, cycle count, temperature)
+
 #### Help
 You can help ? Don't be shy, pull requests welcome !
 Otherwise, just open an issue, I'll take a look in it.
