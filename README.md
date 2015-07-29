@@ -6,8 +6,11 @@
 OS X (and partially iOS) framework for getting software and hardware informations (such as CPU vendor, RAM size, device model and serial, …) at runtime. Relies on IOKit and SysCtl, as well as on the now-deprecated GestaltManager, for compatibility purposes only.
 
 #### Help
-You can help ! PR Welcome, especially for : 
-* Cocoapods support
+You can help ? Don't be shy, pull requests welcome !
+Otherwise, just open an issue, I'll take a look in it.
+
+#### Roadmap
+* Cocoapods and Carthage support
 * GPU informations enhancements
 * Better iOS support
 
