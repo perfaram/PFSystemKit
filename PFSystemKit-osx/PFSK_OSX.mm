@@ -29,17 +29,6 @@
 	});
 	return sharedInstance;
 }
-+(instancetype) new {
-	static PFSystemKit* sharedInstance;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		sharedInstance = [[self alloc] init];
-		[sharedInstance updatePlatformReport];
-        [sharedInstance updateCPUReport];
-		[sharedInstance updateBatteryReport];
-	});
-	return sharedInstance;
-}
 
 -(BOOL) updatePlatformReport {
     kern_return_t result;
