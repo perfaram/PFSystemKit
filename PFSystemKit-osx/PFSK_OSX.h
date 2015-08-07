@@ -54,7 +54,7 @@
 @property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
 
 +(PFSystemKit*) investigate;
--(PFSystemKit*) init NS_DESIGNATED_INITIALIZER;
+-(PFSystemKit*) init __attribute__((unavailable("Use +investigate ; -init does not use the singleton pattern.")));
 -(void) finalize;
 
 -(BOOL) updatePlatformReport;
