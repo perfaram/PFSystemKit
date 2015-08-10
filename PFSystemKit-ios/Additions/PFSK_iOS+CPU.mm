@@ -7,22 +7,21 @@
 //
 
 #import "PFSK_iOS+CPU.h"
+#import <mach/machine.h>
 
 @implementation PFSystemKit(CPU)
-+(BOOL) cpuArchitecture:(PFSystemKitCPUArches*)ret subtype:(PFSystemKitCPUArchesARMTypes*)sub error:(NSError**)error __attribute__((nonnull (1,2)))
++(BOOL) cpuArchitecture:(PFSystemKitCPUArches*__nonnull)ret subtype:(PFSystemKitCPUArchesARMTypes*__nonnull)sub error:(NSError Ind2_NUAR)error
 {
-    CGFloat arch = 0;
-    CGFloat archSub = 0;
-    PFSystemKitError locResult;
-    locResult = _sysctlFloatForKey((char*)"hw.cputype", arch);
-    *error = synthesizeError(locResult);
-    if (locResult != PFSKReturnSuccess) {
+    double arch = 0;
+    double archSubD = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.cputype", arch, error);
+    if (!result) {
         *ret = PFSKCPUArchesUnknown;
         return false;
     }
-    locResult = _sysctlFloatForKey((char*)"hw.cpusubtype", archSub);
-    if (locResult != PFSKReturnSuccess) {
-        *error = synthesizeError(locResult); //don't re-synthesize if both succeeded - saves a few cycles
+    result = sysctlDoubleForKeySynthesizing((char*)"hw.cpusubtype", archSubD, error);
+    int archSub = (int)archSubD;
+    if (!result) {
         *ret = PFSKCPUArchesUnknown;
         return false;
     }

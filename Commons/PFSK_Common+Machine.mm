@@ -44,7 +44,6 @@
             *ret = PFSKDeviceFamilyiPad;
         else if ([str isEqualToString:@"ipod"])
             *ret = PFSKDeviceFamilyiPod;
-    }
     } else if ([str isEqualToString:@"simulator"]) {
         *ret = PFSKDeviceFamilySimulator;
     }

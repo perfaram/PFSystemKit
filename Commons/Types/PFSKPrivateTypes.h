@@ -12,9 +12,9 @@
 #include <map>
 #include <string>
 
-constexpr CGFloat operator "" _MB(unsigned long long bytes)
+constexpr double operator "" _MB(unsigned long long bytes)
 {
-	return static_cast<CGFloat>(bytes * 1048576);
+	return static_cast<double>(bytes * 1048576);
 }
 
 std::map<int, char const*> PFSystemKitErrorStrings = {

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSKTypes.h"
+#import "PFSK_Common.h"
 
 @interface PFSystemKit : NSObject
 /*!
