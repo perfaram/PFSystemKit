@@ -17,9 +17,12 @@ You can help ? Don't be shy, pull requests welcome !
 Otherwise, just open an issue, I'll take a look in it.
 
 ### Roadmap
+* Better iOS support
 * Cocoapods and Carthage support
 * GPU informations enhancements
-* Better iOS support
+
+### Story
+I started building this library in early 2015, for a project of mine that is now paused - an OSX app providing deep insight on the system - both hardware and software. I choosed to bring this library to a more mature state before continuing the original project, while I'll still be keeping PFSystemKit up-to-date.
 
 ### Licensing
 You are free to use this library in any of your projects, **provided you reproduce the present LICENSE file**, even for derivatives of this library. You may use the project for closed-source products, **given the source for the library is made available**.
