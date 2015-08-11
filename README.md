@@ -14,7 +14,7 @@ Here's what you can gather with PFSystemKit:
 
 ### Help
 You can help ? Don't be shy, pull requests welcome !
-Otherwise, just open an issue, I'll take a look in it.
+Have a special request ? Contact me - depending on what it is, it may cost some bucks.
 
 ### Roadmap
 * Better iOS support
