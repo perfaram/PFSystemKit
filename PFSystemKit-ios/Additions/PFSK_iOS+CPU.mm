@@ -10,6 +10,127 @@
 #import <mach/machine.h>
 
 @implementation PFSystemKit(CPU)
++(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    double count = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.packages", count, error);
+    if (!result) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(count);
+    return true;
+}
+
++(BOOL) cpuCoreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    double count = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.ncpu", count, error);
+    if (!result) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(count);
+    return true;
+}
+
++(BOOL) cpuHasFeature:(PFSystemKitCPUARMFeatures)feature toNumber:(BOOL*)ret error:(NSError Ind2_NUAR)error
+{
+    char* selector;
+    switch (feature) {
+        case PFSKCPUARMFeaturesFloatingPoint:
+            selector = (char*)"hw.optional.floatingpoint";
+            break;
+        case PFSKCPUARMFeaturesVector:
+            selector = (char*)"hw.vectorunit";
+            break;
+        case PFSKCPUARMFeaturesShortVector:
+            selector = (char*)"hw.optional.vfp_shortvector";
+            break;
+        case PFSKCPUARMFeaturesNeon:
+            selector = (char*)"hw.optional.neon";
+            break;
+        case PFSKCPUARMFeaturesNeonHPFP:
+            selector = (char*)"hw.optional.neon_hpfp";
+            break;
+        default:
+            *error = synthesizeError(PFSKReturnInvalidSelector);
+            return false;
+            break;
+    }
+    
+    double hasFeat = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing(selector, hasFeat, error);
+    if (!result) {
+        return false;
+    }
+    
+    switch (feature) {
+        case PFSKCPUARMFeaturesFloatingPoint:
+        case PFSKCPUARMFeaturesVector:
+        case PFSKCPUARMFeaturesShortVector:
+        case PFSKCPUARMFeaturesNeon:
+        case PFSKCPUARMFeaturesNeonHPFP:
+            if (hasFeat == 1)
+                *ret = TRUE;
+            break;
+        default:
+            *error = synthesizeError(PFSKReturnInvalidSelector);
+            return false;
+            break;
+    }
+    return true;
+}
+
++(BOOL) cpuL1ICache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    double size = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l1icachesize", size, error);
+    if (!result) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(size/1048576);
+    return true;
+}
+
++(BOOL) cpuL1DCache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    double size = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l1dcachesize", size, error);
+    if (!result) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(size/1048576);
+    return true;
+}
+
++(BOOL) cpuL1Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    double sizeI, sizeD = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l1icachesize", sizeI, error);
+    result = sysctlDoubleForKeySynthesizing((char*)"hw.l1dcachesize", sizeD, error);
+    if (!result) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(sizeI+sizeD/1048576);
+    return true;
+}
+
++(BOOL) cpuL2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    double size = 0;
+    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l2cachesize", size, error);
+    if (!result) {
+        *ret = @(-1);
+        return false;
+    }
+    *ret = @(size/1048576);
+    return true;
+}
+
 +(BOOL) cpuArchitecture:(PFSystemKitCPUArches*__nonnull)ret subtype:(PFSystemKitCPUArchesARMTypes*__nonnull)sub error:(NSError Ind2_NUAR)error
 {
     double arch = 0;
