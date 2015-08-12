@@ -9,7 +9,7 @@
 #import "PFSK_OSX+GPU.h"
 #import "PCI.h"
 @implementation PFSystemKit(GPU)
--(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+-(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)finError
 {
     NSMutableArray *temp = [NSMutableArray array];
     io_iterator_t itThis;
@@ -17,7 +17,7 @@
     io_service_t parent;
     io_name_t name;
     kern_return_t result;
-    PFSystemKitError locError;
+    PFSystemKitError locError = PFSKReturnSuccess;
     
     if (IOServiceGetMatchingServices(masterPort, IOServiceMatching("AtiFbStub"), &itThis) == KERN_SUCCESS) {
         NSMutableDictionary *card;
@@ -138,14 +138,15 @@
         IOObjectRelease(itThis);
     }
     *ret = [temp copy];
-    *error = synthesizeError(locError);
+    if (finError)
+        *finError = synthesizeError(locError);
     if ([temp count] <= 0) {
         return false;
     }
     return true;
 }
 
-+(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
++(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)finError
 {
 	NSMutableArray *temp = [NSMutableArray array];
 	io_iterator_t itThis;
@@ -153,7 +154,7 @@
 	io_service_t parent;
 	io_name_t name;
 	kern_return_t result;
-	PFSystemKitError locError;
+    PFSystemKitError locError = PFSKReturnSuccess;
 	
 	if (IOServiceGetMatchingServices(kIOMasterPortDefault, IOServiceMatching("AtiFbStub"), &itThis) == KERN_SUCCESS) {
 		NSMutableDictionary *card;
@@ -274,7 +275,8 @@
 		IOObjectRelease(itThis);
 	}
 	*ret = [temp copy];
-    *error = synthesizeError(locError);
+    if (finError)
+        *finError = synthesizeError(locError);
     if ([temp count] <= 0) {
         return false;
     }
