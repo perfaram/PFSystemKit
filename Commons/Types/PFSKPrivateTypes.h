@@ -77,7 +77,8 @@ std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {
 std::map<int, char const*> PFSystemKitPlatformStrings = {
 	{ PFSKEndiannessUnknown, "Unknown" },
 	{ PFSKPlatformIOS, "iOS" },
-	{ PFSKPlatformOSX, "OSX" }
+	{ PFSKPlatformOSX, "OSX" },
+    { PFSKPlatformWatchOS, "watchOS" }
 };
 
 std::map<int, char const*> PFSystemKitEndiannessStrings = {
@@ -86,7 +87,7 @@ std::map<int, char const*> PFSystemKitEndiannessStrings = {
 	{ PFSKEndiannessBigEndian, "Big Endian" }
 };
 
-std::map<int, char const*> PFSystemKitCPUVendorsStrings = {
+std::map<int, char const*> PFSystemKitCPUVendorStrings = {
 	{ PFSKCPUVendorUnknown, "Unknown" },
 	{ PFSKCPUVendorGenuineIntel, "GenuineIntel" },
 	{ PFSKCPUVendorAuthenticAMD, "AuthenticAMD" }

@@ -44,29 +44,14 @@ typedef NS_ENUM(int, PFSystemKitLockState) {
 };
 
 /*!
- @typedef PFSystemKitGroup
- Enumeration of integers matching a PFSystemKit group of informations (ROM, NVRAM, SMC, etc...)
- */
-typedef NS_ENUM(int, PFSystemKitGroup) {
-	PFSKGroupPlatformExpertDevice = 1,
-	PFSKGroupROM = 2,
-	//PFSKGroupNVRam no more, see : github.com/perfaram/NVRAM-Wrapper
-	PFSKGroupSMC = 3,//to tweak SMC values, use SMCWrapper by @fmorrow
-	//PFSKGroupLMU = 4 no more
-	PFSKGroupGraphics = 4,
-	PFSKGroupBattery = 5,
-	PFSKGroupTerminator
-};
-
-/*!
  @typedef PFSystemKitPlatform
  Enumeration of integers matching a Device Platform (iOS/OSX)
  */
 typedef NS_ENUM(int, PFSystemKitPlatform) {
-	PFSKPlatformUnknown = 0,
-	PFSKPlatformIOS,
+	PFSKPlatformIOS = 0,
 	PFSKPlatformOSX,
     PFSKPlatformWatchOS,
+    PFSKPlatformUnknown
 };
 
 /*!
@@ -74,8 +59,7 @@ typedef NS_ENUM(int, PFSystemKitPlatform) {
  Enumeration of integers matching a Device Family (e.g. MacBookPro, MacBook, iMac, iPad, etc...)
  */
 typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
-	PFSKDeviceFamilyUnknown = 0,
-	PFSKDeviceFamilyiMac,
+	PFSKDeviceFamilyiMac = 0,
 	PFSKDeviceFamilyMacMini,
 	PFSKDeviceFamilyMacPro,
 	PFSKDeviceFamilyMacBook,
@@ -87,6 +71,7 @@ typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
 	PFSKDeviceFamilyiPod,
     PFSKDeviceFamilyWatch, //seems to be a good idea, as watchOS now has native apps
 	PFSKDeviceFamilySimulator,
+    PFSKDeviceFamilyUnknown
 };
 
 /*!
@@ -94,9 +79,9 @@ typedef NS_ENUM(int, PFSystemKitDeviceFamily) {
  Enumeration of integers matching a type of endianness (little or big)
  */
 typedef NS_ENUM(int, PFSystemKitEndianness) {
-	PFSKEndiannessUnknown= 0,
-	PFSKEndiannessLittleEndian,
+	PFSKEndiannessLittleEndian = 0,
 	PFSKEndiannessBigEndian,
+    PFSKEndiannessUnknown
 };
 
 /*!
@@ -104,14 +89,14 @@ typedef NS_ENUM(int, PFSystemKitEndianness) {
  Enumeration of integers matching a type of CPU (x86, ARM, etc...)
  */
 typedef NS_ENUM(int, PFSystemKitCPUArches) {
-	PFSKCPUArchesUnknown = 0,
-	PFSKCPUArchesX86,
+	PFSKCPUArchesX86 = 0,
 	PFSKCPUArchesX86_64,
 	PFSKCPUArchesPPC,
 	PFSKCPUArchesPPC_64,
 	PFSKCPUArchesI860,
 	PFSKCPUArchesARM,
 	PFSKCPUArchesARM_64,
+    PFSKCPUArchesUnknown
 };
 
 /*!
@@ -119,8 +104,7 @@ typedef NS_ENUM(int, PFSystemKitCPUArches) {
  Enumeration of integers matching an ARM subtype (ARM v7, v7s, v8, etc...)
  */
 typedef NS_ENUM(int, PFSystemKitCPUArchesARMTypes) {
-    PFSKCPUArchesARM_Unknown = 0,
-    PFSKCPUArchesARM_XSCALE,
+    PFSKCPUArchesARM_XSCALE = 0,
     PFSKCPUArchesARM_V4T,
     PFSKCPUArchesARM_V5TEJ,
     PFSKCPUArchesARM_V6,
@@ -132,17 +116,18 @@ typedef NS_ENUM(int, PFSystemKitCPUArchesARMTypes) {
     PFSKCPUArchesARM_V7M,
     PFSKCPUArchesARM_V7EM,
     PFSKCPUArchesARM_V8,
+    PFSKCPUArchesARM_Unknown
 };
     
 /*!
- @typedef PFSystemKitCPUVendors
+ @typedef PFSystemKitCPUVendor
  Enumeration of integers matching a CPU vendor (AuthenticAMD, GenuineIntel, or IBM for ppc)
  */
-typedef NS_ENUM(int, PFSystemKitCPUVendors) {
-	PFSKCPUVendorUnknown = 0,
-	PFSKCPUVendorGenuineIntel,
+typedef NS_ENUM(int, PFSystemKitCPUVendor) {
+	PFSKCPUVendorGenuineIntel = 0,
 	PFSKCPUVendorAuthenticAMD,
 	//PFSKCPUVendorIBM,
+    PFSKCPUVendorUnknown
 };
 
 /*!

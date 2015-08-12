@@ -11,7 +11,7 @@
 #import "NSString+PFSKAdditions.h"
 
 @implementation PFSK_Common(Machine)
-+(BOOL) deviceFamily:(PFSystemKitDeviceFamily*)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
++(BOOL) deviceFamily:(PFSystemKitDeviceFamily*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
     NSString* str;
     BOOL result = [self deviceModel:&str error:error];
@@ -54,7 +54,7 @@
 }
 
 
-+(BOOL) deviceEndianness:(PFSystemKitEndianness*)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
++(BOOL) deviceEndianness:(PFSystemKitEndianness*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
     double order = 0;
     BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.byteorder", order, error);
@@ -73,7 +73,7 @@
     return true;
 }
 
-+(BOOL) deviceModel:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
++(BOOL) deviceModel:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.model", ret, error);
     if (!result) {
@@ -83,7 +83,7 @@
     return true;
 }
 
-+(BOOL) deviceVersion:(PFSystemKitDeviceVersion*)ret error:(NSError Ind2_NUAR)error __attribute__((nonnull (1,2)))
++(BOOL) deviceVersion:(PFSystemKitDeviceVersion*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
 	NSString* systemInfoString;
 	BOOL result = [self deviceModel:&systemInfoString error:error];
