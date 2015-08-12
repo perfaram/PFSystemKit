@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSKTypes.h"
+#import "PFSK_Common.h"
 
 @interface PFSystemKit : NSObject
 /*!
@@ -25,3 +25,5 @@
  */
 @property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
 @end
+
+#import "PFSK_iOS+CPU.h"

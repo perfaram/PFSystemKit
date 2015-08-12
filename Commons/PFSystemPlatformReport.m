@@ -9,6 +9,14 @@
 #import "PFSystemPlatformReport.h"
 
 @implementation PFSystemPlatformReport
+@synthesize family;
+@synthesize platform;
+@synthesize version;
+@synthesize endianness;
+@synthesize model;
+@synthesize serial;
+@synthesize memorySize;
+
 #if !TARGET_OS_IPHONE
 @synthesize boardID;
 @synthesize hardwareUUID;
@@ -22,13 +30,6 @@
 @synthesize isJailbroken;
 @synthesize hasIAPFaker;
 #endif
-@synthesize family;
-@synthesize platform;
-@synthesize version;
-@synthesize endianness;
-@synthesize model;
-@synthesize serial;
-@synthesize memorySize;
 #if !TARGET_OS_IPHONE
 -(instancetype) initWithBoardID:(NSString*)boardIDLocal
                    hardwareUUID:(NSString*)UUIDLocal
@@ -67,11 +68,8 @@
 #endif
 #if TARGET_OS_IPHONE
 -(instancetype) initWithFamily:(PFSystemKitDeviceFamily)familyLocal
-                  familyString:(NSString*)familyStringLocal
                        version:(PFSystemKitDeviceVersion)versionLocal
-                 versionString:(NSString*)versionStringLocal
                     endianness:(PFSystemKitEndianness)endiannessLocal
-              endiannessString:(NSString*)endiannessStringLocal
                          model:(NSString*)modelStringLocal
                         serial:(NSString*)serialLocal
                     memorySize:(NSNumber*)memorySizeLocal
@@ -82,11 +80,8 @@
         return nil;
     }
     family = familyLocal;
-    familyString = familyStringLocal;
     version = versionLocal;
-    versionString = versionStringLocal;
     endianness = endiannessLocal;
-    endiannessString = endiannessStringLocal;
     model = modelStringLocal;
     serial = serialLocal;
     memorySize = memorySizeLocal;

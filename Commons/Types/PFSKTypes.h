@@ -30,6 +30,7 @@ typedef NS_ENUM(int, PFSystemKitError) {
 	PFSKReturnCastError = 7,
 	PFSKReturnNotWritable = 8,
 	PFSKReturnNoGraphicDevicesFound = 9,
+    PFSKReturnInvalidSelector = 10,
 	PFSKReturnGeneral = 65533, //too bad
 	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen), could serve as a terminator
 };
@@ -118,7 +119,20 @@ typedef NS_ENUM(int, PFSystemKitCPUArchesARMTypes) {
     PFSKCPUArchesARM_V8,
     PFSKCPUArchesARM_Unknown
 };
-    
+
+/*!
+ @typedef PFSystemKitCPUARMFeatures
+ Enumeration of integers matching an ARM SoC feature
+ */
+typedef NS_ENUM(int, PFSystemKitCPUARMFeatures) {
+    PFSKCPUARMFeaturesUnknown = 0,
+    PFSKCPUARMFeaturesFloatingPoint,
+    PFSKCPUARMFeaturesVector,
+    PFSKCPUARMFeaturesShortVector,
+    PFSKCPUARMFeaturesNeon,
+    PFSKCPUARMFeaturesNeonHPFP,
+};
+
 /*!
  @typedef PFSystemKitCPUVendor
  Enumeration of integers matching a CPU vendor (AuthenticAMD, GenuineIntel, or IBM for ppc)
@@ -132,7 +146,7 @@ typedef NS_ENUM(int, PFSystemKitCPUVendor) {
 
 /*!
  @typedef @struct PFSystemKitDeviceVersion
- Structure holding a device's Major and Minor version 
+ Structure holding a device's Major and Minor version
  
  For a Macbookpro8,1 : 8 as Major and 1 as minor
  */

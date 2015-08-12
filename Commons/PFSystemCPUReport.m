@@ -9,16 +9,27 @@
 #import "PFSystemCPUReport.h"
 
 @implementation PFSystemCPUReport
-@synthesize count;
 @synthesize brand;
+@synthesize vendor;
+@synthesize count;
 @synthesize coreCount;
+#if !TARGET_OS_IPHONE
 @synthesize threadCount;
 @synthesize frequency;
+#endif
+#if TARGET_OS_IPHONE
+@synthesize L1ICache;
+@synthesize L1DCache;
+#endif
 @synthesize L2Cache;
+#if !TARGET_OS_IPHONE
 @synthesize L3Cache;
+#endif
 @synthesize architecture;
-@synthesize vendor;
-
+#if TARGET_OS_IPHONE
+@synthesize subType;
+#endif
+#if !TARGET_OS_IPHONE
 -(instancetype) initWithCount:(NSNumber*)countLocal
 						brand:(NSString*)brandLocal
 					coreCount:(NSNumber*)coreCountLocal
@@ -44,4 +55,27 @@
 	vendor = vendorLocal;
 	return self;
 }
+#endif
+#if TARGET_OS_IPHONE
+-(instancetype) initWithCount:(NSNumber*)countLocal
+                    coreCount:(NSNumber*)coreCountLocal
+                          l1D:(NSNumber*)l1DLocal
+                          l1I:(NSNumber*)l1ILocal
+                           l2:(NSNumber*)l2Local
+                 architecture:(PFSystemKitCPUArches)architectureLocal
+                      subType:(PFSystemKitCPUArchesARMTypes)subTypeLocal
+{
+    if (!(self = [super init])) {
+        return nil;
+    }
+    count = countLocal;
+    coreCount = coreCountLocal;
+    L2Cache = l2Local;
+    L1DCache = l1DLocal;
+    L1ICache = l1ILocal;
+    architecture = architectureLocal;
+    subType = subTypeLocal;
+    return self;
+}
+#endif
 @end

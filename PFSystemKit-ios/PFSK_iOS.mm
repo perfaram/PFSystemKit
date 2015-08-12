@@ -9,6 +9,11 @@
 #import "PFSK_iOS.h"
 #import <objc/objc.h>
 #import <objc/runtime.h>
+#import <sys/sysctl.h>
+#import <CoreFoundation/CoreFoundation.h>
+#import <string>
+#import <vector>
+#import "PFSKHelper.h"
 
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
@@ -109,7 +114,7 @@
     _extError = 0;
     kern_return_t IOresult;
     IOresult = IOMasterPort(bootstrap_port, &masterPort);
-    if (IOresult!=kIOReturnSuccess) {
+    if (IOresult!=PFSKReturnSuccess) {
         _error = PFSKReturnNoMasterPort;
         _extError = IOresult;
         return nil;
