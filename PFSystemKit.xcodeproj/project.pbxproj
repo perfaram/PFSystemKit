@@ -73,6 +73,8 @@
 		0B7FCB1D1B34040A00835435 /* PFSKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAEE1B34040A00835435 /* PFSKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCB1E1B34040A00835435 /* PFSKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAEE1B34040A00835435 /* PFSKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCB201B340E3200835435 /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCA951B34002100835435 /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0BDD530A1B7B576500CCCFF2 /* PFSK_iOS+RAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BDD53081B7B576500CCCFF2 /* PFSK_iOS+RAM.h */; };
+		0BDD530B1B7B576500CCCFF2 /* PFSK_iOS+RAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BDD53091B7B576500CCCFF2 /* PFSK_iOS+RAM.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +145,8 @@
 		0B7FCAEB1B34040A00835435 /* PFSystemRAMStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFSystemRAMStatistics.m; sourceTree = "<group>"; };
 		0B7FCAED1B34040A00835435 /* PFSKPrivateTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSKPrivateTypes.h; sourceTree = "<group>"; };
 		0B7FCAEE1B34040A00835435 /* PFSKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSKTypes.h; sourceTree = "<group>"; };
+		0BDD53081B7B576500CCCFF2 /* PFSK_iOS+RAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_iOS+RAM.h"; sourceTree = "<group>"; };
+		0BDD53091B7B576500CCCFF2 /* PFSK_iOS+RAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_iOS+RAM.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +299,8 @@
 			children = (
 				0B7FCAB21B3403BD00835435 /* PFSK_iOS+CPU.h */,
 				0B7FCAB31B3403BD00835435 /* PFSK_iOS+CPU.mm */,
+				0BDD53081B7B576500CCCFF2 /* PFSK_iOS+RAM.h */,
+				0BDD53091B7B576500CCCFF2 /* PFSK_iOS+RAM.mm */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -426,6 +432,7 @@
 				0B7FCB1D1B34040A00835435 /* PFSKTypes.h in Headers */,
 				0B7FCAF71B34040A00835435 /* NSString+PFSKAdditions.h in Headers */,
 				0B7FCB0F1B34040A00835435 /* PFSystemCPUReport.h in Headers */,
+				0BDD530A1B7B576500CCCFF2 /* PFSK_iOS+RAM.h in Headers */,
 				0B7FCAF31B34040A00835435 /* NSProcessInfo+MACAddress.h in Headers */,
 				0B7FCB0B1B34040A00835435 /* PFSystemBatteryReport.h in Headers */,
 			);
@@ -620,6 +627,7 @@
 				0B7FCAF91B34040A00835435 /* NSString+PFSKAdditions.mm in Sources */,
 				0B7FCB0D1B34040A00835435 /* PFSystemBatteryReport.m in Sources */,
 				0B7FCB111B34040A00835435 /* PFSystemCPUReport.m in Sources */,
+				0BDD530B1B7B576500CCCFF2 /* PFSK_iOS+RAM.mm in Sources */,
 				0B7FCAFD1B34040A00835435 /* PFSKHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

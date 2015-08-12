@@ -27,3 +27,4 @@
 @end
 
 #import "PFSK_iOS+CPU.h"
+#import "PFSK_iOS+RAM.h"
