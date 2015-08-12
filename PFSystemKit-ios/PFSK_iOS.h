@@ -25,3 +25,5 @@
  */
 @property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
 @end
+
+#import "PFSK_iOS+CPU.h"
