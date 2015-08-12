@@ -25,39 +25,49 @@ NSString* PFSKErrorExtendedDomain = @"com.faramaz.PFSystemKit.extended";
     return (NSString*)[languages objectAtIndex:0];
 }
 
-+(NSString*) errorToString:(PFSystemKitError)err {
-    return @(PFSystemKitErrorStrings[err]);
++(NSString*__nullable) errorToString:(PFSystemKitError)err {
+    return errorToString(err);
 }
 
-+(NSString*) errorToExplanation:(PFSystemKitError)err {
-    return @(PFSystemKitErrorReasons[err]);
++(NSString*__nullable) errorToExplanation:(PFSystemKitError)err {
+    return errorToExplanation(err);
 }
 
-+(NSString*) errorToRecovery:(PFSystemKitError)err {
-    return @(PFSystemKitErrorRecovery[err]);
++(NSString*__nullable) errorToRecovery:(PFSystemKitError)err {
+    return errorToRecovery(err);
 }
 
-inline NSString* errorToRecovery(PFSystemKitError err) {
-    return @(PFSystemKitErrorRecovery[err]);
+inline NSString*__nullable errorToRecovery(PFSystemKitError err) {
+    if (err < PFSKReturnUnknown)
+        return @(PFSystemKitErrorRecovery[err]);
+    return nil;
 }
 
-inline NSString* errorToExplanation(PFSystemKitError err) {
-    return @(PFSystemKitErrorReasons[err]);
+inline NSString*__nullable errorToExplanation(PFSystemKitError err) {
+    if (err < PFSKReturnUnknown)
+        return @(PFSystemKitErrorReasons[err]);
+    return nil;
 }
 
-inline NSString* errorToString(PFSystemKitError err) {
-    return @(PFSystemKitErrorStrings[err]);
+inline NSString*__nullable errorToString(PFSystemKitError err) {
+    if (err < PFSKReturnUnknown)
+        return @(PFSystemKitErrorStrings[err]);
+    return nil;
 }
 
-+(NSString*) iokitErrorToString:(kern_return_t)err {
++(NSString*__nullable) iokitErrorToString:(kern_return_t)err {
     return [NSString.alloc initWithCString:mach_error_string(err) encoding:NSUTF8StringEncoding];
 }
 
-+(NSString*) platformToString:(PFSystemKitPlatform)platform {
-    return @(PFSystemKitPlatformStrings[platform]);
++(NSString*__nullable) platformToString:(PFSystemKitPlatform)platform {
+    if (platform < PFSKPlatformUnknown)
+        return @(PFSystemKitPlatformStrings[platform]);
+    return nil;
 }
 
-+(PFSystemKitPlatform) stringToPlatform:(NSString*)str {
++(PFSystemKitPlatform) stringToPlatform:(NSString*__nullable)str {
+    if (!str)
+        return PFSKPlatformUnknown;
     str = [str lowercaseString];
     if ([str containsString:@"i"])
         return PFSKPlatformIOS;
@@ -67,8 +77,10 @@ inline NSString* errorToString(PFSystemKitError err) {
         return PFSKPlatformUnknown;
 }
 
-+(NSString*) familyToString:(PFSystemKitDeviceFamily)family {
-    return @(PFSystemKitDeviceFamilyStrings[family]);
++(NSString*__nullable) familyToString:(PFSystemKitDeviceFamily)family {
+    if (family < PFSKDeviceFamilyUnknown)
+        return @(PFSystemKitDeviceFamilyStrings[family]);
+    return nil;
 }
 +(PFSystemKitDeviceFamily) stringToFamily:(NSString*)str {
     //[mydict objectForKey:[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]];
@@ -101,23 +113,25 @@ inline NSString* errorToString(PFSystemKitError err) {
     return PFSKDeviceFamilyUnknown;
 }
 
-+(NSString*) endiannessToString:(PFSystemKitEndianness) endianness {
-    return @(PFSystemKitEndiannessStrings[endianness]);
++(NSString*__nullable) endiannessToString:(PFSystemKitEndianness) endianness {
+    if (endianness < PFSKEndiannessUnknown)
+        return @(PFSystemKitEndiannessStrings[endianness]);
+    return nil;
 }
 
-+(NSString*) cpuVendorToString:(PFSystemKitCPUVendors) vendor {
-    return @(PFSystemKitCPUVendorsStrings[vendor]);
++(NSString*__nullable) cpuVendorToString:(PFSystemKitCPUVendor) vendor {
+    if (vendor < PFSKCPUVendorUnknown)
+        return @(PFSystemKitCPUVendorStrings[vendor]);
+    return nil;
 }
 
-+(NSString*) cpuArchToString:(PFSystemKitCPUArches) arch {
-    return @(PFSystemKitCPUArchesStrings[arch]);
++(NSString*__nullable) cpuArchToString:(PFSystemKitCPUArches) arch {
+    if (arch < PFSKCPUArchesUnknown)
+        return @(PFSystemKitCPUArchesStrings[arch]);
+    return nil;
 }
 
-NSString* _cpuArchToString(PFSystemKitCPUArches arch) {
-    return @(PFSystemKitCPUArchesStrings[arch]);
-}
-
-+(NSOperatingSystemVersion) osVersionFromString:(NSString*) string {
++(NSOperatingSystemVersion) osVersionFromString:(NSString*__nonnull) string {
     return NSOperatingSystemVersionWithNSString(string);
 }
 

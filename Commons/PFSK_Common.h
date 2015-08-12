@@ -29,24 +29,24 @@
  @param err Any member of the PFSystemKitError enum
  @returns A NSString holding the PFSystemKitError string value
  */
-+(NSString*) errorToString:(PFSystemKitError)err;
-inline NSString* errorToString(PFSystemKitError err);
++(NSString*__nullable) errorToString:(PFSystemKitError)err;
+inline NSString*__nullable errorToString(PFSystemKitError err);
 
 /*!
  @discussion Explains a PFSystemKitError
  @param err Any member of the PFSystemKitError enum
  @returns A NSString holding the explanation
  */
-+(NSString*) errorToExplanation:(PFSystemKitError)err;
-inline NSString* errorToExplanation(PFSystemKitError err);
++(NSString*__nullable) errorToExplanation:(PFSystemKitError)err;
+inline NSString*__nullable errorToExplanation(PFSystemKitError err);
 
 /*!
  @discussion Explains how to recover from a PFSystemKitError
  @param err Any member of the PFSystemKitError enum
  @returns A NSString holding the recovery details
  */
-+(NSString*) errorToRecovery:(PFSystemKitError)err;
-inline NSString* errorToRecovery(PFSystemKitError err);
++(NSString*__nullable) errorToRecovery:(PFSystemKitError)err;
+inline NSString*__nullable errorToRecovery(PFSystemKitError err);
 
 /*!
  @discussion Translates a kern_return_t to a human-readable string
@@ -54,57 +54,56 @@ inline NSString* errorToRecovery(PFSystemKitError err);
  @param err Any int, that is a valid error code
  @returns A NSString holding the error string
  */
-+(NSString*) iokitErrorToString:(kern_return_t)err;
++(NSString*__nullable) iokitErrorToString:(kern_return_t)err;
 
 /*!
  @discussion Matches a PFSystemKitPlatform to a displayable NSString
  @param platform Any member of the PFSystemKitPlatform enum
  @returns A NSString holding the platform string
  */
-+(NSString*) platformToString:(PFSystemKitPlatform)platform;
++(NSString*__nullable) platformToString:(PFSystemKitPlatform)platform;
 
 /*!
  @discussion Matches a NSString to its PFSystemKitPlatform value
  @param string Any NSString, that could be a valid platform from Apple
  @returns A member of the PFSystemKitPlatform enum if found, PFSystemKitPlatformUnknown else
  */
-+(PFSystemKitPlatform) stringToPlatform:(NSString*)str;
++(PFSystemKitPlatform) stringToPlatform:(NSString*__nullable)str;
 
 /*!
  @discussion Matches a PFSystemKitFamily to a displayable NSString
  @param family Any member of the PFSystemKitFamily enum
  @returns A NSString holding the Device Family string
  */
-+(NSString*) familyToString:(PFSystemKitDeviceFamily)family;
++(NSString*__nullable) familyToString:(PFSystemKitDeviceFamily)family;
 
 /*!
  @discussion Matches a PFSystemKitEndianness to a displayable NSString
  @param endianness Any member of the PFSystemKitEndianness enum
  @returns A NSString holding either "Big Endian", "Little Endian", or "Unknown" if unknown
  */
-+(NSString*) endiannessToString:(PFSystemKitEndianness) endianness;
++(NSString*__nullable) endiannessToString:(PFSystemKitEndianness) endianness;
 
 /*!
  @discussion Matches a NSString to its PFSystemKitFamily value
  @param string Any NSString, that could be a valid Apple device family
  @returns A member of the PFSystemKitFamily enum if found, PFSystemKitFamilyUnknown else
  */
-+(PFSystemKitDeviceFamily) stringToFamily:(NSString*)str;
++(PFSystemKitDeviceFamily) stringToFamily:(NSString*__nonnull)str;
 
 /*!
- @discussion Translates a member of PFSystemKitCPUVendors to a displayable NSString
- @param vendor Any member of the PFSystemKitCPUVendors enum
+ @discussion Translates a member of PFSystemKitCPUVendor to a displayable NSString
+ @param vendor Any member of the PFSystemKitCPUVendor enum
  @returns A NSString holding either "GenuineIntel", "AuthenticAMD" (for hackintoshes, most likely), or "Unknown" if unknown
  */
-+(NSString*) cpuVendorToString:(PFSystemKitCPUVendors) vendor;
++(NSString*__nullable) cpuVendorToString:(PFSystemKitCPUVendor) vendor;
 
 /*!
  @discussion Translates a member of PFSystemKitCPUArches to a displayable NSString
  @param vendor Any member of the PFSystemKitCPUArches enum
  @returns A NSString holding either a CPU architecture (x86_64, ARM, i860, etc...), or "Unknown" if unknown
  */
-+(NSString*) cpuArchToString:(PFSystemKitCPUArches) arch;
-NSString* _cpuArchToString(PFSystemKitCPUArches arch);
++(NSString*__nullable) cpuArchToString:(PFSystemKitCPUArches) arch;
 
 #if defined(__cplusplus) //we're working with Objective-C++, so we can use std::strings and pass by reference
 /*!
@@ -194,7 +193,7 @@ BOOL sysctlDoubleForKeySynthesizing(char*__nonnull key, double& answerDouble, NS
  */
 BOOL sysctlNumberForKeySynthesizing(char*__nonnull key, NSNumber Ind2_NNAR answerNumber, NSError Ind2_NUAR error);
 
-+(NSArray*) userPreferredLanguages;
++(NSArray*__nullable) userPreferredLanguages;
 
 __attribute__((always_inline)) NSError*__nonnull synthesizeError(PFSystemKitError error);
 __attribute__((always_inline)) NSError*__nonnull synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError);
