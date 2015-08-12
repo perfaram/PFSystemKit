@@ -205,4 +205,64 @@
     }
     return true;
 }
+
++(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error //we don't care about having multiple errors, since they're all the same kind.
+{
+    BOOL locResult;
+    BOOL errorOccured = false;
+
+    NSNumber *cpuCores, *cpuS, *cpuL2, *cpuL1D, *cpuL1I;
+    PFSystemKitCPUArches arch;
+    PFSystemKitCPUArchesARMTypes subArch;
+    
+    locResult = [self cpuArchitecture:&arch subtype:&subArch error:error];
+    if (locResult != PFSKReturnSuccess) {
+        arch = PFSKCPUArchesUnknown;
+        subArch = PFSKCPUArchesARM_Unknown;
+        errorOccured = true;
+    }
+    
+    locResult = [self cpuCoreCount:&cpuCores error:error];
+    if (locResult != PFSKReturnSuccess) {
+        cpuCores = @(-1);
+        errorOccured = true;
+    }
+    
+    locResult = [self cpuCount:&cpuS error:error];
+    if (locResult != PFSKReturnSuccess) {
+        cpuS = @(-1);
+        errorOccured = true;
+    }
+    
+    locResult = [self cpuL2Cache:&cpuL2 error:error];
+    if (locResult != PFSKReturnSuccess) {
+        cpuL2 = @(-1);
+        errorOccured = true;
+    }
+    
+    locResult = [self cpuL1DCache:&cpuL1D error:error];
+    if (locResult != PFSKReturnSuccess) {
+        cpuL1D = @(-1);
+        errorOccured = true;
+    }
+
+    locResult = [self cpuL1ICache:&cpuL1I error:error];
+    if (locResult != PFSKReturnSuccess) {
+        cpuL1I = @(-1);
+        errorOccured = true;
+    }
+    
+    *ret = [PFSystemCPUReport.alloc initWithCount:cpuS
+                                        coreCount:cpuCores
+                                              l1D:cpuL1I
+                                              l1I:cpuL1I
+                                               l2:cpuL2
+                                     architecture:arch
+                                          subType:subArch];
+    
+    if (errorOccured != false) {
+        return false;
+    }
+    return true;
+}
 @end
