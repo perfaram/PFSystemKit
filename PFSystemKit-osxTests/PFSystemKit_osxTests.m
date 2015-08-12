@@ -19,7 +19,6 @@
 
 - (void)setUp {
     [super setUp];
-	pfsys = [PFSystemKit.alloc init];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -45,7 +44,7 @@
         [PFSystemKit cpuBrand:&str error:&err];
         NSLog(@"%@", str);
         NSArray* graph = [NSArray.alloc init];
-        [PFSystemKit graphicsCreateReport:&graph error:&err];
+        [PFSystemKit graphicsCreateReport:&graph error:nil];
         NSLog(@"%@", graph);
 	}
 	/*
