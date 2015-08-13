@@ -9,8 +9,8 @@
 #import "PFSK_Common+Machine.h"
 #import <string>
 #import "NSString+PFSKAdditions.h"
-#import "PFSKPrivateTypes.h"
 #if TARGET_OS_IPHONE
+#import "PFSKPrivateTypes.h"
 #import <UIKit/UIKit.h>
 #endif
 
