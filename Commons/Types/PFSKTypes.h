@@ -86,6 +86,23 @@ typedef NS_ENUM(int, PFSystemKitEndianness) {
 };
 
 /*!
+ @typedef PFSystemKitDeviceColor
+ Enumeration of integers matching an iOS Device's color, such as Golden, White, Black/Space grey
+ */
+typedef NS_ENUM(int, PFSystemKitDeviceColor) {
+    PFSKDeviceColorBlack = 0,
+    PFSKDeviceColorSpaceGrey,
+    PFSKDeviceColorWhite,
+    PFSKDeviceColorArgent,
+    PFSKDeviceColorGold,
+    PFSKDeviceColorBlue,
+    PFSKDeviceColorGreen,
+    PFSKDeviceColorYellow,
+    PFSKDeviceColorRed,
+    PFSKDeviceColorUnknown
+};
+
+/*!
  @typedef PFSystemKitCPUArches
  Enumeration of integers matching a type of CPU (x86, ARM, etc...)
  */
