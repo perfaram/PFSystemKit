@@ -31,6 +31,7 @@ typedef NS_ENUM(int, PFSystemKitError) {
 	PFSKReturnNotWritable = 8,
 	PFSKReturnNoGraphicDevicesFound = 9,
     PFSKReturnInvalidSelector = 10,
+    PFSKReturnUnsupportedDevice = 11,
 	PFSKReturnGeneral = 65533, //too bad
 	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen), could serve as a terminator
 };
@@ -83,6 +84,23 @@ typedef NS_ENUM(int, PFSystemKitEndianness) {
 	PFSKEndiannessLittleEndian = 0,
 	PFSKEndiannessBigEndian,
     PFSKEndiannessUnknown
+};
+
+/*!
+ @typedef PFSystemKitDeviceColor
+ Enumeration of integers matching an iOS Device's color, such as Golden, White, Black/Space grey
+ */
+typedef NS_ENUM(int, PFSystemKitDeviceColor) {
+    PFSKDeviceColorBlack = 0,
+    PFSKDeviceColorWhite,                   //#F5F4F7
+    PFSKDeviceColorSpaceGrey,               //#99989B
+    PFSKDeviceColorSilver,                  //#D4C5B3
+    PFSKDeviceColorGold,                    //#D7D9D8
+    PFSKDeviceColorBlue,                    //#46ABE0
+    PFSKDeviceColorGreen,                   //#A1E877
+    PFSKDeviceColorYellow,                  //#FAF189
+    PFSKDeviceColorRed,                     //#FE767A
+    PFSKDeviceColorUnknown
 };
 
 /*!

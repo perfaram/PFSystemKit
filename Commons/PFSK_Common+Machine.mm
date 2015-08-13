@@ -9,6 +9,10 @@
 #import "PFSK_Common+Machine.h"
 #import <string>
 #import "NSString+PFSKAdditions.h"
+#if TARGET_OS_IPHONE
+#import "PFSKPrivateTypes.h"
+#import <UIKit/UIKit.h>
+#endif
 
 @implementation PFSK_Common(Machine)
 +(BOOL) deviceFamily:(PFSystemKitDeviceFamily*__nonnull)ret error:(NSError Ind2_NUAR)error
@@ -52,7 +56,6 @@
     return true;
 }
 
-
 +(BOOL) deviceEndianness:(PFSystemKitEndianness*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
     double order = 0;
@@ -71,7 +74,7 @@
     }
     return true;
 }
-
+#if !TARGET_OS_IPHONE
 +(BOOL) deviceModel:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.model", ret, error);
@@ -81,7 +84,65 @@
     }
     return true;
 }
+#endif
+#if TARGET_OS_IPHONE
++(BOOL) deviceModel:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.machine", ret, error);
+    if (!result) {
+        *ret = @"-";
+        return false;
+    }
+    return true;
+}
 
++(BOOL) devicePlatform:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
+{
+    BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.model", ret, error);
+    if (!result) {
+        *ret = @"-";
+        return false;
+    }
+    return true;
+}
+#if asrg_get_out_of_my_way
++(BOOL) deviceColor:(PFSystemKitDeviceColor*__nonnull)ret error:(NSError Ind2_NUAR)error
+{
+    UIDevice *device = [UIDevice currentDevice];
+    SEL selector = NSSelectorFromString(@"deviceInfoForKey:");
+    if (![device respondsToSelector:selector]) {
+        selector = NSSelectorFromString(@"_deviceInfoForKey:");
+    }
+    if ([device respondsToSelector:selector]) {
+        NSString* enclosure = [[[device performSelector:selector withObject:@"DeviceEnclosureColor"] lowercaseString] stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        
+        const char* test = [enclosure getString].c_str();
+        if (PFSystemKitDeviceColorHexesReverse.find(test) == PFSystemKitDeviceColorHexesReverse.end()) {
+            NSString* global = [[device performSelector:selector withObject:@"DeviceColor"] lowercaseString];
+            if ([global isEqualToString:@"black"]) {
+                *ret = PFSKDeviceColorBlack;
+                return true;
+            } else if ([global isEqualToString:@"white"]) {
+                *ret = PFSKDeviceColorWhite;
+                return true;
+            }
+            *ret = PFSKDeviceColorUnknown;
+            if (error)
+                *error = synthesizeError(PFSKReturnUnsupportedDevice);
+            return false;
+        } else {
+            *ret = PFSystemKitDeviceColorHexesReverse[test];
+            return false;
+        }
+    } else {
+        if (error)
+            *error = synthesizeError(PFSKReturnInvalidSelector);
+        return false;
+    }
+    return true;
+}
+#endif
+#endif
 +(BOOL) deviceVersion:(PFSystemKitDeviceVersion*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
 	NSString* systemInfoString;
@@ -89,7 +150,8 @@
 	if (result != true) {
 		return false;
 	}
-    *error = synthesizeError(PFSKReturnSuccess);
+    if (error)
+        *error = synthesizeError(PFSKReturnSuccess);
     NSUInteger positionOfFirstInteger = [systemInfoString rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location;
     NSUInteger positionOfComma = [systemInfoString rangeOfString:@","].location;
     

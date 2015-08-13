@@ -17,7 +17,7 @@ constexpr double operator "" _MB(unsigned long long bytes)
 	return static_cast<double>(bytes * 1048576);
 }
 
-std::map<int, char const*> PFSystemKitErrorStrings = {
+std::map<PFSystemKitError, char const*> PFSystemKitErrorStrings = {
 	{ PFSKReturnSuccess, "Success" },
 	{ PFSKReturnNoMasterPort, "No Master Port" },
 	{ PFSKReturnComponentUnavailable, "Component not available" },
@@ -31,7 +31,7 @@ std::map<int, char const*> PFSystemKitErrorStrings = {
 	{ PFSKReturnUnknown, "Unknown state" } //unknown error (shouldn't happen)
 };
 
-std::map<int, char const*> PFSystemKitErrorReasons = {
+std::map<PFSystemKitError, char const*> PFSystemKitErrorReasons = {
 	{ PFSKReturnSuccess, "Nothing bad happened while performing the last operation" },
 	{ PFSKReturnNoMasterPort, "IOKit encountered a problem while creating the MasterPort, see extended error informations for details"/*. See below for details.*/ },
 	{ PFSKReturnComponentUnavailable, "Requested component isn't available on this machine" },
@@ -45,7 +45,7 @@ std::map<int, char const*> PFSystemKitErrorReasons = {
 	{ PFSKReturnUnknown, "Unknown state, something went wrong in the program itself!" } //unknown error (shouldn't happen)
 };
 
-std::map<int, char const*> PFSystemKitErrorRecovery = {
+std::map<PFSystemKitError, char const*> PFSystemKitErrorRecovery = {
 	{ PFSKReturnSuccess, "Nothing to recover from" },
 	{ PFSKReturnNoMasterPort, "Recovery depends on the exact IOKit error"/*. See below for details.*/ },
 	{ PFSKReturnComponentUnavailable, "Nothing to do" },
@@ -59,7 +59,19 @@ std::map<int, char const*> PFSystemKitErrorRecovery = {
 	{ PFSKReturnUnknown, "Reopen the program, then file a bug report" } //unknown error (shouldn't happen)
 };
 
-std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {
+std::map<char const*, PFSystemKitDeviceColor> PFSystemKitDeviceColorHexesReverse = {
+    { "Unknown", PFSKDeviceColorUnknown },
+    { "f5f4f7", PFSKDeviceColorWhite },
+    { "99989b", PFSKDeviceColorSpaceGrey },
+    { "d4c5b3", PFSKDeviceColorSilver },
+    { "d7d9d8", PFSKDeviceColorGold },
+    { "46abe0", PFSKDeviceColorBlue },
+    { "a1e877", PFSKDeviceColorGreen },
+    { "faf189", PFSKDeviceColorYellow },
+    { "fe767a", PFSKDeviceColorRed }
+};
+
+std::map<PFSystemKitDeviceFamily, char const*> PFSystemKitDeviceFamilyStrings = {
 	{ PFSKDeviceFamilyUnknown, "Unknown" },
 	{ PFSKDeviceFamilyiMac, "iMac" },
 	{ PFSKDeviceFamilyMacMini, "Mac Mini" },
@@ -74,26 +86,26 @@ std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {
 	{ PFSKDeviceFamilySimulator, "Simulator" }
 };
 
-std::map<int, char const*> PFSystemKitPlatformStrings = {
-	{ PFSKEndiannessUnknown, "Unknown" },
+std::map<PFSystemKitPlatform, char const*> PFSystemKitPlatformStrings = {
+	{ PFSKPlatformUnknown, "Unknown" },
 	{ PFSKPlatformIOS, "iOS" },
 	{ PFSKPlatformOSX, "OSX" },
     { PFSKPlatformWatchOS, "watchOS" }
 };
 
-std::map<int, char const*> PFSystemKitEndiannessStrings = {
-	{ PFSKPlatformUnknown, "Unknown" },
+std::map<PFSystemKitEndianness, char const*> PFSystemKitEndiannessStrings = {
+	{ PFSKEndiannessUnknown, "Unknown" },
 	{ PFSKEndiannessLittleEndian, "Little Endian" },
 	{ PFSKEndiannessBigEndian, "Big Endian" }
 };
 
-std::map<int, char const*> PFSystemKitCPUVendorStrings = {
+std::map<PFSystemKitCPUVendor, char const*> PFSystemKitCPUVendorStrings = {
 	{ PFSKCPUVendorUnknown, "Unknown" },
 	{ PFSKCPUVendorGenuineIntel, "GenuineIntel" },
 	{ PFSKCPUVendorAuthenticAMD, "AuthenticAMD" }
 };
 
-std::map<int, char const*> PFSystemKitCPUArchesStrings = {
+std::map<PFSystemKitCPUArches, char const*> PFSystemKitCPUArchesStrings = {
 	{ PFSKCPUArchesUnknown, "Unknown" },
 	{ PFSKCPUArchesX86, "x86" },
 	{ PFSKCPUArchesX86_64, "x86_64" },
