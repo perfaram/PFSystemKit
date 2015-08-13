@@ -59,6 +59,18 @@ std::map<int, char const*> PFSystemKitErrorRecovery = {
 	{ PFSKReturnUnknown, "Reopen the program, then file a bug report" } //unknown error (shouldn't happen)
 };
 
+std::map<char const*, PFSystemKitDeviceColor> PFSystemKitDeviceColorHexesReverse = {
+    { "Unknown", PFSKDeviceColorUnknown },
+    { "f5f4f7", PFSKDeviceColorWhite },
+    { "99989b", PFSKDeviceColorSpaceGrey },
+    { "d4c5b3", PFSKDeviceColorSilver },
+    { "d7d9d8", PFSKDeviceColorGold },
+    { "46abe0", PFSKDeviceColorBlue },
+    { "a1e877", PFSKDeviceColorGreen },
+    { "faf189", PFSKDeviceColorYellow },
+    { "fe767a", PFSKDeviceColorRed }
+};
+
 std::map<int, char const*> PFSystemKitDeviceFamilyStrings = {
 	{ PFSKDeviceFamilyUnknown, "Unknown" },
 	{ PFSKDeviceFamilyiMac, "iMac" },
