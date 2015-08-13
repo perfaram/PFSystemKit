@@ -6,7 +6,7 @@
 //  Copyright 2010 Richard Penwell. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 
 @interface NSProcessInfo (MacAddress)

@@ -54,7 +54,8 @@
             selector = (char*)"hw.optional.neon_hpfp";
             break;
         default:
-            *error = synthesizeError(PFSKReturnInvalidSelector);
+            if (error)
+                *error = synthesizeError(PFSKReturnInvalidSelector);
             return false;
             break;
     }
@@ -75,7 +76,8 @@
                 *ret = TRUE;
             break;
         default:
-            *error = synthesizeError(PFSKReturnInvalidSelector);
+            if (error)
+                *error = synthesizeError(PFSKReturnInvalidSelector);
             return false;
             break;
     }
