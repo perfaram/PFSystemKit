@@ -31,64 +31,6 @@
     });
     return sharedInstance;
 }
-+(BOOL)isJailbroken{ //objc_copyImageNames() "can't" be fooled (checks for MobileSubstrate)
-#if !(TARGET_IPHONE_SIMULATOR)
-	if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/MobileSubstrate.dylib"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/bin/bash"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/etc/apt"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt/"]){
-		return YES;
-	}
-	
-	FILE *f = fopen("/bin/bash", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
-	f = fopen("/Applications/Cydia.app", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
-	f = fopen("/Library/MobileSubstrate/MobileSubstrate.dylib", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
-	f = fopen("/etc/apt", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
-    
-    int result = fork(); // Check if this process can fork, shouldn't happen if properly sandboxed
-    if (result >= 0) {
-        return YES;
-    }
-    
-    const char **names;
-    unsigned libNamesCount = 0;
-    names = objc_copyImageNames(&libNamesCount); //best effort : check whether substrate is loaded
-    for (unsigned libIdx = 0; libIdx < libNamesCount; ++libIdx) {
-        NSString* name = @(names[libIdx]);
-        if ([name isKindOfClass:NSClassFromString(@"NSString")]) {
-            if ([name.lowercaseString containsString:@"substrate"]) return YES;
-        }
-    }
-    free(names);
-#endif
-	//All checks have failed. Most probably, the device is not jailbroken
-	return NO;
-}
 
 #pragma mark - Getters
 @synthesize cpuReport;

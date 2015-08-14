@@ -12,6 +12,8 @@
 #if TARGET_OS_IPHONE
 #import "PFSKPrivateTypes.h"
 #import <UIKit/UIKit.h>
+#import <objc/objc.h>
+#import <objc/runtime.h>
 #endif
 
 @implementation PFSK_Common(Machine)
@@ -105,6 +107,92 @@
     }
     return true;
 }
+
++(BOOL) isJailbroken
+{
+#if !(TARGET_IPHONE_SIMULATOR)
+    
+    // Check whether some typical files exist
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){
+        return YES;
+    }else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/MobileSubstrate.dylib"]){
+        return YES;
+    }else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/bin/bash"]){
+        return YES;
+    }else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/etc/apt"]){
+        return YES;
+    }else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt/"]){
+        return YES;
+    }
+    
+    // Check whether I can fopen these files
+    FILE *f = fopen("/bin/bash", "r");
+    if (f != NULL) {
+        fclose(f);
+        return YES;
+    }
+    fclose(f);
+    f = fopen("/Applications/Cydia.app", "r");
+    if (f != NULL) {
+        fclose(f);
+        return YES;
+    }
+    fclose(f);
+    f = fopen("/Library/MobileSubstrate/MobileSubstrate.dylib", "r");
+    if (f != NULL) {
+        fclose(f);
+        return YES;
+    }
+    fclose(f);
+    f = fopen("/usr/sbin/sshd", "r");
+    if (f != NULL) {
+        fclose(f);
+        return YES;
+    }
+    fclose(f);
+    f = fopen("/etc/apt", "r");
+    if (f != NULL) {
+        fclose(f);
+        return YES;
+    }
+    fclose(f);
+    
+    // Check for Cydia URLs
+    if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]){
+        return YES;
+    }
+    
+    // Check if this process can fork, shouldn't happen if properly sandboxed
+    int result = fork();
+    if (result >= 0) {
+        return YES;
+    }
+    
+    // Check if I can write in /private, shouldn't if properly sandboxed
+    NSError *locError;
+    [[NSString stringWithFormat:@"pfskJailbroken"] writeToFile:@"/private/isjb.txt" atomically:YES encoding:NSUTF8StringEncoding error:&locError];
+    if(!locError) {
+        // Clean up
+        [[NSFileManager defaultManager] removeItemAtPath:@"/private/isjb.txt" error:nil];
+        return YES;
+    }
+    
+    // Best effort : check whether substrate is loaded
+    const char **names;
+    unsigned libNamesCount = 0;
+    names = objc_copyImageNames(&libNamesCount);
+    for (unsigned libIdx = 0; libIdx < libNamesCount; ++libIdx) {
+        NSString* name = @(names[libIdx]);
+        if ([name isKindOfClass:NSClassFromString(@"NSString")]) {
+            if ([name.lowercaseString containsString:@"substrate"]) return YES;
+        }
+    }
+    free(names);
+#endif
+    //All checks have failed. Most probably, the device is not jailbroken
+    return NO;
+}
+
 #if asrg_get_out_of_my_way
 +(BOOL) deviceColor:(PFSystemKitDeviceColor*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
