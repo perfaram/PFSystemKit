@@ -28,7 +28,7 @@ I started building this library in early 2015, for a project of mine that is now
 You are free to use this library in any of your projects, **provided you reproduce the present LICENSE file**, even for derivatives of this library. You may use the project for closed-source products, **given the source for the library is made available**.
 However, you can purchase a special license for 75 Euros. This license allows you to redistribute the library without having to reproduce the LICENSE file nor having to publish the source code of your PFSystemKit version.
 
-### MIT License
+### LGPL License
 >                    GNU LESSER GENERAL PUBLIC LICENSE
 >                        Version 3, 29 June 2007
 > 
