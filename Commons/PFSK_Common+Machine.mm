@@ -234,8 +234,7 @@
     if ([device respondsToSelector:selector]) {
         NSString* enclosure = [[[device performSelector:selector withObject:@"DeviceEnclosureColor"] lowercaseString] stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
-        const char* test = [enclosure getString].c_str();
-        if (PFSystemKitDeviceColorHexesReverse.find(test) == PFSystemKitDeviceColorHexesReverse.end()) {
+        if (PFSystemKitDeviceColorHexesReverse.find(enclosure) == PFSystemKitDeviceColorHexesReverse.end()) {
             NSString* global = [[device performSelector:selector withObject:@"DeviceColor"] lowercaseString];
             if ([global isEqualToString:@"black"]) {
                 *ret = PFSKDeviceColorBlack;
@@ -249,7 +248,7 @@
                 *error = synthesizeError(PFSKReturnUnsupportedDevice);
             return false;
         } else {
-            *ret = PFSystemKitDeviceColorHexesReverse[test];
+            *ret = PFSystemKitDeviceColorHexesReverse[enclosure];
             return false;
         }
     } else {
