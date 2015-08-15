@@ -9,10 +9,11 @@
 #import <mach/mach_error.h>
 #import <sys/sysctl.h>
 #import <string>
+#import <errno.h>      // for errno
 #import "PFSKPrivateTypes.h"
-#import "NSString+PFSKAdditions.h"
 #import "PFSK_Common.h"
 #import "PFSKHelper.h"
+#import "NSString+PFSKAdditions.h"
 
 NSString* PFSKErrorDomain = @"com.faramaz.PFSystemKit";
 NSString* PFSKErrorExtendedDomain = @"com.faramaz.PFSystemKit.extended";
@@ -198,7 +199,7 @@ PFSystemKitError sysctlCStringForKey(char* key, char* answerString) { //function
 BOOL sysctlSTDStringForKeySynthesizing(char*__nonnull key, std::string& answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     PFSystemKitError res = _sysctlStringForKey(key, answerString);
     if (error)
-        *error = synthesizeErrorWithObjectsAndKeys(res, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     if (res != PFSKReturnSuccess)
         return false;
     return true;
@@ -208,7 +209,7 @@ BOOL sysctlNSStringForKeySynthesizing(char*__nonnull key, NSString Ind2_NNAR ans
     std::string answerSTDString;
     PFSystemKitError res = _sysctlStringForKey(key, answerSTDString);
     if (error)
-        *error = synthesizeErrorWithObjectsAndKeys(res, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     *answerString = [NSString stringWithSTDString:answerSTDString];
     if (res != PFSKReturnSuccess)
         return false;
@@ -220,7 +221,7 @@ BOOL sysctlCStringForKeySynthesizing(char*__nonnull key, char*__nonnull answerSt
     
     PFSystemKitError res = _sysctlStringForKey(key, answerSTDString);
     if (error)
-        *error = synthesizeErrorWithObjectsAndKeys(res, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
 
     strcpy(answerString, answerSTDString.c_str());
 
@@ -243,7 +244,7 @@ PFSystemKitError sysctlNumberForKey(char* key, NSNumber Ind2_NNAR answerNumber) 
 BOOL sysctlDoubleForKeySynthesizing(char* key, double& answerDouble, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     PFSystemKitError res = _sysctlDoubleForKey(key, answerDouble);
     if (error)
-        *error = synthesizeErrorWithObjectsAndKeys(res, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     if (res != PFSKReturnSuccess)
         return false;
     return true;
@@ -253,7 +254,7 @@ BOOL sysctlNumberForKeySynthesizing(char*__nonnull key, NSNumber Ind2_NNAR answe
     double answerDouble = 0;
     PFSystemKitError res = _sysctlDoubleForKey(key, answerDouble);
     if (error)
-        *error = synthesizeErrorWithObjectsAndKeys(res, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     *answerNumber = @(answerDouble);
     if (res != PFSKReturnSuccess)
         return false;
@@ -269,17 +270,23 @@ __attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error) 
                                       }];
 }
 
-__attribute__((always_inline)) NSError* synthesizeErrorWithObjectsAndKeys(PFSystemKitError error, id object, id key) {
+__attribute__((always_inline)) NSError* synthesizeErrorExtSCWithObjectAndKey(PFSystemKitError error, int errNo, id object, id key) {
     return [NSError errorWithDomain:PFSKErrorDomain
                                code:error
                            userInfo:@{
                                       NSLocalizedDescriptionKey: errorToExplanation(error),
                                       NSLocalizedFailureReasonErrorKey: errorToRecovery(error),
-                                      key: object
+                                      key: object,
+                                      NSUnderlyingErrorKey: [NSError errorWithDomain:PFSKErrorExtendedDomain
+                                                                                code:errNo
+                                                                            userInfo:@{
+                                                                                       NSLocalizedDescriptionKey: [NSString.alloc initWithCString:strerror(errNo)
+                                                                                                                                         encoding:NSUTF8StringEncoding]
+                                                                                       }]
                                       }];
 }
 
-__attribute__((always_inline)) NSError* synthesizeErrorExt(PFSystemKitError error, kern_return_t extendedError) {
+__attribute__((always_inline)) NSError* synthesizeErrorExtIO(PFSystemKitError error, kern_return_t extendedError) {
     return [NSError errorWithDomain:PFSKErrorDomain
                                code:error
                            userInfo:@{
