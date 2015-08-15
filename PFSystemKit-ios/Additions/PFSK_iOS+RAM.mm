@@ -38,7 +38,7 @@
     kern_return_t hostResult = host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t) &vmstat, &count);
     if (hostResult != KERN_SUCCESS) {
         if (error)
-            *error = synthesizeErrorExt(PFSKReturnIOKitError, hostResult);
+            *error = synthesizeErrorExtIO(PFSKReturnIOKitError, hostResult);
         return false;
     }
     
