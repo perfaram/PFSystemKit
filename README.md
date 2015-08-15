@@ -12,9 +12,10 @@ Here's what you can gather with PFSystemKit:
 * Device infos (device family (e.g. MacBook Pro), model (MacBookPro8,1), version (8,1), serial)
 * Battery (voltage, current, serial, manufacturer, age in days, cycle count, temperature)
 
-### Help
-You can help ? Don't be shy, pull requests welcome !
-Have a special request ? Contact me - depending on what it is, it may cost some bucks.
+### Contributing (hehehe, who am I kidding)
+Found a bug ? Want a feature ? Don't be shy, pull requests welcome !
+Otherwise, just open an issue, I'll have a look.
+Have a special request ? Contact me (via issue first) - depending on what it is, it may cost some bucks.
 
 ### Roadmap
 * Better iOS support
