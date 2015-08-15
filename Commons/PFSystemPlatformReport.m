@@ -28,7 +28,6 @@
 #endif
 #if TARGET_OS_IPHONE
 @synthesize isJailbroken;
-@synthesize hasIAPFaker;
 #endif
 #if !TARGET_OS_IPHONE
 -(instancetype) initWithBoardID:(NSString*)boardIDLocal
@@ -71,10 +70,8 @@
                        version:(PFSystemKitDeviceVersion)versionLocal
                     endianness:(PFSystemKitEndianness)endiannessLocal
                          model:(NSString*)modelStringLocal
-                        serial:(NSString*)serialLocal
                     memorySize:(NSNumber*)memorySizeLocal
                   isJailbroken:(BOOL)isJB
-                         isIAP:(BOOL)isIAP
 {
     if (!(self = [super init])) {
         return nil;
@@ -83,11 +80,9 @@
     version = versionLocal;
     endianness = endiannessLocal;
     model = modelStringLocal;
-    serial = serialLocal;
     memorySize = memorySizeLocal;
     platform = PFSKPlatformIOS;
     isJailbroken = isJB;
-    hasIAPFaker = isIAP;
     return self;
 }
 #endif
