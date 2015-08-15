@@ -15,7 +15,11 @@
     double count = 0;
     BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.packages", count, error);
     if (!result) {
+#if ERRORS_USE_COMMON_SENSE
+        *ret = @(1); // 1 CPU is sooo likely
+#else
         *ret = @(-1);
+#endif
         return false;
     }
     *ret = @(count);
@@ -219,26 +223,21 @@
     
     locResult = [self cpuArchitecture:&arch subtype:&subArch error:error];
     if (locResult != PFSKReturnSuccess) {
-        arch = PFSKCPUArchesUnknown;
-        subArch = PFSKCPUArchesARM_Unknown;
         errorOccured = true;
     }
     
     locResult = [self cpuCoreCount:&cpuCores error:error];
     if (locResult != PFSKReturnSuccess) {
-        cpuCores = @(-1);
         errorOccured = true;
     }
     
     locResult = [self cpuCount:&cpuS error:error];
     if (locResult != PFSKReturnSuccess) {
-        cpuS = @(-1);
         errorOccured = true;
     }
     
     locResult = [self cpuL2Cache:&cpuL2 error:error];
     if (locResult != PFSKReturnSuccess) {
-        cpuL2 = @(-1);
         errorOccured = true;
     }
     
@@ -250,7 +249,6 @@
 
     locResult = [self cpuL1ICache:&cpuL1I error:error];
     if (locResult != PFSKReturnSuccess) {
-        cpuL1I = @(-1);
         errorOccured = true;
     }
     
