@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
 
-@interface PFSystemKit : NSObject
+@interface PFSystemKit : PFSK_Common
 /*!
  Various platform informations
  */
@@ -19,11 +19,6 @@
  Various CPU informations
  */
 @property (strong, atomic, readonly) PFSystemCPUReport*					cpuReport;
-
-/*!
- Various battery informations
- */
-@property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
 @end
 
 #import "PFSK_iOS+CPU.h"
