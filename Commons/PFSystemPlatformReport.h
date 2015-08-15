@@ -52,12 +52,8 @@
  Whether the device is jailbroken (iOS devices only)
  */
 @property (atomic, readonly)         BOOL                               isJailbroken;
-
-/*!
- Whether LocalIAPStore tweak is present (to fake IAP receipts)
- */
-@property (atomic, readonly)         BOOL                               hasIAPFaker;
 #endif
+
 /*!
  The device family. e.g. PFSKDeviceFamilyiPhone
  */
@@ -110,15 +106,10 @@
 #endif
 #if TARGET_OS_IPHONE
 -(instancetype) initWithFamily:(PFSystemKitDeviceFamily)familyLocal
-                  familyString:(NSString*)familyStringLocal
                        version:(PFSystemKitDeviceVersion)versionLocal
-                 versionString:(NSString*)versionStringLocal
                     endianness:(PFSystemKitEndianness)endiannessLocal
-              endiannessString:(NSString*)endiannessStringLocal
                          model:(NSString*)modelStringLocal
-                        serial:(NSString*)serialLocal
                     memorySize:(NSNumber*)memorySizeLocal
-                  isJailbroken:(BOOL)isJB
-                         isIAP:(BOOL)isIAP;
+                  isJailbroken:(BOOL)isJB;
 #endif
 @end

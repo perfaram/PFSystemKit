@@ -16,7 +16,11 @@
     double count = 0;
     BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.packages", count, error);
     if (!result) {
+#if ERRORS_USE_COMMON_SENSE
+        *ret = @(1); // 1 CPU is sooo likely
+#else
         *ret = @(-1);
+#endif
         return false;
     }
     *ret = @(count);
@@ -112,7 +116,11 @@
 +(BOOL) cpuVendor:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     BOOL result = sysctlNSStringForKeySynthesizing((char*)"machdep.cpu.vendor", ret, error);
     if (!result) {
+#if ERRORS_USE_COMMON_SENSE
+        *ret = @"GenuineIntel"; // PPC aren't supported by PFSK, and hackintoshes running under AMD are quite rare
+#else
         *ret = @"-";
+#endif
         return false;
     }
     return true;
@@ -129,55 +137,46 @@
 	
 	locResult = [self cpuVendor:&cpuVendor error:error];
 	if (locResult != true) {
-		cpuVendor = @"-";
 		errorOccured = true;
 	}
 	
 	locResult = [self cpuBrand:&cpuBrand error:error];
 	if (locResult != PFSKReturnSuccess) {
-		cpuBrand = @"-";
 		errorOccured = true;
 	}
 	
 	locResult = [self cpuArchitecture:&arch error:error];
 	if (locResult != PFSKReturnSuccess) {
-		arch = PFSKCPUArchesUnknown;
         errorOccured = true;
 	}
 	
 	locResult = [self cpuThreadCount:&cpuThreads error:error];
 	if (locResult != PFSKReturnSuccess) {
-		cpuThreads = @(-1);
 		errorOccured = true;
 	}
 	
 	locResult = [self cpuCoreCount:&cpuCores error:error];
 	if (locResult != PFSKReturnSuccess) {
-		cpuCores = @(-1);
 		errorOccured = true;
 	}
 	
 	locResult = [self cpuCount:&cpuS error:error];
 	if (locResult != PFSKReturnSuccess) {
-		cpuS = @(-1);
 		errorOccured = true;
 	}
 	
 	locResult = [self cpuFrequency:&cpuFreq error:error];
 	if (locResult != PFSKReturnSuccess) {
-		cpuFreq = @(-1);
 		errorOccured = true;
 	}
 	
 	locResult = [self cpuL2Cache:&cpuL2 error:error];
 	if (locResult != PFSKReturnSuccess) {
-		cpuL2 = @(-1);
 		errorOccured = true;
 	}
 	
 	locResult = [self cpuL3Cache:&cpuL3 error:error];
 	if (locResult != PFSKReturnSuccess) {
-		cpuL3 = @(-1);
 		errorOccured = true;
 	}
 	

@@ -18,4 +18,5 @@
 +(BOOL) cpuL1Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 +(BOOL) cpuL2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 +(BOOL) cpuArchitecture:(PFSystemKitCPUArches*__nonnull)ret subtype:(PFSystemKitCPUArchesARMTypes*__nonnull)sub error:(NSError Ind2_NUAR)error;
++(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 @end

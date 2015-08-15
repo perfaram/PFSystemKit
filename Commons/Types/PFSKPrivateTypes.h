@@ -11,6 +11,16 @@
 #include <set>
 #include <map>
 #include <string>
+#include <functional>
+
+struct CompareNSString: public std::binary_function<NSString*, NSString*, bool> {
+    bool operator()(NSString* lhs, NSString* rhs) const {
+        if (rhs != nil)
+            return (lhs == nil) || ([lhs compare: rhs] == NSOrderedAscending);
+        else
+            return false;
+    }
+};
 
 constexpr double operator "" _MB(unsigned long long bytes)
 {
@@ -59,16 +69,16 @@ std::map<PFSystemKitError, char const*> PFSystemKitErrorRecovery = {
 	{ PFSKReturnUnknown, "Reopen the program, then file a bug report" } //unknown error (shouldn't happen)
 };
 
-std::map<char const*, PFSystemKitDeviceColor> PFSystemKitDeviceColorHexesReverse = {
-    { "Unknown", PFSKDeviceColorUnknown },
-    { "f5f4f7", PFSKDeviceColorWhite },
-    { "99989b", PFSKDeviceColorSpaceGrey },
-    { "d4c5b3", PFSKDeviceColorSilver },
-    { "d7d9d8", PFSKDeviceColorGold },
-    { "46abe0", PFSKDeviceColorBlue },
-    { "a1e877", PFSKDeviceColorGreen },
-    { "faf189", PFSKDeviceColorYellow },
-    { "fe767a", PFSKDeviceColorRed }
+std::map<NSString*, PFSystemKitDeviceColor, CompareNSString> PFSystemKitDeviceColorHexesReverse = {
+    { @"Unknown", PFSKDeviceColorUnknown },
+    { @"f5f4f7", PFSKDeviceColorWhite },
+    { @"99989b", PFSKDeviceColorSpaceGrey },
+    { @"d4c5b3", PFSKDeviceColorSilver },
+    { @"d7d9d8", PFSKDeviceColorGold },
+    { @"46abe0", PFSKDeviceColorBlue },
+    { @"a1e877", PFSKDeviceColorGreen },
+    { @"faf189", PFSKDeviceColorYellow },
+    { @"fe767a", PFSKDeviceColorRed }
 };
 
 std::map<PFSystemKitDeviceFamily, char const*> PFSystemKitDeviceFamilyStrings = {

@@ -7,8 +7,6 @@
 //
 
 #import "PFSK_iOS.h"
-#import <objc/objc.h>
-#import <objc/runtime.h>
 #import <sys/sysctl.h>
 #import <CoreFoundation/CoreFoundation.h>
 #import <string>
@@ -18,89 +16,84 @@
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
 /**
+ * PFSystemKit singleton instance retrieval method with error handling
+ */
++(instancetype) investigateWithError:(NSError Ind2_NUAR)error {
+    static PFSystemKit* sharedInstance;
+    static dispatch_once_t onceToken;
+    //BOOL __block succ;
+    //NSError* __block err;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+        [sharedInstance updatePlatformReport:error];
+        [sharedInstance updateCPUReport:error];
+    });
+    return sharedInstance;
+}
+
+/**
  * PFSystemKit singleton instance retrieval method
  */
 +(instancetype) investigate {
     static PFSystemKit* sharedInstance;
     static dispatch_once_t onceToken;
+    //BOOL __block succ;
+    //NSError* __block err;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
-        [sharedInstance updatePlatformReport];
-        [sharedInstance updateCPUReport];
-        [sharedInstance updateBatteryReport];
+        [sharedInstance updatePlatformReport:nil]; // Purposefully not giving a damn about whether it succeeded : if the user wants so, he/she uses +investigateWithError
+        [sharedInstance updateCPUReport:nil];
     });
     return sharedInstance;
 }
-+(BOOL)isJailbroken{ //objc_copyImageNames() "can't" be fooled (checks for MobileSubstrate)
-#if !(TARGET_IPHONE_SIMULATOR)
-	if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/MobileSubstrate.dylib"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/bin/bash"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/etc/apt"]){
-		return YES;
-	}else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt/"]){
-		return YES;
-	}
-	
-	FILE *f = fopen("/bin/bash", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
-	f = fopen("/Applications/Cydia.app", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
-	f = fopen("/Library/MobileSubstrate/MobileSubstrate.dylib", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
-	f = fopen("/etc/apt", "r");
-	if (f != NULL) {
-		fclose(f);
-		return YES;
-	}
-	fclose(f);
+
+-(BOOL) updatePlatformReport:(NSError Ind2_NUAR)locError {
+    PFSystemKitDeviceFamily fam;
+    PFSystemKitDeviceVersion ver;
+    PFSystemKitEndianness end;
+    NSString* mod;
+    NSNumber* memSize;
+    BOOL isjb;
+    BOOL state = true;
+    BOOL res = [self.class deviceFamily:&fam error:locError];
+    if (!res)
+        state = false;
+    res = [self.class deviceVersion:&ver error:locError];
+    if (!res)
+        state = false;
+    res = [self.class deviceEndianness:&end error:locError];
+    if (!res)
+        state = false;
+    res = [self.class deviceModel:&mod error:locError];
+    if (!res)
+        state = false;
+    res = [self.class ramSize:&memSize error:locError];
+    if (!res)
+        state = false;
+    res = [self.class isJailbroken:&isjb error:locError];
+    if (!res)
+        state = false;
     
-    int result = fork(); // Check if this process can fork, shouldn't happen if properly sandboxed
-    if (result >= 0) {
-        return YES;
+    platformReport = [PFSystemPlatformReport.alloc initWithFamily:fam version:ver endianness:end model:mod memorySize:memSize isJailbroken:isjb];
+    return state;
+}
+
+-(BOOL) updateCPUReport:(NSError Ind2_NUAR)locError {
+    PFSystemCPUReport* report;
+    if (![self.class cpuCreateReport:&report error:locError]) {
+        cpuReport = report;
+        return false;
     }
-    
-    const char **names;
-    unsigned libNamesCount = 0;
-    names = objc_copyImageNames(&libNamesCount); //best effort : check whether substrate is loaded
-    for (unsigned libIdx = 0; libIdx < libNamesCount; ++libIdx) {
-        NSString* name = @(names[libIdx]);
-        if ([name isKindOfClass:NSClassFromString(@"NSString")]) {
-            if ([name.lowercaseString containsString:@"substrate"]) return YES;
-        }
-    }
-    free(names);
-#endif
-	//All checks have failed. Most probably, the device is not jailbroken
-	return NO;
+    cpuReport = report;
+    return true;
 }
 
 #pragma mark - Getters
 @synthesize cpuReport;
-@synthesize batteryReport;
 @synthesize platformReport;
 
 #pragma mark - NSObject std methods
 -(void) finalize { //cleanup everything
-    IOObjectRelease(nvrEntry);
-    IOObjectRelease(pexEntry);
-    IOObjectRelease(smcEntry);
-    IOObjectRelease(romEntry);
     [super finalize];
     return;
 }
@@ -109,16 +102,8 @@
     if (!(self = [super init])) {
         return nil;
     }
-    _writeLockState = PFSKLockStateLocked;
     _error = PFSKReturnUnknown;
     _extError = 0;
-    kern_return_t IOresult;
-    IOresult = IOMasterPort(bootstrap_port, &masterPort);
-    if (IOresult!=PFSKReturnSuccess) {
-        _error = PFSKReturnNoMasterPort;
-        _extError = IOresult;
-        return nil;
-    }
     return self;
 }
 @end
