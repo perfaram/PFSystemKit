@@ -15,6 +15,13 @@
 #define Ind2_NNAR *__nonnull __autoreleasing*__nonnull //Ind2 = Double Indirection, NNAR = NonNull AutoReleasing
 #define Ind2_NUAR *__nullable __autoreleasing*__nullable //Ind2 = Double Indirection, NUAR = Nullable AutoReleasing
 
+
+/*!
+ @typedef GPUArray
+ NSArray of NSDictionaries, using generics
+ */
+typedef NSArray<NSDictionary*> GPUArray;
+
 /*!
  @typedef PFSystemKitLockState
  Enumeration of integers matching a PFSystemKit error

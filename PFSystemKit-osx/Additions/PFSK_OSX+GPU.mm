@@ -9,7 +9,7 @@
 #import "PFSK_OSX+GPU.h"
 #import "PCI.h"
 @implementation PFSystemKit(GPU)
--(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)finError
+-(BOOL)graphicsCreateReport:(GPUArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)finError
 {
     NSMutableArray *temp = [NSMutableArray array];
     io_iterator_t itThis;
@@ -146,7 +146,7 @@
     return true;
 }
 
-+(BOOL)graphicsCreateReport:(NSArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)finError
++(BOOL)graphicsCreateReport:(GPUArray Ind2_NNAR)ret error:(NSError Ind2_NUAR)finError
 {
 	NSMutableArray *temp = [NSMutableArray array];
 	io_iterator_t itThis;
