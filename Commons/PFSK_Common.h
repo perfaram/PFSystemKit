@@ -195,6 +195,9 @@ BOOL sysctlNumberForKeySynthesizing(char*__nonnull key, NSNumber Ind2_NNAR answe
 
 +(NSArray*__nullable) userPreferredLanguages;
 
+__attribute__((always_inline)) PFSystemKitDeviceColor colorFromString(NSString*__nonnull string);
+__attribute__((always_inline)) BOOL colorDoesNotExists(NSString*__nonnull string);
+
 __attribute__((always_inline)) NSError*__nonnull synthesizeError(PFSystemKitError error);
 __attribute__((always_inline)) NSError*__nonnull synthesizeErrorExtSCWithObjectAndKey(PFSystemKitError error, int errNo, id __nullable object, id __nullable key);
 __attribute__((always_inline)) NSError*__nonnull synthesizeErrorExtIO(PFSystemKitError error, kern_return_t extendedError);

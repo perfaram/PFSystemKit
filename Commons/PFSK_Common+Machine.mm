@@ -10,7 +10,7 @@
 #import <string>
 #import "NSString+PFSKAdditions.h"
 #if TARGET_OS_IPHONE
-#import "PFSKPrivateTypes.h"
+//#import "PFSKPrivateTypes.h"
 #import <UIKit/UIKit.h>
 #import <objc/objc.h>
 #undef _error
@@ -234,7 +234,7 @@
     if ([device respondsToSelector:selector]) {
         NSString* enclosure = [[[device performSelector:selector withObject:@"DeviceEnclosureColor"] lowercaseString] stringByReplacingOccurrencesOfString:@"#" withString:@""];
         
-        if (PFSystemKitDeviceColorHexesReverse.find(enclosure) == PFSystemKitDeviceColorHexesReverse.end()) {
+        if (colorDoesNotExists(enclosure)) { //not found
             NSString* global = [[device performSelector:selector withObject:@"DeviceColor"] lowercaseString];
             if ([global isEqualToString:@"black"]) {
                 *ret = PFSKDeviceColorBlack;
@@ -247,9 +247,9 @@
             if (error)
                 *error = synthesizeError(PFSKReturnUnsupportedDevice);
             return false;
-        } else {
-            *ret = PFSystemKitDeviceColorHexesReverse[enclosure];
-            return false;
+        } else { //found
+            *ret = colorFromString(enclosure);
+            return true;
         }
     } else {
         if (error)
@@ -262,11 +262,11 @@
 #endif
 +(BOOL) deviceVersion:(PFSystemKitDeviceVersion*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
-	NSString* systemInfoString;
-	BOOL result = [self deviceModel:&systemInfoString error:error];
-	if (result != true) {
-		return false;
-	}
+    NSString* systemInfoString;
+    BOOL result = [self deviceModel:&systemInfoString error:error];
+    if (result != true) {
+        return false;
+    }
     if (error)
         *error = synthesizeError(PFSKReturnSuccess);
     NSUInteger positionOfFirstInteger = [systemInfoString rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location;
@@ -280,6 +280,6 @@
         minor = [[systemInfoString substringFromIndex:positionOfComma + 1] integerValue];
     }
     *ret = (PFSystemKitDeviceVersion){major, minor};
-	return true;
+    return true;
 }
 @end

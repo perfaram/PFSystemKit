@@ -9,7 +9,7 @@
 #import <mach/mach_error.h>
 #import <sys/sysctl.h>
 #import <string>
-#import <errno.h>      // for errno
+#import <errno.h>
 #import "PFSKPrivateTypes.h"
 #import "PFSK_Common.h"
 #import "PFSKHelper.h"
@@ -222,9 +222,9 @@ BOOL sysctlCStringForKeySynthesizing(char*__nonnull key, char*__nonnull answerSt
     PFSystemKitError res = _sysctlStringForKey(key, answerSTDString);
     if (error)
         *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
-
+    
     strcpy(answerString, answerSTDString.c_str());
-
+    
     if (res != PFSKReturnSuccess)
         return false;
     return true;
@@ -259,6 +259,14 @@ BOOL sysctlNumberForKeySynthesizing(char*__nonnull key, NSNumber Ind2_NNAR answe
     if (res != PFSKReturnSuccess)
         return false;
     return true;
+}
+
+__attribute__((always_inline)) PFSystemKitDeviceColor colorFromString(NSString* string) {
+    return PFSystemKitDeviceColorHexesReverse[string];
+}
+
+__attribute__((always_inline)) BOOL colorDoesNotExists(NSString* string) {
+    return (PFSystemKitDeviceColorHexesReverse.find(string) == PFSystemKitDeviceColorHexesReverse.end());
 }
 
 __attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error) {
