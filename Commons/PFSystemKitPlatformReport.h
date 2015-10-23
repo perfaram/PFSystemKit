@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PFSKTypes.h"
 
-@interface PFSystemPlatformReport : NSObject
+@interface PFSystemKitPlatformReport : NSObject
 #if !TARGET_OS_IPHONE
 /*!
  The mainboard identifier

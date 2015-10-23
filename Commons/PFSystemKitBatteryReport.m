@@ -1,14 +1,14 @@
 //
-//  PFSystemBatteryReport.m
+//  PFSystemKitBatteryReport.m
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 09/06/15.
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
 
-#import "PFSystemBatteryReport.h"
+#import "PFSystemKitBatteryReport.h"
 
-@implementation PFSystemBatteryReport
+@implementation PFSystemKitBatteryReport
 @synthesize designedCycleCount;
 @synthesize serial;
 @synthesize model;

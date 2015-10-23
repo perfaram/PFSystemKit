@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
 
-#import "PFSystemPlatformReport.h"
+#import "PFSystemKitPlatformReport.h"
 
-@implementation PFSystemPlatformReport
+@implementation PFSystemKitPlatformReport
 @synthesize family;
 @synthesize platform;
 @synthesize version;

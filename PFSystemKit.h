@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
+#import "PFSystemKitCPUReport.h"
+#import "PFSystemKitBatteryReport.h"
+#import "PFSystemKitPlatformReport.h"
+#import "PFSystemKitRAMStatistics.h"
+
 /* iOS imports */
 #if TARGET_OS_IPHONE
 //! Project version number for PFSystemKit-ios.

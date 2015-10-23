@@ -1,14 +1,14 @@
 //
-//  PFSystemCPUReport.m
+//  PFSystemKitCPUReport.m
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 10/06/15.
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
 
-#import "PFSystemCPUReport.h"
+#import "PFSystemKitCPUReport.h"
 
-@implementation PFSystemCPUReport
+@implementation PFSystemKitCPUReport
 @synthesize brand;
 @synthesize vendor;
 @synthesize count;

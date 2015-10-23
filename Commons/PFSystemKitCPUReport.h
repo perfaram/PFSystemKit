@@ -1,5 +1,5 @@
 //
-//  PFSystemCPUReport.h
+//  PFSystemKitCPUReport.h
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 10/06/15.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PFSKTypes.h"
 
-@interface PFSystemCPUReport : NSObject
+@interface PFSystemKitCPUReport : NSObject
 @property (readonly)  NSString* brand;
 @property (readonly)  NSString* vendor;
 @property (readonly)  NSNumber* count;

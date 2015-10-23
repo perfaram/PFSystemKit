@@ -1,5 +1,5 @@
 //
-//  PFSystemRAMStatistics.h
+//  PFSystemKitRAMStatistics.h
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 18.06.15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PFSystemRAMStatistics : NSObject
+@interface PFSystemKitRAMStatistics : NSObject
 /*!
  The amount of wired RAM
  */

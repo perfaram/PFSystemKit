@@ -1,5 +1,5 @@
 //
-//  PFSystemBatteryReport.h
+//  PFSystemKitBatteryReport.h
 //  PFSystemKit
 //
 //  Created by Perceval FARAMAZ on 09/06/15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PFSystemBatteryReport : NSObject
+@interface PFSystemKitBatteryReport : NSObject
 @property (readonly)  NSNumber* designedCycleCount;
 @property (readonly)  NSString* serial;
 @property (readonly)  NSString* model;
