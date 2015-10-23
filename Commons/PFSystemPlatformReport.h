@@ -19,7 +19,7 @@
 /*!
  The platform identifier
  */
-@property (strong, atomic, readonly) NSString*							hardwareUUID;
+@property (strong, atomic, readonly) NSString*							uuid;
 
 /*!
  The ROM firmware version

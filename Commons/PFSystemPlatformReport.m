@@ -19,7 +19,7 @@
 
 #if !TARGET_OS_IPHONE
 @synthesize boardID;
-@synthesize hardwareUUID;
+@synthesize uuid;
 @synthesize romVersion;
 @synthesize romReleaseDate;
 @synthesize smcVersion;
@@ -47,7 +47,7 @@
         return nil;
     }
     boardID = boardIDLocal;
-    hardwareUUID = UUIDLocal;
+    uuid = UUIDLocal;
     romVersion = romVersionLocal;
     romReleaseDate = romReleaseDateLocal;
     smcVersion = smcVersionLocal;
