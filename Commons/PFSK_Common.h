@@ -11,10 +11,6 @@
 #import <string>
 #endif
 #import "PFSKTypes.h"
-#import "PFSystemCPUReport.h"
-#import "PFSystemBatteryReport.h"
-#import "PFSystemPlatformReport.h"
-#import "PFSystemRAMStatistics.h"
 
 @interface PFSK_Common : NSObject {
     NSError *error;

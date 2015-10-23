@@ -12,6 +12,7 @@
 #import <string>
 #import <vector>
 #import "PFSKHelper.h"
+#import "PFSystemKitPlatformReport.h"
 
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
@@ -74,12 +75,12 @@
     if (!res)
         state = false;
     
-    platformReport = [PFSystemPlatformReport.alloc initWithFamily:fam version:ver endianness:end model:mod memorySize:memSize isJailbroken:isjb];
+    platformReport = [PFSystemKitPlatformReport.alloc initWithFamily:fam version:ver endianness:end model:mod memorySize:memSize isJailbroken:isjb];
     return state;
 }
 
 -(BOOL) updateCPUReport:(NSError Ind2_NUAR)locError {
-    PFSystemCPUReport* report;
+    PFSystemKitCPUReport* report;
     if (![self.class cpuCreateReport:&report error:locError]) {
         cpuReport = report;
         return false;

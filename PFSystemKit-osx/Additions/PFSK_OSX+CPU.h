@@ -10,7 +10,7 @@
 #import "PFSK_OSX.h"
 
 @interface PFSystemKit(CPU)
-+(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) cpuCreateReport:(PFSystemKitCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 +(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 +(BOOL) cpuBrand:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 +(BOOL) cpuCoreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;

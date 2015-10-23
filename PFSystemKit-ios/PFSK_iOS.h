@@ -8,17 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
+@class PFSystemKitPlatformReport;
+@class PFSystemKitCPUReport;
 
 @interface PFSystemKit : PFSK_Common
 /*!
  Various platform informations
  */
-@property (strong, atomic, readonly) PFSystemPlatformReport*			platformReport;
+@property (strong, atomic, readonly) PFSystemKitPlatformReport*			platformReport;
 
 /*!
  Various CPU informations
  */
-@property (strong, atomic, readonly) PFSystemCPUReport*					cpuReport;
+@property (strong, atomic, readonly) PFSystemKitCPUReport*              cpuReport;
 @end
 
 #import "PFSK_iOS+CPU.h"

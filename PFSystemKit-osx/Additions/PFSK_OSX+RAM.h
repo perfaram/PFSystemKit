@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_OSX.h"
+@class PFSystemKitRAMStatistics;
 
 @interface PFSystemKit(RAM)
 +(BOOL) ramSize:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
-+(BOOL) ramStatistics:(PFSystemRAMStatistics Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) ramStatistics:(PFSystemKitRAMStatistics Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
 @end

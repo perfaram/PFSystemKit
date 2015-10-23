@@ -12,6 +12,8 @@
 #import <vector>
 #import "PFSK_OSX.h"
 #import "PFSKHelper.h"
+#import "PFSystemKitPlatformReport.h"
+#import "PFSystemKitBatteryReport.h"
 
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
@@ -130,7 +132,7 @@
             return false;
         }
         
-        platformReport = [PFSystemPlatformReport.alloc initWithBoardID:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@"board-id"]
+        platformReport = [PFSystemKitPlatformReport.alloc initWithBoardID:[[NSString alloc] initWithData:[platformExpertRawDict objectForKey:@"board-id"]
                                                                                              encoding:NSUTF8StringEncoding]
                                                           hardwareUUID:[platformExpertRawDict objectForKey:@kIOPlatformUUIDKey]
                                                             romVersion:[[NSString alloc] initWithData:[romRawDict objectForKey:@"version"]
@@ -152,7 +154,7 @@
 }
 
 -(BOOL) updateCPUReport {
-    PFSystemCPUReport* report;
+    PFSystemKitCPUReport* report;
     NSError* locError;
     if (![self.class cpuCreateReport:&report error:&locError]) {
         cpuReport = report;
@@ -189,7 +191,7 @@
 			manufactureDateComponents.month = (manufactureDateAsInt >> 5) & 0xF;
 			manufactureDateComponents.day = manufactureDateAsInt & 0x1F;
 			[temp setObject:[[NSCalendar currentCalendar] dateFromComponents:manufactureDateComponents] forKey:@"manufactureDate"];
-			batteryReport = [PFSystemBatteryReport.alloc initWithDCC:[batteryRawDict objectForKey:@"DesignCycleCount9C"]
+			batteryReport = [PFSystemKitBatteryReport.alloc initWithDCC:[batteryRawDict objectForKey:@"DesignCycleCount9C"]
 						 serial:[batteryRawDict objectForKey:@"BatterySerialNumber"]
 						  model:[batteryRawDict objectForKey:@"DeviceName"]
 				   manufacturer:[batteryRawDict objectForKey:@"Manufacturer"]

@@ -8,6 +8,7 @@
 
 #import "PFSK_iOS+CPU.h"
 #import <mach/machine.h>
+#import "PFSystemKitCPUReport.h"
 
 @implementation PFSystemKit(CPU)
 +(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
@@ -212,7 +213,7 @@
     return true;
 }
 
-+(BOOL) cpuCreateReport:(PFSystemCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error //we don't care about having multiple errors, since they're all the same kind.
++(BOOL) cpuCreateReport:(PFSystemKitCPUReport Ind2_NNAR)ret error:(NSError Ind2_NUAR)error //we don't care about having multiple errors, since they're all the same kind.
 {
     BOOL locResult;
     BOOL errorOccured = false;
@@ -252,7 +253,7 @@
         errorOccured = true;
     }
     
-    *ret = [PFSystemCPUReport.alloc initWithCount:cpuS
+    *ret = [[PFSystemKitCPUReport alloc] initWithCount:cpuS
                                         coreCount:cpuCores
                                               l1D:cpuL1I
                                               l1I:cpuL1I

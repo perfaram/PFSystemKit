@@ -33,7 +33,7 @@
         NSLog(@"Serial : %@", [systemKit.platformReport serial]);
         NSLog(@"Model : %@", [systemKit.platformReport model]);
         
-		NSString* UUID = [systemKit.platformReport hardwareUUID];
+		NSString* UUID = [systemKit.platformReport uuid];
         NSLog(@"UUID : %@", UUID);
         NSNumber* memSize = [systemKit.platformReport memorySize];
         NSLog(@"MemSize : %@ Gb", memSize);
@@ -97,7 +97,7 @@
     // This is an example of a performance test case.
     [self measureBlock:^{
         NSError* error;
-        PFSystemRAMStatistics* stats;
+        PFSystemKitRAMStatistics* stats;
         [PFSystemKit ramStatistics:&stats error:&error];
     }];
 }

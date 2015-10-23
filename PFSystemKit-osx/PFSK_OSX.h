@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
+@class PFSystemKitPlatformReport;
+@class PFSystemKitCPUReport;
+@class PFSystemKitBatteryReport;
 
 @interface PFSystemKit : PFSK_Common {
 	@protected
@@ -31,7 +34,7 @@
 /*!
  Various platform informations
  */
-@property (strong, atomic, readonly) PFSystemPlatformReport*			platformReport;
+@property (strong, atomic, readonly) PFSystemKitPlatformReport*			platformReport;
 
 /*!
  NSArray of NSDictionaries holding a graphic device and its informations
@@ -46,12 +49,12 @@
 /*!
  Various CPU informations
  */
-@property (strong, atomic, readonly) PFSystemCPUReport*					cpuReport;
+@property (strong, atomic, readonly) PFSystemKitCPUReport*					cpuReport;
 
 /*!
  Various battery informations
  */
-@property (strong, atomic, readonly) PFSystemBatteryReport*				batteryReport;
+@property (strong, atomic, readonly) PFSystemKitBatteryReport*				batteryReport;
 
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init __attribute__((unavailable("Use +investigate ; -init does not use the singleton pattern.")));

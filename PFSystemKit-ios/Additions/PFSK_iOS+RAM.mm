@@ -11,6 +11,7 @@
 #import <mach/mach_host.h>
 #import <mach/task_info.h>
 #import <mach/task.h>
+#import "PFSystemKitRAMStatistics.h"
 
 @implementation PFSystemKit(RAM)
 
@@ -26,7 +27,7 @@
     return true;
 }
 
-+(BOOL) ramStatistics:(PFSystemRAMStatistics Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
++(BOOL) ramStatistics:(PFSystemKitRAMStatistics Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     double pageSize = 0;
     BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.memsize", pageSize, error);
@@ -51,7 +52,7 @@
     long long active = (vmstat.active_count * pageSize) / bytesPerMB;
     long long inactive = (vmstat.inactive_count * pageSize) / bytesPerMB;
     long long free = (vmstat.free_count * pageSize) / bytesPerMB;
-    *ret = [PFSystemRAMStatistics.alloc initWithWired:@(wired) active:@(active) inactive:@(inactive) free:@(free)];
+    *ret = [PFSystemKitRAMStatistics.alloc initWithWired:@(wired) active:@(active) inactive:@(inactive) free:@(free)];
     return true;
 }
 
