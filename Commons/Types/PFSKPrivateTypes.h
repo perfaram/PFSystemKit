@@ -33,7 +33,8 @@ std::map<PFSystemKitError, char const*> PFSystemKitErrorStrings = {
 	{ PFSKReturnComponentUnavailable, "Component not available" },
 	{ PFSKReturnIOKitError, "IOKit error" }, //see _extError
 	{ PFSKReturnIOKitCFFailure, "Property extraction failed" }, //error while making CFProperty
-	{ PFSKReturnSysCtlError, "SysCtl call failed" },
+	{ PFSKReturnSysCtlUnknownKey, "SysCtl called with unknown key" },
+    { PFSKReturnSysCtlError, "SysCtl call failed" },
 	{ PFSKReturnLockedWrite, "Write locked" },
 	{ PFSKReturnCastError, "Cast error" },
 	{ PFSKReturnNotWritable, "Component not writable" },
@@ -47,7 +48,8 @@ std::map<PFSystemKitError, char const*> PFSystemKitErrorReasons = {
 	{ PFSKReturnComponentUnavailable, "Requested component isn't available on this machine" },
 	{ PFSKReturnIOKitError, "IOKit call failed, see extended error informations for details" }, //see _extError
 	{ PFSKReturnIOKitCFFailure, "Couldn't get device properties list from IOService, see extended error informations for details" }, //error while making CFProperty
-	{ PFSKReturnSysCtlError, "SysCtl call failed, system likely doesn't handle the requested key" },
+	{ PFSKReturnSysCtlUnknownKey, "Requested SysCtl key isn't available on this system" },
+    { PFSKReturnSysCtlError, "SysCtl call failed, system likely doesn't handle the requested key" },
 	{ PFSKReturnLockedWrite, "Writing to device is currently forbidden" },
 	{ PFSKReturnCastError, "Cast error, IOKit likely returned meaningless data" },
 	{ PFSKReturnNotWritable, "IOKit forbids write access to this component" },
@@ -61,7 +63,8 @@ std::map<PFSystemKitError, char const*> PFSystemKitErrorRecovery = {
 	{ PFSKReturnComponentUnavailable, "Nothing to do" },
 	{ PFSKReturnIOKitError, "Recovery depends on the exact IOKit error" }, //see _extError
 	{ PFSKReturnIOKitCFFailure, "Recovery depends on the exact IOKit error; however, it is most likely due a lack of memory" }, //error while calling IORegistryEntryCreateCFProperties
-	{ PFSKReturnSysCtlError, "Nothing to do" },
+	{ PFSKReturnSysCtlUnknownKey, "Nothing to do" },
+    { PFSKReturnSysCtlError, "Nothing to do" },
 	{ PFSKReturnLockedWrite, "Elevate yourself" },
 	{ PFSKReturnCastError, "Nothing particular to do, apart from retrying" },
 	{ PFSKReturnNotWritable, "Nothing to do, privilege escalation won't help" },
