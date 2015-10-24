@@ -187,25 +187,6 @@ PFSystemKitError _sysctlErrorParser(int i) {
         return PFSKReturnSuccess;
 }
 
-/*PFSystemKitError sysctlSTDStringForKey(char* key, std::string& answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    int i = _sysctlStringForKey(key, answerString);
-    return _sysctlErrorParser(i);
-}
-
-PFSystemKitError sysctlNSStringForKey(char* key, NSString Ind2_NNAR answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    std::string answerSTDString;
-    PFSystemKitError res = _sysctlErrorParser(_sysctlStringForKey(key, answerSTDString));
-    *answerString = [NSString stringWithSTDString:answerSTDString];
-    return res;
-}
-
-PFSystemKitError sysctlCStringForKey(char* key, char* answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    std::string answerSTDString;
-    PFSystemKitError res = _sysctlErrorParser(_sysctlStringForKey(key, answerSTDString));
-    strcpy(answerString, answerSTDString.c_str());
-    return res;
-}*/
-
 BOOL sysctlSTDStringForKey(char*__nonnull key, std::string& answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     int i = _sysctlStringForKey(key, answerString);
     PFSystemKitError res = _sysctlErrorParser(i);
@@ -241,17 +222,6 @@ BOOL sysctlCStringForKey(char*__nonnull key, char*__nonnull answerString, NSErro
         return false;
     return true;
 }
-/*
-PFSystemKitError sysctlDoubleForKey(char*__nonnull key, double& answerDouble) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    return _sysctlErrorParser(_sysctlDoubleForKey(key, answerDouble));
-}
-
-PFSystemKitError sysctlNumberForKey(char* key, NSNumber Ind2_NNAR answerNumber) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    double answerDouble = 0;
-    PFSystemKitError res = _sysctlErrorParser(_sysctlDoubleForKey(key, answerDouble));
-    *answerNumber = @(answerDouble);
-    return res;
-}*/
 
 BOOL sysctlDoubleForKey(char* key, double& answerDouble, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     int i = _sysctlDoubleForKey(key, answerDouble);
