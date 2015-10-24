@@ -20,7 +20,7 @@
 +(BOOL) ramSize:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error 
 {
     double size = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.memsize", size, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.memsize", size, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -32,7 +32,7 @@
 +(BOOL) ramStatistics:(PFSystemKitRAMStatistics Ind2_NNAR)ret error:(NSError Ind2_NUAR)error 
 {
     double pageSize = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.memsize", pageSize, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.memsize", pageSize, error);
     if (!result) {
         return false;
     }

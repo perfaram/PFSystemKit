@@ -136,92 +136,104 @@ inline NSString*__nullable errorToString(PFSystemKitError err) {
     return NSOperatingSystemVersionWithNSString(string);
 }
 
-inline PFSystemKitError _sysctlStringForKey(char* key, std::string& answerChar) {
+inline int _sysctlStringForKey(char* key, std::string& answerChar) {
     size_t length;
-    sysctlbyname(key, NULL, &length, NULL, 0);
+    int i = sysctlbyname(key, NULL, &length, NULL, 0);
     if (length) {
         std::string platform;
         memset(&answerChar, 0, sizeof(answerChar));
-        sysctlbyname(key, WriteInto(&answerChar, length), &length, NULL, 0);
-        return PFSKReturnSuccess;
+        i = sysctlbyname(key, WriteInto(&answerChar, length), &length, NULL, 0);
+        answerChar += std::to_string(i);
+        return i;
     }
-    
-    return PFSKReturnSysCtlError;
+    return i;
 }
 
-inline PFSystemKitError _sysctlDoubleForKey(char* key, double& answerDouble) {
+inline int _sysctlDoubleForKey(char* key, double& answerDouble) {
     size_t length;
-    sysctlbyname(key, NULL, &length, NULL, 0);
+    int i = sysctlbyname(key, NULL, &length, NULL, 0);
     if (length) {
         answerDouble = 0;
         //char *answerRaw = malloc(length * sizeof(char));
         char *answerRaw = new char[length];
-        sysctlbyname(key, answerRaw, &length, NULL, 0);
+        i = sysctlbyname(key, answerRaw, &length, NULL, 0);
         switch (length) {
             case 8: {
                 answerDouble = (double)*(int64_t *)answerRaw;
-                return PFSKReturnSuccess;
+                return i;
             } break;
                 
             case 4: {
                 answerDouble = (double)*(int32_t *)answerRaw;
-                return PFSKReturnSuccess;
+                return i;
             } break;
                 
             default: {
                 answerDouble = (double)0.;
-                return PFSKReturnSuccess;
+                return i;
             } break;
         }
         delete [] answerRaw;
     }
-    return PFSKReturnSysCtlError;
+    return i;
 }
 
-PFSystemKitError sysctlSTDStringForKey(char* key, std::string& answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    return _sysctlStringForKey(key, answerString);
+PFSystemKitError _sysctlErrorParser(int i) {
+    if (i==-1)
+        return PFSKReturnSysCtlUnknownKey;
+    else if (i!=0)
+        return PFSKReturnSysCtlError;
+    else
+        return PFSKReturnSuccess;
+}
+
+/*PFSystemKitError sysctlSTDStringForKey(char* key, std::string& answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+    int i = _sysctlStringForKey(key, answerString);
+    return _sysctlErrorParser(i);
 }
 
 PFSystemKitError sysctlNSStringForKey(char* key, NSString Ind2_NNAR answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     std::string answerSTDString;
-    PFSystemKitError res = _sysctlStringForKey(key, answerSTDString);
+    PFSystemKitError res = _sysctlErrorParser(_sysctlStringForKey(key, answerSTDString));
     *answerString = [NSString stringWithSTDString:answerSTDString];
     return res;
 }
 
 PFSystemKitError sysctlCStringForKey(char* key, char* answerString) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     std::string answerSTDString;
-    PFSystemKitError res = _sysctlStringForKey(key, answerSTDString);
+    PFSystemKitError res = _sysctlErrorParser(_sysctlStringForKey(key, answerSTDString));
     strcpy(answerString, answerSTDString.c_str());
     return res;
-}
+}*/
 
-BOOL sysctlSTDStringForKeySynthesizing(char*__nonnull key, std::string& answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    PFSystemKitError res = _sysctlStringForKey(key, answerString);
+BOOL sysctlSTDStringForKey(char*__nonnull key, std::string& answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+    int i = _sysctlStringForKey(key, answerString);
+    PFSystemKitError res = _sysctlErrorParser(i);
     if (error)
-        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, i, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     if (res != PFSKReturnSuccess)
         return false;
     return true;
 }
 
-BOOL sysctlNSStringForKeySynthesizing(char*__nonnull key, NSString Ind2_NNAR answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+BOOL sysctlNSStringForKey(char*__nonnull key, NSString Ind2_NNAR answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     std::string answerSTDString;
-    PFSystemKitError res = _sysctlStringForKey(key, answerSTDString);
+    int i = _sysctlStringForKey(key, answerSTDString);
+    PFSystemKitError res = _sysctlErrorParser(i);
     if (error)
-        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, i, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     *answerString = [NSString stringWithSTDString:answerSTDString];
     if (res != PFSKReturnSuccess)
         return false;
     return true;
 }
 
-BOOL sysctlCStringForKeySynthesizing(char*__nonnull key, char*__nonnull answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+BOOL sysctlCStringForKey(char*__nonnull key, char*__nonnull answerString, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     std::string answerSTDString;
-    
-    PFSystemKitError res = _sysctlStringForKey(key, answerSTDString);
+    int i = _sysctlStringForKey(key, answerSTDString);
+    PFSystemKitError res = _sysctlErrorParser(i);
     if (error)
-        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, i, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     
     strcpy(answerString, answerSTDString.c_str());
     
@@ -229,32 +241,34 @@ BOOL sysctlCStringForKeySynthesizing(char*__nonnull key, char*__nonnull answerSt
         return false;
     return true;
 }
-
+/*
 PFSystemKitError sysctlDoubleForKey(char*__nonnull key, double& answerDouble) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    return _sysctlDoubleForKey(key, answerDouble);
+    return _sysctlErrorParser(_sysctlDoubleForKey(key, answerDouble));
 }
 
 PFSystemKitError sysctlNumberForKey(char* key, NSNumber Ind2_NNAR answerNumber) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     double answerDouble = 0;
-    PFSystemKitError res = _sysctlDoubleForKey(key, answerDouble);
+    PFSystemKitError res = _sysctlErrorParser(_sysctlDoubleForKey(key, answerDouble));
     *answerNumber = @(answerDouble);
     return res;
-}
+}*/
 
-BOOL sysctlDoubleForKeySynthesizing(char* key, double& answerDouble, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
-    PFSystemKitError res = _sysctlDoubleForKey(key, answerDouble);
+BOOL sysctlDoubleForKey(char* key, double& answerDouble, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+    int i = _sysctlDoubleForKey(key, answerDouble);
+    PFSystemKitError res = _sysctlErrorParser(i);
     if (error)
-        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, i, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     if (res != PFSKReturnSuccess)
         return false;
     return true;
 }
 
-BOOL sysctlNumberForKeySynthesizing(char*__nonnull key, NSNumber Ind2_NNAR answerNumber, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
+BOOL sysctlNumberForKey(char*__nonnull key, NSNumber Ind2_NNAR answerNumber, NSError Ind2_NUAR error) { //function used only in the framework, to avoid ObjC method resolving (=faster)
     double answerDouble = 0;
-    PFSystemKitError res = _sysctlDoubleForKey(key, answerDouble);
+    int i = _sysctlDoubleForKey(key, answerDouble);
+    PFSystemKitError res = _sysctlErrorParser(i);
     if (error)
-        *error = synthesizeErrorExtSCWithObjectAndKey(res, errno, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
+        *error = synthesizeErrorExtSCWithObjectAndKey(res, i, [NSString.alloc initWithCString:key encoding:NSASCIIStringEncoding], @"Key");
     *answerNumber = @(answerDouble);
     if (res != PFSKReturnSuccess)
         return false;

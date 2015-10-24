@@ -64,7 +64,7 @@
 +(BOOL) deviceEndianness:(PFSystemKitEndianness*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
     double order = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.byteorder", order, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.byteorder", order, error);
     if (!result) {
 #if ERRORS_USE_COMMON_SENSE
         *ret = PFSKEndiannessLittleEndian;  //sooo likely
@@ -90,7 +90,7 @@
 #if !TARGET_OS_IPHONE
 +(BOOL) deviceModel:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
-    BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.model", ret, error);
+    BOOL result = sysctlNSStringForKey((char*)"hw.model", ret, error);
     if (!result) {
         *ret = @"-";
         return false;
@@ -101,7 +101,7 @@
 #if TARGET_OS_IPHONE
 +(BOOL) deviceModel:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
-    BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.machine", ret, error);
+    BOOL result = sysctlNSStringForKey((char*)"hw.machine", ret, error);
     if (!result) {
         *ret = @"-";
         return false;
@@ -111,7 +111,7 @@
 
 +(BOOL) devicePlatform:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
-    BOOL result = sysctlNSStringForKeySynthesizing((char*)"hw.model", ret, error);
+    BOOL result = sysctlNSStringForKey((char*)"hw.model", ret, error);
     if (!result) {
         *ret = @"-";
         return false;

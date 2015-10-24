@@ -14,7 +14,7 @@
 +(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     double count = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.packages", count, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.packages", count, error);
     if (!result) {
 #if ERRORS_USE_COMMON_SENSE
         *ret = @(1); // 1 CPU is sooo likely
@@ -30,7 +30,7 @@
 +(BOOL) cpuCoreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     double count = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.ncpu", count, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.ncpu", count, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -66,7 +66,7 @@
     }
     
     double hasFeat = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing(selector, hasFeat, error);
+    BOOL result = sysctlDoubleForKey(selector, hasFeat, error);
     if (!result) {
         return false;
     }
@@ -92,7 +92,7 @@
 +(BOOL) cpuL1ICache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     double size = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l1icachesize", size, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.l1icachesize", size, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -104,7 +104,7 @@
 +(BOOL) cpuL1DCache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     double size = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l1dcachesize", size, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.l1dcachesize", size, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -116,8 +116,8 @@
 +(BOOL) cpuL1Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     double sizeI, sizeD = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l1icachesize", sizeI, error);
-    result = sysctlDoubleForKeySynthesizing((char*)"hw.l1dcachesize", sizeD, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.l1icachesize", sizeI, error);
+    result = sysctlDoubleForKey((char*)"hw.l1dcachesize", sizeD, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -129,7 +129,7 @@
 +(BOOL) cpuL2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error
 {
     double size = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l2cachesize", size, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.l2cachesize", size, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -142,12 +142,12 @@
 {
     double arch = 0;
     double archSubD = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.cputype", arch, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.cputype", arch, error);
     if (!result) {
         *ret = PFSKCPUArchesUnknown;
         return false;
     }
-    result = sysctlDoubleForKeySynthesizing((char*)"hw.cpusubtype", archSubD, error);
+    result = sysctlDoubleForKey((char*)"hw.cpusubtype", archSubD, error);
     int archSub = (int)archSubD;
     if (!result) {
         *ret = PFSKCPUArchesUnknown;

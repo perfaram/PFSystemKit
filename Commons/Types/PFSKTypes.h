@@ -27,20 +27,21 @@ typedef NSArray<NSDictionary*> GPUArray;
  Enumeration of integers matching a PFSystemKit error
  */
 typedef NS_ENUM(int, PFSystemKitError) {
-	PFSKReturnSuccess = 0,
-	PFSKReturnNoMasterPort = 1,
-	PFSKReturnComponentUnavailable = 2,
-	PFSKReturnIOKitError = 3, //see _extError
-	PFSKReturnIOKitCFFailure = 4, //error while making CFProperty
-	PFSKReturnSysCtlError = 5,
-	PFSKReturnLockedWrite = 6,
-	PFSKReturnCastError = 7,
-	PFSKReturnNotWritable = 8,
-	PFSKReturnNoGraphicDevicesFound = 9,
-    PFSKReturnInvalidSelector = 10,
-    PFSKReturnUnsupportedDevice = 11,
-	PFSKReturnGeneral = 65533, //too bad
-	PFSKReturnUnknown = 65534 //unknown error (shouldn't happen), could serve as a terminator
+    PFSKReturnSuccess = 0,
+    PFSKReturnNoMasterPort = 1,
+    PFSKReturnComponentUnavailable = 2,
+    PFSKReturnIOKitError = 3, //see _extError
+    PFSKReturnIOKitCFFailure = 4, //error while making CFProperty
+    PFSKReturnSysCtlUnknownKey = 5,
+    PFSKReturnSysCtlError = 6,
+    PFSKReturnLockedWrite = 7,
+    PFSKReturnCastError = 8,
+    PFSKReturnNotWritable = 9,
+    PFSKReturnNoGraphicDevicesFound = 10,
+    PFSKReturnInvalidSelector = 11,
+    PFSKReturnUnsupportedDevice = 12,
+    PFSKReturnGeneral = 65533, //too bad
+    PFSKReturnUnknown = 65534 //unknown error (shouldn't happen), could serve as a terminator
 };
 
 /*!

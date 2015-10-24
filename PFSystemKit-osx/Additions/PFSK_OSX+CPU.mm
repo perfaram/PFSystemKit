@@ -15,7 +15,7 @@
 
 +(BOOL) cpuCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     double count = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.packages", count, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.packages", count, error);
     if (!result) {
 #if ERRORS_USE_COMMON_SENSE
         *ret = @(1); // 1 CPU is sooo likely
@@ -30,7 +30,7 @@
 
 +(BOOL) cpuCoreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     double count = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"machdep.cpu.core_count", count, error);
+    BOOL result = sysctlDoubleForKey((char*)"machdep.cpu.core_count", count, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -41,7 +41,7 @@
 
 +(BOOL) cpuThreadCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     double count = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"machdep.cpu.thread_count", count, error);
+    BOOL result = sysctlDoubleForKey((char*)"machdep.cpu.thread_count", count, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -51,7 +51,7 @@
 }
 
 +(BOOL) cpuBrand:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    BOOL result = sysctlNSStringForKeySynthesizing((char*)"machdep.cpu.brand_string", ret, error);
+    BOOL result = sysctlNSStringForKey((char*)"machdep.cpu.brand_string", ret, error);
     if (!result) {
         *ret = @"-";
         return false;
@@ -61,7 +61,7 @@
 
 +(BOOL) cpuFrequency:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     double freq = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.cpufrequency", freq, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.cpufrequency", freq, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -72,7 +72,7 @@
 
 +(BOOL) cpuL2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     double size = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l2cachesize", size, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.l2cachesize", size, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -83,7 +83,7 @@
 
 +(BOOL) cpuL3Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
     double size = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.l3cachesize", size, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.l3cachesize", size, error);
     if (!result) {
         *ret = @(-1);
         return false;
@@ -94,7 +94,7 @@
 
 +(BOOL) cpuArchitecture:(PFSystemKitCPUArches*__nonnull)ret error:(NSError Ind2_NUAR)error {
     double arch = 0;
-    BOOL result = sysctlDoubleForKeySynthesizing((char*)"hw.cputype", arch, error);
+    BOOL result = sysctlDoubleForKey((char*)"hw.cputype", arch, error);
     if (!result) {
         *ret = PFSKCPUArchesUnknown;
         return false;
@@ -115,7 +115,7 @@
 }
 
 +(BOOL) cpuVendor:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error  {
-    BOOL result = sysctlNSStringForKeySynthesizing((char*)"machdep.cpu.vendor", ret, error);
+    BOOL result = sysctlNSStringForKey((char*)"machdep.cpu.vendor", ret, error);
     if (!result) {
 #if ERRORS_USE_COMMON_SENSE
         *ret = @"GenuineIntel"; // PPC aren't supported by PFSK, and hackintoshes running under AMD are quite rare
