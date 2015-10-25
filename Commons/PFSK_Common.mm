@@ -143,7 +143,6 @@ inline int _sysctlStringForKey(char* key, std::string& answerChar) {
         std::string platform;
         memset(&answerChar, 0, sizeof(answerChar));
         i = sysctlbyname(key, WriteInto(&answerChar, length), &length, NULL, 0);
-        answerChar += std::to_string(i);
         return i;
     }
     return i;
