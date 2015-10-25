@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
 
-#import "PFSystemKitRAMStatistics.h"
+#import "PFSystemKitRAMReport.h"
 
-@implementation PFSystemKitRAMStatistics
+@implementation PFSystemKitRAMReport
 @synthesize wired;
 @synthesize active;
 @synthesize inactive;

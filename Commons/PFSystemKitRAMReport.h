@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PFSystemKitRAMStatistics : NSObject
+@interface PFSystemKitRAMReport : NSObject
 /*!
  The amount of wired RAM
  */
