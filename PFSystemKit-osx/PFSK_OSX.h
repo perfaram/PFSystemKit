@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
+#import "PFSystemKitCPUReport.h"
+
 @class PFSystemKitPlatformReport;
-@class PFSystemKitCPUReport;
 @class PFSystemKitBatteryReport;
 
 @interface PFSystemKit : PFSK_Common {
@@ -29,6 +30,7 @@
 	NSDictionary*			romRawDict;
 	NSDictionary*			smcRawDict;
 	NSDictionary*			batteryRawDict;
+    PFSystemKitCPUReport*   cpuReport;
 }
 
 /*!
@@ -49,19 +51,19 @@
 /*!
  Various CPU informations
  */
-@property (strong, atomic, readonly) PFSystemKitCPUReport*					cpuReport;
+-(PFSystemKitCPUReport*) cpuReport;
++(Class) cpu;
 
 /*!
  Various battery informations
  */
-@property (strong, atomic, readonly) PFSystemKitBatteryReport*				batteryReport;
+@property (strong, atomic, readonly) PFSystemKitBatteryReport*			batteryReport;
 
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init __attribute__((unavailable("Use +investigate ; -init does not use the singleton pattern.")));
 -(void) finalize;
 
 -(BOOL) updatePlatformReport;
--(BOOL) updateCPUReport;
 -(BOOL) updateBatteryReport;
 
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
@@ -69,6 +71,5 @@
 #endif
 @end
 
-#import "PFSK_OSX+CPU.h"
 #import "PFSK_OSX+RAM.h"
 #import "PFSK_OSX+GPU.h"

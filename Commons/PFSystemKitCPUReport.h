@@ -1,13 +1,14 @@
 //
-//  PFSystemKitCPUReport.h
+//  PFSK_OSX(CPU).h
 //  PFSystemKit
 //
-//  Created by Perceval FARAMAZ on 10/06/15.
+//  Created by Perceval FARAMAZ on 09/05/15.
 //  Copyright (c) 2015 faramaz. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSKTypes.h"
+#import "PFSK_Common.h"
+
 
 @interface PFSystemKitCPUReport : NSObject
 @property (readonly)  NSString* brand;
@@ -30,24 +31,25 @@
 #if TARGET_OS_IPHONE
 @property (readonly)  PFSystemKitCPUArchesARMTypes subType;
 #endif
+
+-(instancetype) initWithError:(NSError Ind2_NUAR)error;
+
++(BOOL) count:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) coreCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) L2Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
+
 #if !TARGET_OS_IPHONE
--(instancetype) initWithCount:(NSNumber*)countLocal
-						brand:(NSString*)brandLocal
-					coreCount:(NSNumber*)coreCountLocal
-				  threadCount:(NSNumber*)threadNumberLocal
-					frequency:(NSNumber*)frequencyLocal
-						   l2:(NSNumber*)l2Local
-						   l3:(NSNumber*)l3Local
-				 architecture:(PFSystemKitCPUArches)architectureLocal
-					   vendor:(NSString*)vendorLocal;
-#endif
-#if TARGET_OS_IPHONE
--(instancetype) initWithCount:(NSNumber*)countLocal
-                    coreCount:(NSNumber*)coreCountLocal
-                          l1D:(NSNumber*)l1DLocal
-                          l1I:(NSNumber*)l1ILocal
-                           l2:(NSNumber*)l2Local
-                 architecture:(PFSystemKitCPUArches)architectureLocal
-                      subType:(PFSystemKitCPUArchesARMTypes)subTypeLocal;
++(BOOL) vendor:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) brand:(NSString Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) threadCount:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) frequency:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) L3Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) architecture:(PFSystemKitCPUArches*__nonnull)ret error:(NSError Ind2_NUAR)error;
+#else
++(BOOL) hasFeature:(PFSystemKitCPUARMFeatures)feature toNumber:(BOOL*__nonnull)ret error:(NSError Ind2_NUAR)error;
++(BOOL) L1ICache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) L1DCache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) L1Cache:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) architecture:(PFSystemKitCPUArches*__nonnull)ret subtype:(PFSystemKitCPUArchesARMTypes*__nonnull)sub error:(NSError Ind2_NUAR)error;
 #endif
 @end

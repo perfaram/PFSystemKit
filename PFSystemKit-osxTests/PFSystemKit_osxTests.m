@@ -37,12 +37,11 @@
         NSLog(@"UUID : %@", UUID);
         NSNumber* memSize = [systemKit.platformReport memorySize];
         NSLog(@"MemSize : %@ Gb", memSize);
-        NSString* cpuVendor = [systemKit.cpuReport vendor];
-        NSLog(@"CPU Vendor : %@", cpuVendor);
-        NSError* err;
-        NSString* str;
-        [PFSystemKit cpuBrand:&str error:&err];
-        NSLog(@"%@", str);
+        NSLog(@"CPU Vendor : %@", [systemKit.cpuReport vendor]);
+        NSString* brand;
+        NSError* myError;
+        [PFSystemKit_cpu brand:&brand error:&myError];
+        NSLog(@"CPU Brand : %@", brand);
         NSArray* graph = [NSArray.alloc init];
         [PFSystemKit graphicsCreateReport:&graph error:nil];
         NSLog(@"%@", graph);

@@ -14,6 +14,7 @@
 #import "PFSKHelper.h"
 #import "PFSystemKitPlatformReport.h"
 #import "PFSystemKitBatteryReport.h"
+#import "PFSystemKitCPUReport.h"
 
 @implementation PFSystemKit
 #pragma mark - Singleton pattern
@@ -26,10 +27,32 @@
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
 		[sharedInstance updatePlatformReport];
-        [sharedInstance updateCPUReport];
 		[sharedInstance updateBatteryReport];
 	});
 	return sharedInstance;
+}
+
+-(BOOL) cpuReport:(NSError Ind2_NUAR)err {
+    if (cpuReport == nil) {
+        cpuReport = [PFSystemKitCPUReport.alloc initWithError:err];
+        if (err)
+            return false;
+        else
+            return true;
+    } else
+        return true;
+}
+
+-(PFSystemKitCPUReport*) cpuReport {
+    if (cpuReport == nil) {
+        cpuReport = [PFSystemKitCPUReport.alloc initWithError:nil];
+        return cpuReport;
+    } else
+        return cpuReport;
+}
+
++(Class) cpu {
+    return PFSystemKitCPUReport.class;
 }
 
 -(BOOL) updatePlatformReport {
@@ -153,17 +176,6 @@
 	return true;
 }
 
--(BOOL) updateCPUReport {
-    PFSystemKitCPUReport* report;
-    NSError* locError;
-    if (![self.class cpuCreateReport:&report error:&locError]) {
-        cpuReport = report;
-        return false;
-    }
-    cpuReport = report;
-    return true;
-}
-
 -(BOOL) updateBatteryReport {
 	kern_return_t result;
 	if (!firstRunDoneForBattery) {
@@ -221,7 +233,6 @@
 }
 
 #pragma mark - Getters
-@synthesize cpuReport;
 @synthesize batteryReport;
 @synthesize platformReport;
 

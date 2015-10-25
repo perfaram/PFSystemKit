@@ -27,7 +27,6 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
         [sharedInstance updatePlatformReport:error];
-        [sharedInstance updateCPUReport:error];
     });
     return sharedInstance;
 }
@@ -43,7 +42,6 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
         [sharedInstance updatePlatformReport:nil]; // Purposefully not giving a damn about whether it succeeded : if the user wants so, he/she uses +investigateWithError
-        [sharedInstance updateCPUReport:nil];
     });
     return sharedInstance;
 }
@@ -79,14 +77,27 @@
     return state;
 }
 
--(BOOL) updateCPUReport:(NSError Ind2_NUAR)locError {
-    PFSystemKitCPUReport* report;
-    if (![self.class cpuCreateReport:&report error:locError]) {
-        cpuReport = report;
-        return false;
-    }
-    cpuReport = report;
-    return true;
+-(BOOL) cpuReport:(NSError Ind2_NUAR)err {
+    if (cpuReport == nil) {
+        cpuReport = [PFSystemKitCPUReport.alloc initWithError:err];
+        if (err)
+            return false;
+        else
+            return true;
+    } else
+        return true;
+}
+
+-(PFSystemKitCPUReport*) cpuReport {
+    if (cpuReport == nil) {
+        cpuReport = [PFSystemKitCPUReport.alloc initWithError:nil];
+        return cpuReport;
+    } else
+        return cpuReport;
+}
+
++(Class) cpu {
+    return PFSystemKitCPUReport.class;
 }
 
 #pragma mark - Getters

@@ -7,6 +7,7 @@
 //
 
 #import "NSString+PFSKAdditions.h"
+#import <string>
 
 @implementation NSString(PFSKAdditions)
 

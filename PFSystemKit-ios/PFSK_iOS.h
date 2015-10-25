@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
+#import "PFSystemKitCPUReport.h"
+
 @class PFSystemKitPlatformReport;
-@class PFSystemKitCPUReport;
 
 @interface PFSystemKit : PFSK_Common
 /*!
@@ -20,8 +21,8 @@
 /*!
  Various CPU informations
  */
-@property (strong, atomic, readonly) PFSystemKitCPUReport*              cpuReport;
+-(PFSystemKitCPUReport*) cpuReport;
++(Class) cpu;
 @end
 
-#import "PFSK_iOS+CPU.h"
 #import "PFSK_iOS+RAM.h"
