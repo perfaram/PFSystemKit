@@ -24,5 +24,3 @@
 -(PFSystemKitCPUReport*) cpuReport;
 +(Class) cpu;
 @end
-
-#import "PFSK_iOS+RAM.h"

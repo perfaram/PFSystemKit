@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
 #import "PFSystemKitCPUReport.h"
+#import "PFSystemKitRAMReport.h"
 
 @class PFSystemKitPlatformReport;
 @class PFSystemKitBatteryReport;
@@ -71,5 +72,4 @@
 #endif
 @end
 
-#import "PFSK_OSX+RAM.h"
 #import "PFSK_OSX+GPU.h"

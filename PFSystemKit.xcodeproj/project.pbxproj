@@ -22,8 +22,6 @@
 		0B7FCAB91B3403BD00835435 /* PFSK_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAB51B3403BD00835435 /* PFSK_iOS.mm */; };
 		0B7FCAC91B3403D500835435 /* PFSK_OSX+GPU.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCABD1B3403D500835435 /* PFSK_OSX+GPU.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCACA1B3403D500835435 /* PFSK_OSX+GPU.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.mm */; };
-		0B7FCACB1B3403D500835435 /* PFSK_OSX+RAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCABF1B3403D500835435 /* PFSK_OSX+RAM.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B7FCACC1B3403D500835435 /* PFSK_OSX+RAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAC01B3403D500835435 /* PFSK_OSX+RAM.mm */; };
 		0B7FCACD1B3403D500835435 /* PFSK_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAC11B3403D500835435 /* PFSK_OSX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCACE1B3403D500835435 /* PFSK_OSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAC21B3403D500835435 /* PFSK_OSX.mm */; };
 		0B7FCACF1B3403D500835435 /* PCI.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAC51B3403D500835435 /* PCI.h */; };
@@ -62,15 +60,13 @@
 		0B7FCB161B34040A00835435 /* PFSystemKitPlatformReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAE91B34040A00835435 /* PFSystemKitPlatformReport.m */; };
 		0B7FCB171B34040A00835435 /* PFSystemKitRAMReport.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAEA1B34040A00835435 /* PFSystemKitRAMReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCB181B34040A00835435 /* PFSystemKitRAMReport.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAEA1B34040A00835435 /* PFSystemKitRAMReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B7FCB191B34040A00835435 /* PFSystemKitRAMReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.m */; };
-		0B7FCB1A1B34040A00835435 /* PFSystemKitRAMReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.m */; };
+		0B7FCB191B34040A00835435 /* PFSystemKitRAMReport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.mm */; };
+		0B7FCB1A1B34040A00835435 /* PFSystemKitRAMReport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.mm */; };
 		0B7FCB1B1B34040A00835435 /* PFSKPrivateTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAED1B34040A00835435 /* PFSKPrivateTypes.h */; };
 		0B7FCB1C1B34040A00835435 /* PFSKPrivateTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAED1B34040A00835435 /* PFSKPrivateTypes.h */; };
 		0B7FCB1D1B34040A00835435 /* PFSKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAEE1B34040A00835435 /* PFSKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCB1E1B34040A00835435 /* PFSKTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCAEE1B34040A00835435 /* PFSKTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7FCB201B340E3200835435 /* PFSystemKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B7FCA951B34002100835435 /* PFSystemKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BDD530A1B7B576500CCCFF2 /* PFSK_iOS+RAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BDD53081B7B576500CCCFF2 /* PFSK_iOS+RAM.h */; };
-		0BDD530B1B7B576500CCCFF2 /* PFSK_iOS+RAM.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0BDD53091B7B576500CCCFF2 /* PFSK_iOS+RAM.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +105,6 @@
 		0B7FCAB51B3403BD00835435 /* PFSK_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PFSK_iOS.mm; sourceTree = "<group>"; };
 		0B7FCABD1B3403D500835435 /* PFSK_OSX+GPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_OSX+GPU.h"; sourceTree = "<group>"; };
 		0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+GPU.mm"; sourceTree = "<group>"; };
-		0B7FCABF1B3403D500835435 /* PFSK_OSX+RAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_OSX+RAM.h"; sourceTree = "<group>"; };
-		0B7FCAC01B3403D500835435 /* PFSK_OSX+RAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_OSX+RAM.mm"; sourceTree = "<group>"; };
 		0B7FCAC11B3403D500835435 /* PFSK_OSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSK_OSX.h; sourceTree = "<group>"; };
 		0B7FCAC21B3403D500835435 /* PFSK_OSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PFSK_OSX.mm; sourceTree = "<group>"; };
 		0B7FCAC51B3403D500835435 /* PCI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCI.h; sourceTree = "<group>"; };
@@ -134,11 +128,9 @@
 		0B7FCAE81B34040A00835435 /* PFSystemKitPlatformReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSystemKitPlatformReport.h; sourceTree = "<group>"; };
 		0B7FCAE91B34040A00835435 /* PFSystemKitPlatformReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFSystemKitPlatformReport.m; sourceTree = "<group>"; };
 		0B7FCAEA1B34040A00835435 /* PFSystemKitRAMReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSystemKitRAMReport.h; sourceTree = "<group>"; };
-		0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFSystemKitRAMReport.m; sourceTree = "<group>"; };
+		0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PFSystemKitRAMReport.mm; sourceTree = "<group>"; };
 		0B7FCAED1B34040A00835435 /* PFSKPrivateTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSKPrivateTypes.h; sourceTree = "<group>"; };
 		0B7FCAEE1B34040A00835435 /* PFSKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFSKTypes.h; sourceTree = "<group>"; };
-		0BDD53081B7B576500CCCFF2 /* PFSK_iOS+RAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFSK_iOS+RAM.h"; sourceTree = "<group>"; };
-		0BDD53091B7B576500CCCFF2 /* PFSK_iOS+RAM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "PFSK_iOS+RAM.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,8 +281,6 @@
 		0B7FCAB11B3403BD00835435 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				0BDD53081B7B576500CCCFF2 /* PFSK_iOS+RAM.h */,
-				0BDD53091B7B576500CCCFF2 /* PFSK_iOS+RAM.mm */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -300,8 +290,6 @@
 			children = (
 				0B7FCABD1B3403D500835435 /* PFSK_OSX+GPU.h */,
 				0B7FCABE1B3403D500835435 /* PFSK_OSX+GPU.mm */,
-				0B7FCABF1B3403D500835435 /* PFSK_OSX+RAM.h */,
-				0B7FCAC01B3403D500835435 /* PFSK_OSX+RAM.mm */,
 			);
 			path = Additions;
 			sourceTree = "<group>";
@@ -395,7 +383,7 @@
 				0B7FCAE81B34040A00835435 /* PFSystemKitPlatformReport.h */,
 				0B7FCAE91B34040A00835435 /* PFSystemKitPlatformReport.m */,
 				0B7FCAEA1B34040A00835435 /* PFSystemKitRAMReport.h */,
-				0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.m */,
+				0B7FCAEB1B34040A00835435 /* PFSystemKitRAMReport.mm */,
 			);
 			name = Reports;
 			sourceTree = "<group>";
@@ -419,7 +407,6 @@
 				0B7FCB1D1B34040A00835435 /* PFSKTypes.h in Headers */,
 				0B7FCAF71B34040A00835435 /* NSString+PFSKAdditions.h in Headers */,
 				0B7FCB0F1B34040A00835435 /* PFSystemKitCPUReport.h in Headers */,
-				0BDD530A1B7B576500CCCFF2 /* PFSK_iOS+RAM.h in Headers */,
 				0B5EB3001B7C95B30055FC45 /* NSProcessInfo+MACAddress.h in Headers */,
 				0B7FCB0B1B34040A00835435 /* PFSystemKitBatteryReport.h in Headers */,
 			);
@@ -429,7 +416,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B7FCACB1B3403D500835435 /* PFSK_OSX+RAM.h in Headers */,
 				0B7FCB1E1B34040A00835435 /* PFSKTypes.h in Headers */,
 				0B7FCAFC1B34040A00835435 /* PFSKHelper.h in Headers */,
 				0B7FCB0C1B34040A00835435 /* PFSystemKitBatteryReport.h in Headers */,
@@ -608,11 +594,10 @@
 				0B7FCB151B34040A00835435 /* PFSystemKitPlatformReport.m in Sources */,
 				0B7FCAB91B3403BD00835435 /* PFSK_iOS.mm in Sources */,
 				0B7FCB091B34040A00835435 /* PFSK_Common.mm in Sources */,
-				0B7FCB191B34040A00835435 /* PFSystemKitRAMReport.m in Sources */,
+				0B7FCB191B34040A00835435 /* PFSystemKitRAMReport.mm in Sources */,
 				0B7FCAF91B34040A00835435 /* NSString+PFSKAdditions.mm in Sources */,
 				0B7FCB0D1B34040A00835435 /* PFSystemKitBatteryReport.m in Sources */,
 				0B7FCB111B34040A00835435 /* PFSystemKitCPUReport.mm in Sources */,
-				0BDD530B1B7B576500CCCFF2 /* PFSK_iOS+RAM.mm in Sources */,
 				0B7FCAFD1B34040A00835435 /* PFSKHelper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,9 +618,8 @@
 				0B7FCACE1B3403D500835435 /* PFSK_OSX.mm in Sources */,
 				0B7FCAF61B34040A00835435 /* NSProcessInfo+MACAddress.m in Sources */,
 				0B7FCAD01B3403D500835435 /* PCI.m in Sources */,
-				0B7FCACC1B3403D500835435 /* PFSK_OSX+RAM.mm in Sources */,
 				0B7FCAFE1B34040A00835435 /* PFSKHelper.mm in Sources */,
-				0B7FCB1A1B34040A00835435 /* PFSystemKitRAMReport.m in Sources */,
+				0B7FCB1A1B34040A00835435 /* PFSystemKitRAMReport.mm in Sources */,
 				0B7FCB061B34040A00835435 /* PFSK_Common+Machine.mm in Sources */,
 				0B7FCAF21B34040A00835435 /* NSProcessInfo+SystemVersion.m in Sources */,
 				0B7FCACA1B3403D500835435 /* PFSK_OSX+GPU.mm in Sources */,

@@ -172,6 +172,30 @@ typedef NS_ENUM(int, PFSystemKitCPUVendor) {
 };
 
 /*!
+ @typedef ll
+ Alias for "long long"
+ */
+typedef long long llong;
+
+/*!
+ @typedef @struct PFSystemKitRAMStatistics
+ Structure holding current memory shares
+ */
+typedef struct {
+    llong wired;
+    llong active;
+    llong inactive;
+    llong free;
+} PFSystemKitRAMStatistics;
+
+/*!
+ Creates a PFSystemKitRAMStatistics struct from Wired, Active, Inactive, and Free amounts
+ */
+inline static PFSystemKitRAMStatistics PFSystemKitRAMStatisticsWithComponents(llong wired, llong active, llong inactive, llong free) {
+    return (PFSystemKitRAMStatistics){wired, active, inactive, free};
+};
+
+/*!
  @typedef @struct PFSystemKitDeviceVersion
  Structure holding a device's Major and Minor version
  

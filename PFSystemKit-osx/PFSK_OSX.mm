@@ -149,7 +149,7 @@
         }
         
         NSNumber* memSize;
-        depResult = [self.class ramSize:&memSize error:&depError];
+        depResult = [PFSystemKitRAMReport size:&memSize error:&depError];
         if (!depResult) {
             error = depError;
             return false;

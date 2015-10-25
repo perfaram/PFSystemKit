@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PFSK_Common.h"
 
 @interface PFSystemKitRAMReport : NSObject
 /*!
@@ -29,8 +30,19 @@
  */
 @property (strong, atomic, readonly) NSNumber*							free;
 
--(instancetype) initWithWired:(NSNumber*)wiredLocal
-                       active:(NSNumber*)activeLocal
-                     inactive:(NSNumber*)inactiveLocal
-                         free:(NSNumber*)freeLocal;
+/*!
+ All of the previous RAM stats
+ */
+@property (assign, atomic, readonly) PFSystemKitRAMStatistics           stats;
+
+/*!
+ The total amount of RAM
+ */
+@property (strong, atomic, readonly) NSNumber*							total;
+
++(BOOL) size:(NSNumber Ind2_NNAR)ret error:(NSError Ind2_NUAR)error;
++(BOOL) statistics:(PFSystemKitRAMStatistics *__nonnull)ret error:(NSError Ind2_NUAR)error;
+
+-(instancetype) initWithError:(NSError Ind2_NUAR)error;
+
 @end
