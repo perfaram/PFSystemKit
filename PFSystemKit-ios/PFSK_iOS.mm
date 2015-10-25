@@ -41,40 +41,8 @@
     //NSError* __block err;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
-        [sharedInstance updatePlatformReport:nil]; // Purposefully not giving a damn about whether it succeeded : if the user wants so, he/she uses +investigateWithError
     });
     return sharedInstance;
-}
-
--(BOOL) updatePlatformReport:(NSError Ind2_NUAR)locError {
-    PFSystemKitDeviceFamily fam;
-    PFSystemKitDeviceVersion ver;
-    PFSystemKitEndianness end;
-    NSString* mod;
-    NSNumber* memSize;
-    BOOL isjb;
-    BOOL state = true;
-    BOOL res = [self.class deviceFamily:&fam error:locError];
-    if (!res)
-        state = false;
-    res = [self.class deviceVersion:&ver error:locError];
-    if (!res)
-        state = false;
-    res = [self.class deviceEndianness:&end error:locError];
-    if (!res)
-        state = false;
-    res = [self.class deviceModel:&mod error:locError];
-    if (!res)
-        state = false;
-    res = [PFSystemKitRAMReport size:&memSize error:locError];
-    if (!res)
-        state = false;
-    res = [self.class isJailbroken:&isjb error:locError];
-    if (!res)
-        state = false;
-    
-    platformReport = [PFSystemKitPlatformReport.alloc initWithFamily:fam version:ver endianness:end model:mod memorySize:memSize isJailbroken:isjb];
-    return state;
 }
 
 -(BOOL) ramReport:(NSError Ind2_NUAR)err {
