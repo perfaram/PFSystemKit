@@ -151,8 +151,10 @@ __attribute__((always_inline)) PFSystemKitDeviceColor colorFromString(NSString*_
 __attribute__((always_inline)) BOOL colorDoesNotExists(NSString*__nonnull string);
 
 __attribute__((always_inline)) NSError*__nonnull synthesizeError(PFSystemKitError error);
+__attribute__((always_inline)) NSError* synthesizeErrorWithObjectAndKey(PFSystemKitError error, id object, id key);
 __attribute__((always_inline)) NSError*__nonnull synthesizeErrorExtSCWithObjectAndKey(PFSystemKitError error, int errNo, id __nullable object, id __nullable key);
 __attribute__((always_inline)) NSError*__nonnull synthesizeErrorExtIO(PFSystemKitError error, kern_return_t extendedError);
+__attribute__((always_inline)) NSError* synthesizeErrorExtIOWithObjectAndKey(PFSystemKitError error, kern_return_t extendedError, id __nullable object, id __nullable key);
 @end
 
 #import "PFSK_Common+Machine.h"

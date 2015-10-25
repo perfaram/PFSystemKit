@@ -9,10 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "PFSK_Common.h"
 #import "PFSystemKitCPUReport.h"
+#import "PFSystemKitRAMReport.h"
 
 @class PFSystemKitPlatformReport;
 
-@interface PFSystemKit : PFSK_Common
+@interface PFSystemKit : PFSK_Common {
+@private
+    PFSystemKitCPUReport*           cpuReport;
+    PFSystemKitRAMReport*           ramReport;
+    PFSystemKitPlatformReport*      platformReport;
+}
 /*!
  Various platform informations
  */
@@ -22,5 +28,17 @@
  Various CPU informations
  */
 -(PFSystemKitCPUReport*) cpuReport;
-+(Class) cpu;
+-(BOOL) cpuReport:(NSError Ind2_NUAR)err;
+
+/*!
+ RAM stats and size
+ */
+-(PFSystemKitRAMReport*) ramReport;
+-(BOOL) ramReport:(NSError Ind2_NUAR)err;
+
+/*!
+ Various platform informations (serial, UUID, model, etc...)
+ */
+-(PFSystemKitPlatformReport*) platformReport;
+-(BOOL) platformReport:(NSError Ind2_NUAR)err;
 @end

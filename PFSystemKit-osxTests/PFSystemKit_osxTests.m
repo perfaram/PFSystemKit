@@ -30,7 +30,12 @@
 - (void)testExample {
 	{
 		PFSystemKit* systemKit = [PFSystemKit investigate];
-        NSLog(@"Serial : %@", [systemKit.platformReport serial]);
+        NSError* myErr = nil;
+        if (![systemKit platformReport:&myErr]) {
+            //handle error
+            NSLog(@"%@", myErr);
+        }
+        NSLog(@"Serial : %@", [systemKit.platformReport serial]);//no need for NSError, because it has been handled earlier
         NSLog(@"Model : %@", [systemKit.platformReport model]);
         
 		NSString* UUID = [systemKit.platformReport uuid];
@@ -38,10 +43,10 @@
         NSNumber* memSize = [systemKit.platformReport memorySize];
         NSLog(@"MemSize : %@ Gb", memSize);
         NSLog(@"CPU Vendor : %@", [systemKit.cpuReport vendor]);
-        NSString* brand;
+        NSNumber* count;
         NSError* myError;
-        [PFSystemKit_cpu brand:&brand error:&myError];
-        NSLog(@"CPU Brand : %@", brand);
+        [PFSystemKit_cpu coreCount:&count error:&myError];
+        NSLog(@"CPU Core Count : %@", count);
         NSArray* graph = [NSArray.alloc init];
         [PFSystemKit graphicsCreateReport:&graph error:nil];
         NSLog(@"%@", graph);
@@ -95,9 +100,6 @@
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
-        NSError* error;
-        PFSystemKitRAMStatistics* stats;
-        [PFSystemKit ramStatistics:&stats error:&error];
     }];
 }
 

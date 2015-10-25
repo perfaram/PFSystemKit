@@ -7,9 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PFSKTypes.h"
+#import "PFSK_Common.h"
 
-@interface PFSystemKitPlatformReport : NSObject
+@interface PFSystemKitPlatformReport : NSObject {
+@protected
+    mach_port_t   			masterPort;
+    io_registry_entry_t 	nvrEntry;
+    io_registry_entry_t 	pexEntry;
+    io_registry_entry_t 	smcEntry;
+    io_registry_entry_t 	romEntry;
+    io_registry_entry_t 	batEntry;
+    BOOL					firstRunDoneForExpertDevice;
+    BOOL					firstRunDoneForROM;
+    BOOL					firstRunDoneForSMC;
+    BOOL					firstRunDoneForBattery;
+@private
+    NSDictionary*			platformExpertRawDict;
+    NSDictionary*			romRawDict;
+    NSDictionary*			smcRawDict;
+    NSDictionary*			batteryRawDict;
+}
 #if !TARGET_OS_IPHONE
 /*!
  The mainboard identifier
@@ -89,27 +106,10 @@
  */
 @property (strong, atomic, readonly) NSNumber*							memorySize;
 
+-(instancetype) initWithError:(NSError Ind2_NUAR)err;
 #if !TARGET_OS_IPHONE
--(instancetype) initWithBoardID:(NSString*)boardIDLocal
-                   hardwareUUID:(NSString*)UUIDLocal
-                     romVersion:(NSString*)romVersionLocal
-                 romReleaseDate:(NSDate*)romReleaseDateLocal
-                     smcVersion:(NSString*)smcVersionLocal
-                  shutdownCause:(NSNumber*)shutdownCauseLocal
-                         family:(PFSystemKitDeviceFamily)familyLocal
-                        version:(PFSystemKitDeviceVersion)versionLocal
-                     endianness:(PFSystemKitEndianness)endiannessLocal
-                          model:(NSString*)modelStringLocal
-                         serial:(NSString*)serialLocal
-                     memorySize:(NSNumber*)memorySizeLocal;
--(void) updateWithSleepCause:(NSNumber*)sleepCauseLocal;
-#endif
-#if TARGET_OS_IPHONE
--(instancetype) initWithFamily:(PFSystemKitDeviceFamily)familyLocal
-                       version:(PFSystemKitDeviceVersion)versionLocal
-                    endianness:(PFSystemKitEndianness)endiannessLocal
-                         model:(NSString*)modelStringLocal
-                    memorySize:(NSNumber*)memorySizeLocal
-                  isJailbroken:(BOOL)isJB;
+-(BOOL) smcDetailsWithError:(NSError Ind2_NUAR)err;
+-(BOOL) expertDetailsWithError:(NSError Ind2_NUAR)err;
+-(BOOL) romDetailsWithError:(NSError Ind2_NUAR)err;
 #endif
 @end

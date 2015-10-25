@@ -261,6 +261,16 @@ __attribute__((always_inline)) NSError* synthesizeError(PFSystemKitError error) 
                                       }];
 }
 
+__attribute__((always_inline)) NSError* synthesizeErrorWithObjectAndKey(PFSystemKitError error, id object, id key) {
+    return [NSError errorWithDomain:PFSKErrorDomain
+                               code:error
+                           userInfo:@{
+                                      key: object,
+                                      NSLocalizedDescriptionKey: errorToExplanation(error),
+                                      NSLocalizedFailureReasonErrorKey: errorToRecovery(error)
+                                      }];
+}
+
 __attribute__((always_inline)) NSError* synthesizeErrorExtSCWithObjectAndKey(PFSystemKitError error, int errNo, id object, id key) {
     return [NSError errorWithDomain:PFSKErrorDomain
                                code:error
@@ -283,6 +293,22 @@ __attribute__((always_inline)) NSError* synthesizeErrorExtIO(PFSystemKitError er
                            userInfo:@{
                                       NSLocalizedDescriptionKey: errorToExplanation(error),
                                       NSLocalizedFailureReasonErrorKey: errorToRecovery(error),
+                                      NSUnderlyingErrorKey: [NSError errorWithDomain:PFSKErrorExtendedDomain
+                                                                                code:extendedError
+                                                                            userInfo:@{
+                                                                                       NSLocalizedDescriptionKey: [NSString.alloc initWithCString:mach_error_string(extendedError)
+                                                                                                                                         encoding:NSUTF8StringEncoding]
+                                                                                       }]
+                                      }];
+}
+
+__attribute__((always_inline)) NSError* synthesizeErrorExtIOWithObjectAndKey(PFSystemKitError error, kern_return_t extendedError, id object, id key) {
+    return [NSError errorWithDomain:PFSKErrorDomain
+                               code:error
+                           userInfo:@{
+                                      NSLocalizedDescriptionKey: errorToExplanation(error),
+                                      NSLocalizedFailureReasonErrorKey: errorToRecovery(error),
+                                      key: object,
                                       NSUnderlyingErrorKey: [NSError errorWithDomain:PFSKErrorExtendedDomain
                                                                                 code:extendedError
                                                                             userInfo:@{

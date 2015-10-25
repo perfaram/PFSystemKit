@@ -32,12 +32,9 @@
 	NSDictionary*			smcRawDict;
 	NSDictionary*			batteryRawDict;
     PFSystemKitCPUReport*   cpuReport;
+    PFSystemKitRAMReport*   ramReport;
+    PFSystemKitPlatformReport* platformReport;
 }
-
-/*!
- Various platform informations
- */
-@property (strong, atomic, readonly) PFSystemKitPlatformReport*			platformReport;
 
 /*!
  NSArray of NSDictionaries holding a graphic device and its informations
@@ -53,8 +50,19 @@
  Various CPU informations
  */
 -(PFSystemKitCPUReport*) cpuReport;
-+(Class) cpu;
+-(BOOL) cpuReport:(NSError Ind2_NUAR)err;
 
+/*!
+ RAM stats and size
+ */
+-(PFSystemKitRAMReport*) ramReport;
+-(BOOL) ramReport:(NSError Ind2_NUAR)err;
+
+/*!
+ Various platform informations (serial, UUID, model, etc...)
+ */
+-(PFSystemKitPlatformReport*) platformReport;
+-(BOOL) platformReport:(NSError Ind2_NUAR)err;
 /*!
  Various battery informations
  */
@@ -64,7 +72,6 @@
 -(PFSystemKit*) init __attribute__((unavailable("Use +investigate ; -init does not use the singleton pattern.")));
 -(void) finalize;
 
--(BOOL) updatePlatformReport;
 -(BOOL) updateBatteryReport;
 
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++

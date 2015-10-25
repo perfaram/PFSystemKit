@@ -11,7 +11,7 @@
 #import "PFSystemKitCPUReport.h"
 #import "PFSystemKitBatteryReport.h"
 #import "PFSystemKitPlatformReport.h"
-#import "PFSystemKitRAMStatistics.h"
+#import "PFSystemKitRAMReport.h"
 
 /* iOS imports */
 #if TARGET_OS_IPHONE

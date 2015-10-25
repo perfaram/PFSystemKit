@@ -66,7 +66,7 @@
     res = [self.class deviceModel:&mod error:locError];
     if (!res)
         state = false;
-    res = [self.class ramSize:&memSize error:locError];
+    res = [PFSystemKitRAMReport size:&memSize error:locError];
     if (!res)
         state = false;
     res = [self.class isJailbroken:&isjb error:locError];
@@ -75,6 +75,25 @@
     
     platformReport = [PFSystemKitPlatformReport.alloc initWithFamily:fam version:ver endianness:end model:mod memorySize:memSize isJailbroken:isjb];
     return state;
+}
+
+-(BOOL) ramReport:(NSError Ind2_NUAR)err {
+    if (ramReport == nil) {
+        ramReport = [PFSystemKitRAMReport.alloc initWithError:err];
+        if (err)
+            return false;
+        else
+            return true;
+    } else
+        return true;
+}
+
+-(PFSystemKitRAMReport*) ramReport {
+    if (ramReport == nil) {
+        ramReport = [PFSystemKitRAMReport.alloc initWithError:nil];
+        return ramReport;
+    } else
+        return ramReport;
 }
 
 -(BOOL) cpuReport:(NSError Ind2_NUAR)err {
@@ -96,8 +115,23 @@
         return cpuReport;
 }
 
-+(Class) cpu {
-    return PFSystemKitCPUReport.class;
+-(BOOL) platformReport:(NSError Ind2_NUAR)err {
+    if (platformReport == nil) {
+        platformReport = [PFSystemKitPlatformReport.alloc initWithError:err];
+        if (err)
+            return false;
+        else
+            return true;
+    } else
+        return true;
+}
+
+-(PFSystemKitPlatformReport*) platformReport {
+    if (platformReport == nil) {
+        platformReport = [PFSystemKitPlatformReport.alloc initWithError:nil];
+        return platformReport;
+    } else
+        return platformReport;
 }
 
 #pragma mark - Getters

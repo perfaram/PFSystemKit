@@ -15,7 +15,7 @@
 #define Ind2_NNAR *__nonnull __autoreleasing*__nonnull //Ind2 = Double Indirection, NNAR = NonNull AutoReleasing
 #define Ind2_NUAR *__nullable __autoreleasing*__nullable //Ind2 = Double Indirection, NUAR = Nullable AutoReleasing
 #define PFSystemKit_cpu PFSystemKitCPUReport
-
+#define PFSystemKit_ram PFSystemKitRAMReport
 
 /*!
  @typedef GPUArray
@@ -29,18 +29,18 @@ typedef NSArray<NSDictionary*> GPUArray;
  */
 typedef NS_ENUM(int, PFSystemKitError) {
     PFSKReturnSuccess = 0,
-    PFSKReturnNoMasterPort = 1,
-    PFSKReturnComponentUnavailable = 2,
-    PFSKReturnIOKitError = 3, //see _extError
-    PFSKReturnIOKitCFFailure = 4, //error while making CFProperty
-    PFSKReturnSysCtlUnknownKey = 5,
-    PFSKReturnSysCtlError = 6,
-    PFSKReturnLockedWrite = 7,
-    PFSKReturnCastError = 8,
-    PFSKReturnNotWritable = 9,
-    PFSKReturnNoGraphicDevicesFound = 10,
-    PFSKReturnInvalidSelector = 11,
-    PFSKReturnUnsupportedDevice = 12,
+    PFSKReturnNoMasterPort,
+    PFSKReturnComponentUnavailable,
+    PFSKReturnIOKitError, //see _extError
+    PFSKReturnIOKitCFFailure, //error while making CFProperty
+    PFSKReturnSysCtlUnknownKey,
+    PFSKReturnSysCtlError,
+    PFSKReturnLockedWrite,
+    PFSKReturnCastError,
+    PFSKReturnNotWritable,
+    PFSKReturnNoGraphicDevicesFound,
+    PFSKReturnInvalidSelector,
+    PFSKReturnUnsupportedDevice,
     PFSKReturnGeneral = 65533, //too bad
     PFSKReturnUnknown = 65534 //unknown error (shouldn't happen), could serve as a terminator
 };
