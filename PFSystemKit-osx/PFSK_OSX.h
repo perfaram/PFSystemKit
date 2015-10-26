@@ -17,20 +17,7 @@
 @interface PFSystemKit : PFSK_Common {
 	@protected
 	mach_port_t   			masterPort;
-	io_registry_entry_t 	nvrEntry;
-	io_registry_entry_t 	pexEntry;
-	io_registry_entry_t 	smcEntry;
-	io_registry_entry_t 	romEntry;
-	io_registry_entry_t 	batEntry;
-	BOOL					firstRunDoneForExpertDevice;
-	BOOL					firstRunDoneForROM;
-	BOOL					firstRunDoneForSMC;
-	BOOL					firstRunDoneForBattery;
 	@private
-	NSDictionary*			platformExpertRawDict;
-	NSDictionary*			romRawDict;
-	NSDictionary*			smcRawDict;
-	NSDictionary*			batteryRawDict;
     PFSystemKitCPUReport*   cpuReport;
     PFSystemKitRAMReport*   ramReport;
     PFSystemKitPlatformReport* platformReport;

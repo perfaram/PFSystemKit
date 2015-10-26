@@ -167,19 +167,23 @@
     return self;
 }
 #else
--(instancetype) initWithError:(NSError Ind2_NUAR)err {
+-(instancetype) initWithMasterPort:(mach_port_t)port error:(NSError Ind2_NUAR)err {
     if (!(self = [super init])) {
         return nil;
     }
-    kern_return_t IOresult;
-    IOresult = IOMasterPort(bootstrap_port, &masterPort);
-    if (IOresult!=kIOReturnSuccess) {
-        *err = synthesizeErrorExtIO(PFSKReturnNoMasterPort, IOresult);
-        return nil;
+    if (!port) {
+        kern_return_t IOresult;
+        IOresult = IOMasterPort(bootstrap_port, &masterPort);
+        if (IOresult!=kIOReturnSuccess) {
+            *err = synthesizeErrorExtIO(PFSKReturnNoMasterPort, IOresult);
+            return nil;
+        }
+    } else {
+        port = masterPort;
     }
     
-    BOOL depResult = true;
     
+    BOOL depResult = true;
     PFSystemKitEndianness deviceEndian;
     depResult = [PFSK_Common deviceEndianness:&deviceEndian error:err];
     endianness = deviceEndian;

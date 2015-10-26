@@ -71,7 +71,7 @@
 
 -(BOOL) platformReport:(NSError Ind2_NUAR)err {
     if (platformReport == nil) {
-        platformReport = [PFSystemKitPlatformReport.alloc initWithError:err];
+        platformReport = [PFSystemKitPlatformReport.alloc initWithMasterPort:masterPort error:(NSError Ind2_NUAR)err;
         if (err)
             return false;
         else

@@ -12,20 +12,16 @@
 @interface PFSystemKitPlatformReport : NSObject {
 @protected
     mach_port_t   			masterPort;
-    io_registry_entry_t 	nvrEntry;
     io_registry_entry_t 	pexEntry;
     io_registry_entry_t 	smcEntry;
     io_registry_entry_t 	romEntry;
-    io_registry_entry_t 	batEntry;
     BOOL					firstRunDoneForExpertDevice;
     BOOL					firstRunDoneForROM;
     BOOL					firstRunDoneForSMC;
-    BOOL					firstRunDoneForBattery;
 @private
     NSDictionary*			platformExpertRawDict;
     NSDictionary*			romRawDict;
     NSDictionary*			smcRawDict;
-    NSDictionary*			batteryRawDict;
 }
 #if !TARGET_OS_IPHONE
 /*!
@@ -106,8 +102,10 @@
  */
 @property (strong, atomic, readonly) NSNumber*							memorySize;
 
+#if TARGET_OS_IPHONE
 -(instancetype) initWithError:(NSError Ind2_NUAR)err;
-#if !TARGET_OS_IPHONE
+#else
+-(instancetype) initWithMasterPort:(mach_port_t*)port error:(NSError Ind2_NUAR)err;
 -(BOOL) smcDetailsWithError:(NSError Ind2_NUAR)err;
 -(BOOL) expertDetailsWithError:(NSError Ind2_NUAR)err;
 -(BOOL) romDetailsWithError:(NSError Ind2_NUAR)err;

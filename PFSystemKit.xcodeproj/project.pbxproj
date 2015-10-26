@@ -198,7 +198,6 @@
 		0B7FCA741B34000B00835435 /* PFSystemKit-ios */ = {
 			isa = PBXGroup;
 			children = (
-				0B7FCAB11B3403BD00835435 /* Additions */,
 				0B7FCAB41B3403BD00835435 /* PFSK_iOS.h */,
 				0B7FCAB51B3403BD00835435 /* PFSK_iOS.mm */,
 				0B7FCA751B34000B00835435 /* Supporting Files */,
@@ -276,13 +275,6 @@
 				0B7FCAAA1B34013A00835435 /* Foundation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0B7FCAB11B3403BD00835435 /* Additions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Additions;
 			sourceTree = "<group>";
 		};
 		0B7FCABA1B3403D500835435 /* Additions */ = {
