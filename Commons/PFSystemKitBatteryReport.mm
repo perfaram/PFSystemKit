@@ -103,7 +103,9 @@
         port = masterPort;
     }
     
-    [self batteryDetailsWithError:err];
+    BOOL res = [self batteryDetailsWithError:err];
+    if (!res)
+        return nil;
 	return self;
 }
 
