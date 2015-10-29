@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PFSK_Common.h"
 
 @interface PFSystemKitBatteryReport : NSObject {
 @protected
