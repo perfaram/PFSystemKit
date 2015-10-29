@@ -8,7 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PFSystemKitBatteryReport : NSObject
+@interface PFSystemKitBatteryReport : NSObject {
+@protected
+    mach_port_t   			masterPort;
+    io_registry_entry_t 	batEntry;
+    BOOL                    firstRunDoneForBattery;
+@private
+    NSDictionary*			batteryRawDict;
+}
 @property (readonly)  NSNumber* designedCycleCount;
 @property (readonly)  NSString* serial;
 @property (readonly)  NSString* model;
@@ -28,23 +35,5 @@
 @property (readonly)  NSNumber* power;
 @property (readonly)  NSNumber* age;
 
--(instancetype) initWithDCC:(NSNumber*)designedCycleCountLocal
-					 serial:(NSString*)serialLocal
-					  model:(NSString*)modelLocal
-			   manufacturer:(NSString*)manufacturerLocal
-			manufactureDate:(NSDate*)manufactureDateLocal;
-
--(void) updateWithIsPresent:(BOOL)isPresentLocal
-					 isFull:(BOOL)isFullLocal
-				 isCharging:(BOOL)isChargingLocal
-			  isACConnected:(BOOL)isACConnectedLocal
-				   amperage:(NSNumber*)amperageLocal
-			currentCapacity:(NSNumber*)currentCapacityLocal
-				maxCapacity:(NSNumber*)maxCapacityLocal
-					voltage:(NSNumber*)voltageLocal
-				 cycleCount:(NSNumber*)cycleCountLocal
-					 health:(NSNumber*)healthLocal
-				temperature:(NSNumber*)temperatureLocal
-					  power:(NSNumber*)powerLocal
-						age:(NSNumber*)ageLocal;
+-(instancetype) initWithMasterPort:(mach_port_t)port error:(NSError Ind2_NUAR)err;
 @end
