@@ -109,7 +109,7 @@
     if (!firstRunDoneForROM) {
         romEntry = IORegistryEntryFromPath(masterPort, "IODeviceTree:/rom@0");
         if (romEntry == 0) {
-            *err = synthesizeError(PFSKReturnComponentUnavailable);
+            *err = synthesizeErrorWithObjectAndKey(PFSKReturnComponentUnavailable, @"NVRAM", @"Component");
             return false;
         } else {
             CFMutableDictionaryRef romProps = NULL;
@@ -138,6 +138,10 @@
     }
 }
 #endif
+
+-(void) updateData {
+    [self smcDetailsWithError:nil];//it will be OK, no essential info in there + already ran once, so it *should* be OK
+}
 
 #if TARGET_OS_IPHONE
 -(instancetype) initWithError:(NSError Ind2_NUAR)err {
