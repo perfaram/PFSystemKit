@@ -31,12 +31,14 @@
 	{
 		PFSystemKit* systemKit = [PFSystemKit investigate];
         NSError* myErr = nil;
-        if (![systemKit platformReport:&myErr]) {
+        if (![systemKit platformReport:&myErr] && ![systemKit batteryReport:&myErr]) {
             //handle error
             NSLog(@"%@", myErr);
         }
         NSLog(@"Serial : %@", [systemKit.platformReport serial]);//no need for NSError, because it has been handled earlier
         NSLog(@"Model : %@", [systemKit.platformReport model]);
+        
+        NSLog(@"Battery manufacturer : %@", [systemKit.batteryReport manufacturer]);
         
 		NSString* UUID = [systemKit.platformReport uuid];
         NSLog(@"UUID : %@", UUID);
@@ -50,6 +52,7 @@
         NSArray* graph = [NSArray.alloc init];
         [PFSystemKit graphicsCreateReport:&graph error:nil];
         NSLog(@"%@", graph);
+        
 	}
 	/*
     // This is an example of a functional test case.
