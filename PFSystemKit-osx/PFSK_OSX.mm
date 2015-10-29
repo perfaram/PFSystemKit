@@ -26,7 +26,6 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
-		[sharedInstance updateBatteryReport];
 	});
 	return sharedInstance;
 }
@@ -71,7 +70,7 @@
 
 -(BOOL) platformReport:(NSError Ind2_NUAR)err {
     if (platformReport == nil) {
-        platformReport = [PFSystemKitPlatformReport.alloc initWithMasterPort:masterPort error:(NSError Ind2_NUAR)err;
+        platformReport = [PFSystemKitPlatformReport.alloc initWithMasterPort:masterPort error:err];
         if (err)
             return false;
         else
@@ -82,82 +81,32 @@
 
 -(PFSystemKitPlatformReport*) platformReport {
     if (platformReport == nil) {
-        platformReport = [PFSystemKitPlatformReport.alloc initWithError:nil];
+        platformReport = [PFSystemKitPlatformReport.alloc initWithMasterPort:masterPort error:nil];
         return platformReport;
     } else
         return platformReport;
 }
 
--(BOOL) updateBatteryReport {
-	kern_return_t result;
-	if (!firstRunDoneForBattery) {
-		batEntry = IOServiceGetMatchingService(masterPort, IOServiceMatching("IOPMPowerSource"));
-		if (batEntry == 0) {
-			_error = PFSKReturnComponentUnavailable;
-			return false;
-		}
-	}
-	CFMutableDictionaryRef batProps = NULL;
-	result = IORegistryEntryCreateCFProperties(batEntry, &batProps, NULL, 0);
-	if (result!=kIOReturnSuccess) {
-		_error = PFSKReturnIOKitCFFailure;
-		_extError = result;
-		return false;
-	} else {
-		batteryRawDict = (__bridge_transfer NSDictionary*)batProps;
-		NSMutableDictionary* temp = [NSMutableDictionary.alloc init];
-		
-		if (!firstRunDoneForBattery) { //static keys
-			//[temp setObject:[batteryRawDict objectForKey:@"DesignCapacity"] forKey:@"DesignedCapacity"];
-			unsigned int manufactureDateAsInt = [[batteryRawDict objectForKey:@"ManufactureDate"] intValue];
-			NSDateComponents* manufactureDateComponents = [[NSDateComponents alloc]init];
-			manufactureDateComponents.year = (manufactureDateAsInt >> 9) + 1980;
-			manufactureDateComponents.month = (manufactureDateAsInt >> 5) & 0xF;
-			manufactureDateComponents.day = manufactureDateAsInt & 0x1F;
-			[temp setObject:[[NSCalendar currentCalendar] dateFromComponents:manufactureDateComponents] forKey:@"manufactureDate"];
-			batteryReport = [PFSystemKitBatteryReport.alloc initWithDCC:[batteryRawDict objectForKey:@"DesignCycleCount9C"]
-						 serial:[batteryRawDict objectForKey:@"BatterySerialNumber"]
-						  model:[batteryRawDict objectForKey:@"DeviceName"]
-				   manufacturer:[batteryRawDict objectForKey:@"Manufacturer"]
-				manufactureDate:[[NSCalendar currentCalendar] dateFromComponents:manufactureDateComponents]];
-			firstRunDoneForBattery = 1;
-		}
-		
-		NSDateComponents* differenceDate = [[NSCalendar currentCalendar] components:NSCalendarUnitDay
-																		   fromDate:[temp objectForKey:@"manufactureDate"]
-																			 toDate:[NSDate date]
-																			options:0];
-		[batteryReport updateWithIsPresent:[[batteryRawDict objectForKey:@"BatteryInstalled"] intValue]
-									isFull:[[batteryRawDict objectForKey:@"FullyCharged"] intValue]
-								isCharging:[[batteryRawDict objectForKey:@"IsCharging"] intValue]
-							 isACConnected:[[batteryRawDict objectForKey:@"ExternalConnected"] intValue]
-								  amperage:[batteryRawDict objectForKey:@"Amperage"]
-						   currentCapacity:[batteryRawDict objectForKey:@"CurrentCapacity"]
-							   maxCapacity:[batteryRawDict objectForKey:@"MaxCapacity"]
-								   voltage:[batteryRawDict objectForKey:@"Voltage"]
-								cycleCount:[batteryRawDict objectForKey:@"CycleCount"]
-									health:@(([[batteryRawDict objectForKey:@"MaxCapacity"] intValue] / [[batteryRawDict objectForKey:@"DesignCapacity"] intValue])*100)
-							   temperature:@([[batteryRawDict objectForKey:@"Temperature"] doubleValue] / 100)
-									 power:@([[batteryRawDict objectForKey:@"Amperage"] doubleValue] / 1000 * [[batteryRawDict objectForKey:@"Voltage"] doubleValue] / 1000)
-									   age:@([differenceDate day])];
-		return true;
-	}
+-(BOOL) batteryReport:(NSError Ind2_NUAR)err {
+    if (batteryReport == nil) {
+        batteryReport = [PFSystemKitBatteryReport.alloc initWithMasterPort:masterPort error:err];
+        if (err)
+            return false;
+        else
+            return true;
+    } else
+        return true;
 }
 
-#pragma mark - Getters
-@synthesize batteryReport;
-
+-(PFSystemKitBatteryReport*) batteryReport {
+    if (batteryReport == nil) {
+        batteryReport = [PFSystemKitBatteryReport.alloc initWithMasterPort:masterPort error:nil];
+        return batteryReport;
+    } else
+        return batteryReport;
+}
 
 #pragma mark - NSObject std methods
--(void) finalize { //cleanup everything
-	IOObjectRelease(nvrEntry);
-	IOObjectRelease(pexEntry);
-	IOObjectRelease(smcEntry);
-	IOObjectRelease(romEntry);
-	[super finalize];
-	return;
-}
-
 -(instancetype) init {
 	if (!(self = [super init])) {
 		return nil;

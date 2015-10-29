@@ -10,6 +10,7 @@
 #import "PFSK_Common.h"
 #import "PFSystemKitCPUReport.h"
 #import "PFSystemKitRAMReport.h"
+#import "PFSystemKitBatteryReport.h"
 
 @class PFSystemKitPlatformReport;
 @class PFSystemKitBatteryReport;
@@ -21,6 +22,7 @@
     PFSystemKitCPUReport*   cpuReport;
     PFSystemKitRAMReport*   ramReport;
     PFSystemKitPlatformReport* platformReport;
+    PFSystemKitBatteryReport* batteryReport;
 }
 
 /*!
@@ -50,16 +52,16 @@
  */
 -(PFSystemKitPlatformReport*) platformReport;
 -(BOOL) platformReport:(NSError Ind2_NUAR)err;
+
 /*!
  Various battery informations
  */
-@property (strong, atomic, readonly) PFSystemKitBatteryReport*			batteryReport;
+-(PFSystemKitBatteryReport*) batteryReport;
+-(BOOL) batteryReport:(NSError Ind2_NUAR)err;
 
 +(PFSystemKit*) investigate;
 -(PFSystemKit*) init __attribute__((unavailable("Use +investigate ; -init does not use the singleton pattern.")));
 -(void) finalize;
-
--(BOOL) updateBatteryReport;
 
 #if defined(__OBJC__) && defined(__cplusplus) //we're working with Objective-C++
 
