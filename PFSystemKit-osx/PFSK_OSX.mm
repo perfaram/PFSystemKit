@@ -33,10 +33,10 @@
 -(BOOL) ramReport:(NSError Ind2_NUAR)err {
     if (ramReport == nil) {
         ramReport = [PFSystemKitRAMReport.alloc initWithError:err];
-        if (err)
-            return false;
-        else
+        if (ramReport)
             return true;
+        else
+            return false;
     } else
         return true;
 }
@@ -52,10 +52,10 @@
 -(BOOL) cpuReport:(NSError Ind2_NUAR)err {
     if (cpuReport == nil) {
         cpuReport = [PFSystemKitCPUReport.alloc initWithError:err];
-        if (err)
-            return false;
-        else
+        if (cpuReport)
             return true;
+        else
+            return false;
     } else
         return true;
 }
@@ -71,10 +71,10 @@
 -(BOOL) platformReport:(NSError Ind2_NUAR)err {
     if (platformReport == nil) {
         platformReport = [PFSystemKitPlatformReport.alloc initWithMasterPort:masterPort error:err];
-        if (err)
-            return false;
-        else
+        if (platformReport)
             return true;
+        else
+            return false;
     } else
         return true;
 }
@@ -90,10 +90,10 @@
 -(BOOL) batteryReport:(NSError Ind2_NUAR)err {
     if (batteryReport == nil) {
         batteryReport = [PFSystemKitBatteryReport.alloc initWithMasterPort:masterPort error:err];
-        if (err)
-            return false;
-        else
+        if (batteryReport)
             return true;
+        else
+            return false;
     } else
         return true;
 }
