@@ -10,6 +10,7 @@
 #import "PFSK_Common.h"
 
 @interface PFSystemKitPlatformReport : NSObject {
+#if !TARGET_OS_IPHONE
 @protected
     mach_port_t   			masterPort;
     io_registry_entry_t 	pexEntry;
@@ -22,6 +23,7 @@
     NSDictionary*			platformExpertRawDict;
     NSDictionary*			romRawDict;
     NSDictionary*			smcRawDict;
+#endif
 }
 #if !TARGET_OS_IPHONE
 /*!
@@ -105,7 +107,7 @@
 #if TARGET_OS_IPHONE
 -(instancetype) initWithError:(NSError Ind2_NUAR)err;
 #else
--(instancetype) initWithMasterPort:(mach_port_t*)port error:(NSError Ind2_NUAR)err;
+-(instancetype) initWithMasterPort:(mach_port_t)port error:(NSError Ind2_NUAR)err;
 -(BOOL) smcDetailsWithError:(NSError Ind2_NUAR)err;
 -(BOOL) expertDetailsWithError:(NSError Ind2_NUAR)err;
 -(BOOL) romDetailsWithError:(NSError Ind2_NUAR)err;

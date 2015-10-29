@@ -186,7 +186,6 @@
         port = masterPort;
     }
     
-    
     BOOL depResult = true;
     PFSystemKitEndianness deviceEndian;
     depResult = [PFSK_Common deviceEndianness:&deviceEndian error:err];
@@ -210,6 +209,14 @@
     [self romDetailsWithError:err];//don't return because I can deal with having no ROM details
     
     return self;
+}
+
+-(void) finalize {
+    IOObjectRelease(pexEntry);
+    IOObjectRelease(smcEntry);
+    IOObjectRelease(romEntry);
+    [super finalize];
+    return;
 }
 #endif
 @end
