@@ -118,7 +118,15 @@
     }
     return true;
 }
-
+/* As @uroboro noted on a quite repetitive conversation (https://github.com/sat2eesh/ios-jailBroken/issues/7#issuecomment-164272365),
+   all it takes to disarm this check in a tweak is : 
+        %hook PFSK_Common
+        + (BOOL)isJailbroken:(BOOL *)ret error:(NSError **)error {
+            *ret = NO;
+            return TRUE;
+        }
+        %end
+*/
 +(BOOL) isJailbroken:(BOOL*__nonnull)ret error:(NSError Ind2_NUAR)error
 {
 #if !(TARGET_IPHONE_SIMULATOR)
