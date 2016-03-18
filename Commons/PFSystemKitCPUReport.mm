@@ -9,6 +9,7 @@
 #import "PFSystemKitCPUReport.h"
 #import "NSString+PFSKAdditions.h"
 #import <string>
+#import <mach/machine.h>
 
 @implementation PFSystemKitCPUReport
 @synthesize brand;
@@ -455,7 +456,7 @@ BOOL getCPUArchitecture(PFSystemKitCPUArches *__nonnull ret, PFSystemKitCPUArche
     
 #else
     
-    NSNumber *l1i, *l1d, *l1,
+    NSNumber *l1i, *l1d;//, *l1;
     PFSystemKitCPUArches arch;
     PFSystemKitCPUArchesARMTypes type;
     PFSystemKitCPUARMFeatures feats;
@@ -470,10 +471,10 @@ BOOL getCPUArchitecture(PFSystemKitCPUArches *__nonnull ret, PFSystemKitCPUArche
         errorOccured = true;
     }
     
-    locResult = getCPUL1Cache(&l1, error);
+    /*locResult = getCPUL1Cache(&l1, error);
     if (locResult != PFSKReturnSuccess) {
         errorOccured = true;
-    }
+    }*/
     
     locResult = getCPUArchitecture(&arch, &type, error);
     if (locResult != PFSKReturnSuccess) {
@@ -482,7 +483,7 @@ BOOL getCPUArchitecture(PFSystemKitCPUArches *__nonnull ret, PFSystemKitCPUArche
     
     L1ICache = l1i;
     L1DCache = l1d;
-    L1Cache = l1;
+    //L1Cache = l1;
     architecture = arch;
     subType = type;
     

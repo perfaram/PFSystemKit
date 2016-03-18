@@ -26,7 +26,6 @@
     //NSError* __block err;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
-        [sharedInstance updatePlatformReport:error];
     });
     return sharedInstance;
 }
@@ -101,10 +100,6 @@
     } else
         return platformReport;
 }
-
-#pragma mark - Getters
-@synthesize cpuReport;
-@synthesize platformReport;
 
 #pragma mark - NSObject std methods
 -(void) finalize { //cleanup everything

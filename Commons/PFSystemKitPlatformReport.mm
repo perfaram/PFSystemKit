@@ -140,7 +140,9 @@
 #endif
 
 -(void) updateData {
+#if !TARGET_OS_IPHONE
     [self smcDetailsWithError:nil];//it will be OK, no essential info in there + already ran once, so it *should* be OK
+#endif
 }
 
 #if TARGET_OS_IPHONE
@@ -154,13 +156,13 @@
     NSString* mod;
     NSNumber* memSize;
     BOOL isjb;
-    BOOL state = true;
-    BOOL res = [PFSK_Common deviceFamily:&fam error:locError];
-    res = [PFSK_Common deviceVersion:&ver error:locError];
-    res = [PFSK_Common deviceEndianness:&end error:locError];
-    res = [PFSK_Common deviceModel:&mod error:locError];
-    res = [PFSystemKitRAMReport size:&memSize error:locError];
-    res = [PFSK_Common isJailbroken:&isjb error:locError];
+    //BOOL state = true;
+    BOOL res = [PFSK_Common deviceFamily:&fam error:err];
+    res = [PFSK_Common deviceVersion:&ver error:err];
+    res = [PFSK_Common deviceEndianness:&end error:err];
+    res = [PFSK_Common deviceModel:&mod error:err];
+    res = [PFSystemKitRAMReport size:&memSize error:err];
+    res = [PFSK_Common isJailbroken:&isjb error:err];
     
     version = ver;
     endianness = end;
